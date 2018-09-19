@@ -4,28 +4,28 @@
 
 int main(int argc, char* argv[])
 {
-  SDL_Surface *ecran = NULL, *persoPrincipal = NULL, *fond = NULL;
-  SDL_Rect positionPerso, persoFaceSprite, positionMap;
+  SDL_Surface *screen = NULL, *mainChar = NULL, *background = NULL;
+  SDL_Rect positionChar, charFaceSprite, positionMap;
   SDL_Event event;
-  int continuer;
+  int gameOver;
   
   SDL_Init(SDL_INIT_VIDEO);
-  continuer = 1;
+  gameOver = 1;
   
-  positionPerso.x = (1440/2) - ((246/4)/2);
-  positionPerso.y = (900/2) - (89/2);
+  positionChar.x = (1440/2) - ((246/4)/2);
+  positionChar.y = (900/2) - (89/2);
   
-  persoFaceSprite.x = 0;
-  persoFaceSprite.y = 0;
-  persoFaceSprite.h = 89;
-  persoFaceSprite.w = 246/4;
+  charFaceSprite.x = 0;
+  charFaceSprite.y = 0;
+  charFaceSprite.h = 89;
+  charFaceSprite.w = 246/4;
   
-  ecran = SDL_SetVideoMode(1440,900, 32, SDL_HWSURFACE| SDL_RESIZABLE | SDL_DOUBLEBUF);
+  screen = SDL_SetVideoMode(1440,900, 32, SDL_HWSURFACE| SDL_RESIZABLE | SDL_DOUBLEBUF);
   
-  fond = SDL_LoadBMP("grass.BMP");
+  background = SDL_LoadBMP("grass.BMP");
   
-  persoPrincipal = SDL_LoadBMP("persoFace.BMP");
-  SDL_SetColorKey(persoPrincipal, SDL_SRCCOLORKEY, SDL_MapRGB(persoPrincipal->format, 255, 255, 255));
+  mainChar = SDL_LoadBMP("persoFace.BMP");
+  SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
   
 
   SDL_WM_SetCaption("Mon jeu", NULL);
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
   
   SDL_EnableKeyRepeat(10, 10);
 
-  while (continuer)
+  while (gameOver)
   {
       SDL_PollEvent(&event);
       switch(event.type)
@@ -42,39 +42,39 @@ int main(int argc, char* argv[])
               switch(event.key.keysym.sym)
               {
                   case SDLK_UP:
-                      positionPerso.y--;
+                      positionChar.y--;
                       break;
                   case SDLK_DOWN:
-                      positionPerso.y++;
+                      positionChar.y++;
                       break;
                   case SDLK_RIGHT:
-                      positionPerso.x++;
+                      positionChar.x++;
                       break;
                   case SDLK_LEFT:
-                      positionPerso.x--;
+                      positionChar.x--;
                       break;
 		  case SDLK_q:
-		      continuer = 0;
+		      gameOver = 0;
 		      break;
               }
               break;
       }
       
-      SDL_FillRect(ecran, NULL, SDL_MapRGB(persoPrincipal->format, 0, 0, 0));
+      SDL_FillRect(screen, NULL, SDL_MapRGB(mainChar->format, 0, 0, 0));
       for (int x = 0; x < 1440 / 32; x++) {
 	  for (int y = 0; y < 900 / 32; y++) {
 	      positionMap.x = x * 32;
 	      positionMap.y = y * 32;
-	      SDL_BlitSurface(fond, NULL, ecran, &positionMap);
+	      SDL_BlitSurface(background, NULL, screen, &positionMap);
 	  }
       }
-      SDL_BlitSurface(persoPrincipal, &persoFaceSprite, ecran, &positionPerso);
-      SDL_UpdateRect(ecran, 0, 0, 0, 0);
+      SDL_BlitSurface(mainChar, &charFaceSprite, screen, &positionChar);
+      SDL_UpdateRect(screen, 0, 0, 0, 0);
   }
   
-  SDL_Flip(ecran);
-  SDL_FreeSurface(persoPrincipal);
-  SDL_FreeSurface(fond);
+  SDL_Flip(screen);
+  SDL_FreeSurface(mainChar);
+  SDL_FreeSurface(background);
   SDL_Quit();
   
   return EXIT_SUCCESS;
