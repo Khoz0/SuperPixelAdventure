@@ -24,15 +24,8 @@ int main(int argc, char* argv[])
   
   fond = SDL_LoadBMP("grass.BMP");
   
-  for (int x = 0; x < 1440 / 32; x++) {
-      for (int y = 0; y < 900 / 32; y++) {
-	  positionMap.x = x * 32;
-	  positionMap.y = y * 32;
-	  SDL_BlitSurface(fond, NULL, ecran, &positionMap);
-      }
-  }
-  
   persoPrincipal = SDL_LoadBMP("persoFace.BMP");
+  SDL_SetColorKey(persoPrincipal, SDL_SRCCOLORKEY, SDL_MapRGB(persoPrincipal->format, 255, 255, 255));
   
 
   SDL_WM_SetCaption("Mon jeu", NULL);
@@ -42,7 +35,7 @@ int main(int argc, char* argv[])
 
   while (continuer)
   {
-      SDL_WaitEvent(&event);
+      SDL_PollEvent(&event);
       switch(event.type)
       {
           case SDL_KEYDOWN:
@@ -66,9 +59,17 @@ int main(int argc, char* argv[])
               }
               break;
       }
-      SDL_SetColorKey(persoPrincipal, SDL_SRCCOLORKEY, SDL_MapRGB(persoPrincipal->format, 255, 255, 255));
+      
+      SDL_FillRect(ecran, NULL, SDL_MapRGB(persoPrincipal->format, 0, 0, 0));
+      for (int x = 0; x < 1440 / 32; x++) {
+	  for (int y = 0; y < 900 / 32; y++) {
+	      positionMap.x = x * 32;
+	      positionMap.y = y * 32;
+	      SDL_BlitSurface(fond, NULL, ecran, &positionMap);
+	  }
+      }
       SDL_BlitSurface(persoPrincipal, &persoFaceSprite, ecran, &positionPerso);
-      SDL_Flip(ecran);
+      SDL_UpdateRect(ecran, 0, 0, 0, 0);
   }
   
   SDL_Flip(ecran);
