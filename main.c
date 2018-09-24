@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[])
 {
-  SDL_Surface *screen = NULL, *mainChar = NULL, *background = NULL, *rightChar = NULL;
+  SDL_Surface *screen = NULL, *background = NULL, *rightChar = NULL;
   SDL_Rect positionChar, positionMap, rightCharGo;
   SDL_Event event;
   int gameOver;
@@ -16,16 +16,15 @@ int main(int argc, char* argv[])
   positionMap.x = 0;
   positionMap.y = 0;
   
-  positionChar.x = (1440/2) - ((200/4)/2);
-  positionChar.y = (900/2) - (70/2);
+  positionChar.x = (1410/2) - (30/2);
+  positionChar.y = (860/2) - (36/2);
   
   screen = SDL_SetVideoMode(1440,900, 32, SDL_HWSURFACE| SDL_RESIZABLE | SDL_DOUBLEBUF);
   
   background = SDL_LoadBMP("grass.BMP");
   
-  mainChar = SDL_LoadBMP("persoFace.BMP");
-  rightChar = SDL_LoadBMP("marcheDroite.BMP");
-  SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
+  rightChar = SDL_LoadBMP("heroDroite.BMP");
+  
   SDL_SetColorKey(rightChar, SDL_SRCCOLORKEY, SDL_MapRGB(rightChar->format, 255, 255, 255));
 
   SDL_WM_SetCaption("Mon jeu", NULL);
@@ -49,16 +48,16 @@ int main(int argc, char* argv[])
 				}
                 break;
                 case SDLK_DOWN:
-				if (positionChar.y < 900){
+				if (positionChar.y < 860){
 					positionChar.y += 2;
 				}else{
 					positionChar.y += 0;
 				}
                 break;
                 case SDLK_RIGHT:
-				if (positionChar.x < 1440){
+				if (positionChar.x < 1410){
 					positionChar.x += 2;
-					if (dir < 40){
+					if (dir < 21){
 						dir += 1;
 					}else{
 						dir = 0;
@@ -81,7 +80,7 @@ int main(int argc, char* argv[])
             break;
       }
       
-      SDL_FillRect(screen, NULL, SDL_MapRGB(mainChar->format, 0, 0, 0));
+      SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
       for (int x = 0; x < 1440 / 32; x++) {
 	  for (int y = 0; y <= 900 / 32; y++) {
 	      positionMap.x = x * 32;
@@ -89,17 +88,17 @@ int main(int argc, char* argv[])
 	      SDL_BlitSurface(background, NULL, screen, &positionMap);
 	      }
       }
-      rightCharGo.x = (200/4)*(dir/10);
+      rightCharGo.x = (30)*(dir/7);
       rightCharGo.y = 0;
-      rightCharGo.h = 70;
-      rightCharGo.w = (200/4);
+      rightCharGo.h = 36;
+      rightCharGo.w = 30;
       SDL_BlitSurface(background, NULL, screen, &positionMap);
       SDL_BlitSurface(rightChar, &rightCharGo, screen, &positionChar);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
   }
   
   SDL_Flip(screen);
-  SDL_FreeSurface(mainChar);
+  SDL_FreeSurface(rightChar);
   SDL_FreeSurface(background);
   SDL_Quit();
   
