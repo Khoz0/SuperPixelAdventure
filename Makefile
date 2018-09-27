@@ -1,4 +1,4 @@
-SRC=main.c
+SRC=jeu.c
 BIN=jeu
 
 $(BIN): $(SRC)
