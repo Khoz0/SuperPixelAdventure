@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
                 case SDLK_RIGHT:
 				if (positionChar.x < 1410){
 					positionChar.x += 2;
-					if (dir < 21){
+					if (dir < 20){
 						dir += 1;
 					}else{
 						dir = 0;
