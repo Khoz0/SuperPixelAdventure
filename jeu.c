@@ -270,7 +270,7 @@ int main(int argc,char** argv)
       mainCharGo.w = 30;
 	  
       posSpriteWizardPNJ.x = 30;
-      posSpriteWizardPNJ.y = 30;
+      posSpriteWizardPNJ.y = 36;
       posSpriteWizardPNJ.h = 36;
       posSpriteWizardPNJ.w = 30;
 	
