@@ -1,1 +1,0 @@
-void Display(SDL_Surface* screen,SDL_Surface* tileset,char** map_builder,int map_blocks_width,int map_blocks_height);
