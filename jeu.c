@@ -204,6 +204,12 @@ int main(int argc,char** argv){
       SDL_Flip(screen);
       
     }
+    
+    // on libère la mémoire du tableau contenant la map
+    free(map_builder);
+    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+       free(map_builder[j]);
+    }
       
     SDL_FreeSurface(tileset);
     SDL_FreeSurface(stamina);

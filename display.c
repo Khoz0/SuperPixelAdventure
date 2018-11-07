@@ -28,10 +28,6 @@ Uint16** Display(){
     
     fclose(file);
     
-//     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-//       free(map_builder[j]);
-//     }
-    
     return map_builder;
   
 }
