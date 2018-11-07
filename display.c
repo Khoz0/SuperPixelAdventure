@@ -3,7 +3,7 @@
 Uint16** Display(){
   
     FILE* file;
-    int* tmp;
+    int tmp;
     Uint16 **map_builder = malloc(MAP_BLOCKS_WIDTH*sizeof(Uint16*));
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
       map_builder[j] = malloc(MAP_BLOCKS_HEIGHT*sizeof(Uint16));

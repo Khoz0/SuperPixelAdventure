@@ -14,14 +14,13 @@ int main(int argc,char** argv){
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     Uint16** map_builder = Display();
     
-    int xscroll = 0, yscroll = 0;
-    int window_x = 1440, window_y = 1260;
+    int xscroll = MAP_PIXELS_X/4, yscroll = MAP_PIXELS_Y/4;
     
     SDL_Surface *screen, *tileset;
     SDL_Event event;
     
-    positionChar.x = 50;
-    positionChar.y = (860/2) - (36/2);
+    positionChar.x = SCREEN_WIDTH/2;
+    positionChar.y = SCREEN_HEIGHT/2;
 
     positionWizardWPNJ.x = 960;
     positionWizardWPNJ.y = 480;
@@ -43,10 +42,8 @@ int main(int argc,char** argv){
     
     if(!tileset){
       
-	printf("failure : map didn't load\n");
-	SDL_Quit();
-	system("pause");
-	exit(-1);
+	printf("Erreur : le tileset n'est pas chargé\n");
+	return 0;
 	
     }
     
@@ -54,6 +51,9 @@ int main(int argc,char** argv){
     SDL_SetColorKey(wizardWPNJ, SDL_SRCCOLORKEY, SDL_MapRGB(wizardWPNJ->format, 255, 255, 255));
     
     while (!gameOver){
+      
+      printf("coordonnées personnage : (%d ; ", xscroll);
+      printf("%d)\n", yscroll);
       
       SDL_PollEvent(&event);
       switch(event.type){
@@ -64,8 +64,9 @@ int main(int argc,char** argv){
 		    break;
 		    case SDLK_z:
 			width = 0;
-			if (positionChar.y > 0){
-			    positionChar.y -= (4 * sprint);
+			if (yscroll > 0){
+			    yscroll -= 8;
+			    //positionChar.y -= (4 * sprint);
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
@@ -79,12 +80,12 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.y += 0;
 			}
-			yscroll -= 1;
 		    break;
 		    case SDLK_s:
 			width = 2;
-			if (positionChar.y < 860){
-			    positionChar.y += (4 * sprint);
+			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
+			    yscroll += 8;
+			    //positionChar.y += (4 * sprint);
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
@@ -98,12 +99,12 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.y += 0;
 			}
-			yscroll += 1;
 		    break;
 		    case SDLK_d:
 			width = 1;
-			if (positionChar.x < 1410){
-			    positionChar.x += (4 * sprint);
+			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
+			    xscroll += 8;
+			    //positionChar.x += (4 * sprint);
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
@@ -117,12 +118,12 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.x += 0;
 			}
-			xscroll += 1;
 		    break;
 		    case SDLK_q:
 			width = 3;
-			if (positionChar.x > 0){
-			    positionChar.x -= (4 * sprint);
+			if (xscroll > 0){
+			    xscroll -= 8;
+			    //positionChar.x -= (4 * sprint);
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
@@ -136,7 +137,6 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.x += 0;
 			}
-			xscroll -= 1;
 		    break;
 		    case SDLK_ESCAPE:
 			gameOver = 1;
@@ -213,10 +213,10 @@ int main(int argc,char** argv){
     }
     
     // on libère la mémoire du tableau contenant la map
-    free(map_builder);
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_builder[j]);
     }
+    free(map_builder);
       
     SDL_FreeSurface(tileset);
     SDL_FreeSurface(stamina);
