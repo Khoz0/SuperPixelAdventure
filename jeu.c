@@ -12,6 +12,7 @@ int main(int argc,char** argv){
     
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
+    Uint16** map_builder = Display();
     
     SDL_Surface *screen, *tileset;
     SDL_Event event;
@@ -45,8 +46,7 @@ int main(int argc,char** argv){
 	exit(-1);
 	
     }
-
-    Display(screen,tileset);
+    
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     SDL_SetColorKey(wizardWPNJ, SDL_SRCCOLORKEY, SDL_MapRGB(wizardWPNJ->format, 255, 255, 255));
     
@@ -180,8 +180,22 @@ int main(int argc,char** argv){
       posSpriteWizardPNJ.y = 36;
       posSpriteWizardPNJ.h = 36;
       posSpriteWizardPNJ.w = 30;
-
-      Display(screen,tileset);
+      
+      SDL_Rect Rect_dest;
+      SDL_Rect Rect_source;
+      Rect_source.w = WIDTH_TILE;
+      Rect_source.h = HEIGHT_TILE;
+      
+      for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
+	      for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
+		      Rect_dest.x = i*WIDTH_TILE;
+		      Rect_dest.y = j*HEIGHT_TILE;
+		      Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
+		      Rect_source.y = 0;
+		      SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
+	      }
+      }
+      
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_BlitSurface(wizardWPNJ, &posSpriteWizardPNJ, screen, &positionWizardWPNJ);

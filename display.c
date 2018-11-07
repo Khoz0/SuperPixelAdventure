@@ -1,34 +1,37 @@
 #include "display.h"
 
-void Display(SDL_Surface* screen,SDL_Surface* tileset){
-    
-	int test;
-	SDL_Rect Rect_dest;
-	SDL_Rect Rect_source;
-	Rect_source.w = WIDTH_TILE;
-	Rect_source.h = HEIGHT_TILE;
+Uint16** Display(){
+  
     FILE* file;
     int* tmp;
-    int map_builder[MAP_BLOCKS_WIDTH][MAP_BLOCKS_HEIGHT];
+    Uint16 **map_builder = malloc(MAP_BLOCKS_WIDTH*sizeof(Uint16*));
+    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+      map_builder[j] = malloc(MAP_BLOCKS_HEIGHT*sizeof(Uint16));
+    }
     
     // ouverture du fichier .txt de la map 
     file = fopen("level.txt", "r");
-        
-	for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
-		for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-			fscanf(file, "%d",&tmp);
-			map_builder[j][i] = tmp;
-        }
-	}
+    // vérification que le fichier est bien ouvert
+    if(!file) {
+      printf("Erreur d'ouverture du fichier level.txt\n");
+      return 0;
+    } else {	
+      printf("Fichier level.txt ouvert correctement\n");
+    }
     
-	for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
-		for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-			Rect_dest.x = i*WIDTH_TILE;
-			Rect_dest.y = j*HEIGHT_TILE;
-			Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-			Rect_source.y = 0;
-			SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
-		}
-	}
-
+    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
+	    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+		    fscanf(file, "%d", &tmp);
+ 		    map_builder[j][i] = tmp;
+	    }
+    }
+    
+    fclose(file);
+    
+//     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+//       free(map_builder[j]);
+//     }
+    
+    return map_builder;
+  
 }

@@ -5,4 +5,4 @@
 
 #include "constants.h"
 
-void Display(SDL_Surface* screen,SDL_Surface* tileset);
+Uint16** Display();
