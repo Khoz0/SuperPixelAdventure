@@ -14,8 +14,8 @@ void Display(SDL_Surface* screen,SDL_Surface* tileset){
     // ouverture du fichier .txt de la map 
     file = fopen("level.txt", "r");
         
-	for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
-		for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
+	for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
+		for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
 			fscanf(file, "%d",&tmp);
 			map_builder[j][i] = tmp;
         }
@@ -25,7 +25,7 @@ void Display(SDL_Surface* screen,SDL_Surface* tileset){
 		for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
 			Rect_dest.x = i*WIDTH_TILE;
 			Rect_dest.y = j*HEIGHT_TILE;
-			Rect_source.x = (map_builder[j][i])*WIDTH_TILE;
+			Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
 			Rect_source.y = 0;
 			SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
 		}
