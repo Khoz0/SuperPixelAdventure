@@ -14,6 +14,9 @@ int main(int argc,char** argv){
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     Uint16** map_builder = Display();
     
+    int xscroll = 0, yscroll = 0;
+    int window_x = 1440, window_y = 1260;
+    
     SDL_Surface *screen, *tileset;
     SDL_Event event;
     
@@ -76,6 +79,7 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.y += 0;
 			}
+			yscroll -= 1;
 		    break;
 		    case SDLK_s:
 			width = 2;
@@ -94,6 +98,7 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.y += 0;
 			}
+			yscroll += 1;
 		    break;
 		    case SDLK_d:
 			width = 1;
@@ -112,6 +117,7 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.x += 0;
 			}
+			xscroll += 1;
 		    break;
 		    case SDLK_q:
 			width = 3;
@@ -130,6 +136,7 @@ int main(int argc,char** argv){
 			}else{
 			    positionChar.x += 0;
 			}
+			xscroll -= 1;
 		    break;
 		    case SDLK_ESCAPE:
 			gameOver = 1;
@@ -188,8 +195,8 @@ int main(int argc,char** argv){
       
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
 	      for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-		      Rect_dest.x = i*WIDTH_TILE;
-		      Rect_dest.y = j*HEIGHT_TILE;
+		      Rect_dest.x = i*WIDTH_TILE - xscroll;
+		      Rect_dest.y = j*HEIGHT_TILE - yscroll;
 		      Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
 		      Rect_source.y = 0;
 		      SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
