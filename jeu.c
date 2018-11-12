@@ -1,4 +1,5 @@
 #include <SDL/SDL.h>
+#include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,7 +7,13 @@
 #include "constants.h"
 
 int main(int argc,char** argv){
-  
+    
+    // getting screen size
+//     int w, h;
+//     SDL_Window *window;
+//     SDL_GetWindowSize(window, &w, &h);
+//     printf("%d, %d", w, h);
+    
     SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL;
     SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, positionWizardWPNJ, posSpriteWizardPNJ;
     
@@ -26,7 +33,7 @@ int main(int argc,char** argv){
     positionWizardWPNJ.y = 480;
     
     SDL_Init(SDL_INIT_VIDEO);
-    screen = SDL_SetVideoMode(WIDTH_TILE*MAP_BLOCKS_WIDTH, HEIGHT_TILE*MAP_BLOCKS_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
     
     mainChar = SDL_LoadBMP("hero.bmp");
     wizardWPNJ = SDL_LoadBMP("wizardWoman.bmp");
@@ -51,10 +58,6 @@ int main(int argc,char** argv){
     SDL_SetColorKey(wizardWPNJ, SDL_SRCCOLORKEY, SDL_MapRGB(wizardWPNJ->format, 255, 255, 255));
     
     while (!gameOver){
-      
-      printf("coordonnées personnage : (%d ; ", xscroll);
-      printf("%d)\n", yscroll);
-      
       SDL_PollEvent(&event);
       switch(event.type){
           case SDL_KEYDOWN:
@@ -65,77 +68,133 @@ int main(int argc,char** argv){
 		    case SDLK_z:
 			width = 0;
 			if (yscroll > 0){
-			    yscroll -= 8;
-			    //positionChar.y -= (4 * sprint);
+			    if(positionChar.y > 448) {
+			      positionChar.y -= 4 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			    }else{
+			      yscroll -= 8 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			      if (sprint == 2 && staminaLength > 1){
+				  staminaLength -= (2 * sprint);
+			      }else if (staminaLength <= 2){
+				  sprint = 1;
+			      }
+			    }
+			}else{
+			    positionChar.y -= 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
 				dir = 0;
 			    }
-			    if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			    }else if (staminaLength <= 2){
-				sprint = 1;
-			    }
-			}else{
-			    positionChar.y += 0;
 			}
 		    break;
 		    case SDLK_s:
 			width = 2;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
-			    yscroll += 8;
-			    //positionChar.y += (4 * sprint);
+			    if(positionChar.y < 448) {
+			      positionChar.y += 4 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			    }else{
+			      yscroll += 8 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			      if (sprint == 2 && staminaLength > 1){
+				  staminaLength -= (2 * sprint);
+			      }else if (staminaLength <= 2){
+				  sprint = 1;
+			      }
+			    }
+			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT)){
+			    positionChar.y += 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
 				dir = 0;
 			    }
-			    if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			    }else if (staminaLength <= 2){
-				sprint = 1;
-			    }
 			}else{
-			    positionChar.y += 0;
+			  positionChar.y += 0;
 			}
 		    break;
 		    case SDLK_d:
 			width = 1;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
-			    xscroll += 8;
-			    //positionChar.x += (4 * sprint);
+			    if(positionChar.x < 720) {
+			      positionChar.x += 4 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			    }else{
+			      xscroll += 8 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			      if (sprint == 2 && staminaLength > 1){
+				  staminaLength -= (2 * sprint);
+			      }else if (staminaLength <= 2){
+				  sprint = 1;
+			      }
+			    }
+			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH)){
+			    positionChar.x += 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
 				dir = 0;
 			    }
-			    if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			    }else if (staminaLength <= 2){
-				sprint = 1;
-			    }
 			}else{
-			    positionChar.x += 0;
+			  positionChar.x += 0;
 			}
 		    break;
 		    case SDLK_q:
 			width = 3;
 			if (xscroll > 0){
-			    xscroll -= 8;
-			    //positionChar.x -= (4 * sprint);
+			  if(positionChar.x > 720) {
+			      positionChar.x -= 4 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			    }else{
+			      xscroll -= 8 * sprint;
+			      if (dir < 20){
+				  dir += (1 * sprint);
+			      }else{
+				  dir = 0;
+			      }
+			      if (sprint == 2 && staminaLength > 1){
+				  staminaLength -= (2 * sprint);
+			      }else if (staminaLength <= 2){
+				  sprint = 1;
+			      }
+			    }
+			}else{
+			    positionChar.x -= 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
 				dir = 0;
 			    }
-			    if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			    }else if (staminaLength <= 2){
-				sprint = 1;
-			    }
-			}else{
-			    positionChar.x += 0;
 			}
 		    break;
 		    case SDLK_ESCAPE:
