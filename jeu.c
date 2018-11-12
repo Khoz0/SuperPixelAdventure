@@ -5,40 +5,41 @@
 
 #include "display.h"
 #include "constants.h"
+#include "menu.h"
 
 int main(int argc,char** argv){
-    
+
     // getting screen size
 //     int w, h;
 //     SDL_Window *window;
 //     SDL_GetWindowSize(window, &w, &h);
 //     printf("%d, %d", w, h);
-    
+
     SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL;
     SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, positionWizardWPNJ, posSpriteWizardPNJ;
-    
+
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     Uint16** map_builder = Display();
-    
+
     int xscroll = MAP_PIXELS_X/4, yscroll = MAP_PIXELS_Y/4;
-    
+
     SDL_Surface *screen, *tileset;
     SDL_Event event;
-    
+
     positionChar.x = SCREEN_WIDTH/2;
     positionChar.y = SCREEN_HEIGHT/2;
 
     positionWizardWPNJ.x = 960;
     positionWizardWPNJ.y = 480;
-    
+
     SDL_Init(SDL_INIT_VIDEO);
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
-    
+
     mainChar = SDL_LoadBMP("hero.bmp");
     wizardWPNJ = SDL_LoadBMP("wizardWoman.bmp");
     tileset = SDL_LoadBMP("background_jeu.bmp");
-    
+
     staminaPos.x = 10;
     staminaPos.y = 45;
 
@@ -46,17 +47,18 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    
+    MainMenu();
+
     if(!tileset){
-      
+
 	printf("Erreur : le tileset n'est pas chargé\n");
 	return 0;
-	
+
     }
-    
+
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     SDL_SetColorKey(wizardWPNJ, SDL_SRCCOLORKEY, SDL_MapRGB(wizardWPNJ->format, 255, 255, 255));
-    
+
     while (!gameOver){
       SDL_PollEvent(&event);
       switch(event.type){
@@ -202,8 +204,8 @@ int main(int argc,char** argv){
 		    break;
 	      }
           break;
-	  
-	  case SDL_KEYUP:  
+
+	  case SDL_KEYUP:
 	      switch(event.key.keysym.sym){
 		  case SDLK_LSHIFT:
 		    sprint = 1;
@@ -222,36 +224,36 @@ int main(int argc,char** argv){
 		  break;
 	      }
 	  break;
-      
+
       }
-      
+
       if (staminaLength > -2 && staminaLength <= 194 && sprint == 1){
-	
+
 	  staminaLength += (2 * sprint);
-	  
+
       }
-  
+
       stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, staminaLength + 5, 15, 32, 0, 0 ,0 ,0);
       lifePoint = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 15, 32, 0, 0 ,0 ,0);
-  
+
       SDL_FillRect(stamina, NULL, SDL_MapRGB(screen->format, 1, 215, 88));
       SDL_FillRect(lifePoint, NULL, SDL_MapRGB(screen->format, 200, 7, 7));
-  
+
       mainCharGo.x = 33*(dir/7);
       mainCharGo.y = 36*width;
       mainCharGo.h = 36;
       mainCharGo.w = 30;
-  
+
       posSpriteWizardPNJ.x = 30;
       posSpriteWizardPNJ.y = 36;
       posSpriteWizardPNJ.h = 36;
       posSpriteWizardPNJ.w = 30;
-      
+
       SDL_Rect Rect_dest;
       SDL_Rect Rect_source;
       Rect_source.w = WIDTH_TILE;
       Rect_source.h = HEIGHT_TILE;
-      
+
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
 	      for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
 		      Rect_dest.x = i*WIDTH_TILE - xscroll;
@@ -261,22 +263,22 @@ int main(int argc,char** argv){
 		      SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
 	      }
       }
-      
+
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_BlitSurface(wizardWPNJ, &posSpriteWizardPNJ, screen, &positionWizardWPNJ);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
-      
+
     }
-    
+
     // on libère la mémoire du tableau contenant la map
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_builder[j]);
     }
     free(map_builder);
-      
+
     SDL_FreeSurface(tileset);
     SDL_FreeSurface(stamina);
     SDL_FreeSurface(lifePoint);
@@ -285,5 +287,5 @@ int main(int argc,char** argv){
     SDL_FreeSurface(screen);
     SDL_Quit();
     return 0;
-    
+
 }
