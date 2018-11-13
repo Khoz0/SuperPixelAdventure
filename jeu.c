@@ -13,13 +13,6 @@ int main(int argc,char** argv){
     
     Uint16** map_builder = mapBuilder();
     Uint16** map_boolean = mapBoolean(map_builder);
-    
-     for(int i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
-       for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
- 	printf("%d", map_boolean[j][i]);
-       }
-       printf("\n");
-     }
 
     int xscroll = MAP_PIXELS_X/4, yscroll = MAP_PIXELS_Y/4;
 
@@ -62,9 +55,6 @@ int main(int argc,char** argv){
 		    break;
 		    case SDLK_z:
 			width = 0;
-			printf("\n(%d", xchar/32);
-			printf(" ; %d)", ychar/32-1);
-			printf(" numéro case : %d", map_boolean[xchar/32][ychar/32]);
 			if (yscroll > 0){
 			    if(positionChar.y > 448) {
  			      positionChar.y -= 4 * sprint;
@@ -99,9 +89,6 @@ int main(int argc,char** argv){
 		    break;
 		    case SDLK_s:
 			width = 2;
-			printf("\n(%d", xchar/32);
-			printf(" ; %d)", ychar/32-1);
-			printf(" numéro case : %d", map_boolean[xchar/32][ychar/32+1]);
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if(positionChar.y < 448) {
 			      positionChar.y += 4 * sprint;
@@ -123,7 +110,7 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT) && (map_boolean[xchar/32][ychar/32+1]==0)){
+			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT) && (map_boolean[xchar/32][(ychar+4)/32+1]==0)){
 			    positionChar.y += 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
@@ -157,7 +144,7 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH)){
+			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH) && (map_boolean[(xchar+4)/32+1][ychar/32]==0)){
 			    positionChar.x += 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
@@ -191,13 +178,15 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else{
+			}else if ((map_boolean[(xchar-1)/32][ychar/32]==0)){
 			    positionChar.x -= 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
 				dir = 0;
 			    }
+			}else{
+			    positionChar.x -= 0; 
 			}
 		    break;
 		    case SDLK_ESCAPE:
