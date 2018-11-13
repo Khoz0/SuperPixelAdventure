@@ -1,3 +1,9 @@
+// includes
+#include <SDL/SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 // haueur et largeur des tiles
 #define WIDTH_TILE 32
 #define HEIGHT_TILE 32 

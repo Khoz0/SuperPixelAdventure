@@ -1,8 +1,3 @@
-#include <SDL/SDL.h>
-#include "SDL.h"
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "mapBuilder.h"
 #include "mapBoolean.h"
 #include "constants.h"
@@ -11,7 +6,7 @@
 int main(int argc,char** argv){
 
     SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL;
-    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, positionWizardWPNJ, posSpriteWizardPNJ;
+    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ;
 
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
@@ -34,14 +29,10 @@ int main(int argc,char** argv){
     positionChar.x = SCREEN_WIDTH/2;
     positionChar.y = SCREEN_HEIGHT/2;
 
-    positionWizardWPNJ.x = 960;
-    positionWizardWPNJ.y = 480;
-
     SDL_Init(SDL_INIT_VIDEO);
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
     mainChar = SDL_LoadBMP("hero.bmp");
-    wizardWPNJ = SDL_LoadBMP("wizardWoman.bmp");
     tileset = SDL_LoadBMP("background_jeu.bmp");
 
     staminaPos.x = 10;
@@ -61,7 +52,6 @@ int main(int argc,char** argv){
     }
 
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
-    SDL_SetColorKey(wizardWPNJ, SDL_SRCCOLORKEY, SDL_MapRGB(wizardWPNJ->format, 255, 255, 255));
 
     while (!gameOver){
       SDL_PollEvent(&event);
@@ -270,23 +260,27 @@ int main(int argc,char** argv){
 
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
-      SDL_BlitSurface(wizardWPNJ, &posSpriteWizardPNJ, screen, &positionWizardWPNJ);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
 
     }
 
-    // on libère la mémoire du tableau contenant la map
+    // restitution mémoire de map_builder
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_builder[j]);
     }
     free(map_builder);
+    
+    // restitution mémoire de map_boolean
+    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+       free(map_boolean[j]);
+    }
+    free(map_boolean);
 
     SDL_FreeSurface(tileset);
     SDL_FreeSurface(stamina);
     SDL_FreeSurface(lifePoint);
-    SDL_FreeSurface(wizardWPNJ);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);
     SDL_Quit();
