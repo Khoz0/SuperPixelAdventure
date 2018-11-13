@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "display.h"
+#include "mapBuilder.h"
+#include "mapBoolean.h"
 #include "constants.h"
-#include "displayB.h"
 #include "menu.h"
 
 int main(int argc,char** argv){
@@ -16,8 +16,8 @@ int main(int argc,char** argv){
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     
-    Uint16** map_builder = Display();
-    Uint16** map_boolean = DisplayB(map_builder);
+    Uint16** map_builder = mapBuilder();
+    Uint16** map_boolean = mapBoolean(map_builder);
     
     for(int i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
 	    for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
