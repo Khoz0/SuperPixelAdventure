@@ -14,12 +14,12 @@ int main(int argc,char** argv){
     Uint16** map_builder = mapBuilder();
     Uint16** map_boolean = mapBoolean(map_builder);
     
-    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
-	    for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
-	      printf("%d", map_boolean[j][i]);
-	    }
-	    printf("\n");
-    }
+     for(int i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
+       for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
+ 	printf("%d", map_boolean[j][i]);
+       }
+       printf("\n");
+     }
 
     int xscroll = MAP_PIXELS_X/4, yscroll = MAP_PIXELS_Y/4;
 
@@ -28,12 +28,12 @@ int main(int argc,char** argv){
 
     positionChar.x = SCREEN_WIDTH/2;
     positionChar.y = SCREEN_HEIGHT/2;
-
+    
     SDL_Init(SDL_INIT_VIDEO);
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
-    mainChar = SDL_LoadBMP("hero.bmp");
-    tileset = SDL_LoadBMP("background_jeu.bmp");
+    mainChar = SDL_LoadBMP("./pictures/hero.bmp");
+    tileset = SDL_LoadBMP("./pictures/tileset_background.bmp");
 
     staminaPos.x = 10;
     staminaPos.y = 45;
@@ -42,18 +42,17 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    //MainMenu();
+    //mainMenu();
 
     if(!tileset){
-
-	printf("Erreur : le tileset n'est pas chargé\n");
+	printf("Error : tileset didn't load\n");
 	return 0;
-
     }
 
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
 
     while (!gameOver){
+      int xchar = positionChar.x + xscroll, ychar = positionChar.y + yscroll;
       SDL_PollEvent(&event);
       switch(event.type){
           case SDL_KEYDOWN:
@@ -63,14 +62,17 @@ int main(int argc,char** argv){
 		    break;
 		    case SDLK_z:
 			width = 0;
+			printf("\n(%d", xchar/32);
+			printf(" ; %d)", ychar/32-1);
+			printf(" numéro case : %d", map_boolean[xchar/32][ychar/32]);
 			if (yscroll > 0){
 			    if(positionChar.y > 448) {
-			      positionChar.y -= 4 * sprint;
-			      if (dir < 20){
-				  dir += (1 * sprint);
-			      }else{
-				  dir = 0;
-			      }
+ 			      positionChar.y -= 4 * sprint;
+ 			      if (dir < 20){
+ 				  dir += (1 * sprint);
+ 			      }else{
+ 				  dir = 0;
+ 			      }
 			    }else{
 			      yscroll -= 8 * sprint;
 			      if (dir < 20){
@@ -84,17 +86,22 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else{
+			}else if(map_boolean[xchar/32][(ychar+15)/32]==0){
 			    positionChar.y -= 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
 			    }else{
 				dir = 0;
 			    }
+			}else{
+			  positionChar.y -= 0;
 			}
 		    break;
 		    case SDLK_s:
 			width = 2;
+			printf("\n(%d", xchar/32);
+			printf(" ; %d)", ychar/32-1);
+			printf(" numéro case : %d", map_boolean[xchar/32][ychar/32+1]);
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if(positionChar.y < 448) {
 			      positionChar.y += 4 * sprint;
@@ -116,7 +123,7 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT)){
+			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT) && (map_boolean[xchar/32][ychar/32+1]==0)){
 			    positionChar.y += 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
@@ -218,13 +225,10 @@ int main(int argc,char** argv){
 		  break;
 	      }
 	  break;
-
       }
 
       if (staminaLength > -2 && staminaLength <= 194 && sprint == 1){
-
 	  staminaLength += (2 * sprint);
-
       }
 
       stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, staminaLength + 5, 15, 32, 0, 0 ,0 ,0);
@@ -249,13 +253,13 @@ int main(int argc,char** argv){
       Rect_source.h = HEIGHT_TILE;
 
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
-	      for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-		      Rect_dest.x = i*WIDTH_TILE - xscroll;
-		      Rect_dest.y = j*HEIGHT_TILE - yscroll;
-		      Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-		      Rect_source.y = 0;
-		      SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
-	      }
+	for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
+	  Rect_dest.x = i*WIDTH_TILE - xscroll;
+	  Rect_dest.y = j*HEIGHT_TILE - yscroll;
+	  Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
+	  Rect_source.y = 0;
+	  SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
+	}
       }
 
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
@@ -266,13 +270,13 @@ int main(int argc,char** argv){
 
     }
 
-    // restitution mémoire de map_builder
+    // memory restitution of map_builder
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_builder[j]);
     }
     free(map_builder);
     
-    // restitution mémoire de map_boolean
+    // memory restitution of map_boolean
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_boolean[j]);
     }

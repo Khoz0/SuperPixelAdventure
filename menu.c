@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void MainMenu(){
+void mainMenu(){
 
   SDL_Surface *playCase = NULL, *ruleCase = NULL, *quitCase = NULL, *screenMenu, *menuChar;
   SDL_Surface *quitButton = NULL, *playButton = NULL, *goalButton = NULL;
@@ -46,16 +46,16 @@ void MainMenu(){
   quitCase = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 50, 32, 0, 0 ,0 ,0);
   SDL_FillRect(quitCase, NULL, SDL_MapRGB(screenMenu->format, 160, 220, 40));
 
-  menuChar = SDL_LoadBMP("hero.bmp");
+  menuChar = SDL_LoadBMP("./pictures/hero.bmp");
   SDL_SetColorKey(menuChar, SDL_SRCCOLORKEY, SDL_MapRGB(menuChar->format, 255, 255, 255));
 
-  quitButton = SDL_LoadBMP("boutonQuitter.bmp");
+  quitButton = SDL_LoadBMP("./pictures/boutonQuitter.bmp");
   SDL_SetColorKey(quitButton, SDL_SRCCOLORKEY, SDL_MapRGB(quitButton->format, 255, 255, 255));
 
-  playButton = SDL_LoadBMP("boutonJouer.bmp");
+  playButton = SDL_LoadBMP("./pictures/boutonJouer.bmp");
   SDL_SetColorKey(playButton, SDL_SRCCOLORKEY, SDL_MapRGB(playButton->format, 255, 255, 255));
 
-  goalButton = SDL_LoadBMP("boutonBut.bmp");
+  goalButton = SDL_LoadBMP("./pictures/boutonBut.bmp");
   SDL_SetColorKey(goalButton, SDL_SRCCOLORKEY, SDL_MapRGB(goalButton->format, 255, 255, 255));
 
   for (i = 0; i < SCREEN_WIDTH-1; i++){
@@ -225,7 +225,8 @@ void MainMenu(){
   SDL_FreeSurface(quitButton);
   SDL_FreeSurface(playButton);
   SDL_FreeSurface(goalButton);
-  for(int j = 0 ; j < SCREEN_WIDTH ; j++){
+  
+  for(int j = 0 ; j < SCREEN_HEIGHT ; j++){
      free(tabCollide[j]);
   }
   free(tabCollide);
