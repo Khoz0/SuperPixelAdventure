@@ -5,22 +5,26 @@
 
 #include "display.h"
 #include "constants.h"
+#include "displayB.h"
 #include "menu.h"
 
 int main(int argc,char** argv){
-
-    // getting screen size
-//     int w, h;
-//     SDL_Window *window;
-//     SDL_GetWindowSize(window, &w, &h);
-//     printf("%d, %d", w, h);
 
     SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL;
     SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, positionWizardWPNJ, posSpriteWizardPNJ;
 
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
+    
     Uint16** map_builder = Display();
+    Uint16** map_boolean = DisplayB(map_builder);
+    
+    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
+	    for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
+	      printf("%d", map_boolean[j][i]);
+	    }
+	    printf("\n");
+    }
 
     int xscroll = MAP_PIXELS_X/4, yscroll = MAP_PIXELS_Y/4;
 
@@ -47,7 +51,7 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    MainMenu();
+    //MainMenu();
 
     if(!tileset){
 
