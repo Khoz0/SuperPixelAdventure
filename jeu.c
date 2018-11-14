@@ -35,11 +35,18 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    mainMenu(&gameOver);
+    //mainMenu(&gameOver);
 
     if(!tileset){
 	printf("Error : tileset didn't load\n");
 	return 0;
+    }
+    
+    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
+        for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+            printf("%d", map_boolean[j][i]);
+        }
+        printf("\n");
     }
 
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
@@ -54,9 +61,12 @@ int main(int argc,char** argv){
 			sprint = 2;
 		    break;
 		    case SDLK_z:
+		      printf("personnage : (%d", xchar/32);
+		      printf(" ; %d)\n", ychar/32);
+		      printf("map_boolean : %d\n", map_boolean[xchar/32][ychar/32]);
 			width = 0;
 			if (yscroll > 0){
-			    if(positionChar.y > 448) {
+			    if((positionChar.y > 448) && (map_boolean[xchar/32][ychar/32]==0)) {
  			      positionChar.y -= 4 * sprint;
  			      if (dir < 20){
  				  dir += (1 * sprint);
@@ -76,7 +86,7 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else if(map_boolean[xchar/32][(ychar+15)/32]==0){
+			}else if(map_boolean[xchar/32][ychar/32]==0){
 			    positionChar.y -= 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
@@ -88,8 +98,11 @@ int main(int argc,char** argv){
 			}
 		    break;
 		    case SDLK_s:
+		      printf("personnage : (%d", xchar/32);
+		      printf(" ; %d)\n", ychar/32);
+		      printf("map_boolean : %d\n", map_boolean[xchar/32][(ychar+5)/32]);
 			width = 2;
-			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
+			if ((yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT) && (map_boolean[xchar/32][(ychar+4)/32+1]==0)){
 			    if(positionChar.y < 448) {
 			      positionChar.y += 4 * sprint;
 			      if (dir < 20){
@@ -122,8 +135,11 @@ int main(int argc,char** argv){
 			}
 		    break;
 		    case SDLK_d:
+		      printf("personnage : (%d", xchar/32);
+		      printf(" ; %d)\n", ychar/32);
+		      printf("map_boolean : %d\n", map_boolean[(xchar+4)/32][ychar/32]);
 			width = 1;
-			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
+			if ((xscroll < MAP_PIXELS_X - SCREEN_WIDTH) && (map_boolean[(xchar+4)/32+1][ychar/32]==0)){
 			    if(positionChar.x < 720) {
 			      positionChar.x += 4 * sprint;
 			      if (dir < 20){
@@ -156,8 +172,11 @@ int main(int argc,char** argv){
 			}
 		    break;
 		    case SDLK_q:
+		      printf("personnage : (%d", xchar/32);
+		      printf(" ; %d)\n", ychar/32);
+		      printf("map_boolean : %d\n", map_boolean[xchar/32][ychar/32]);
 			width = 3;
-			if (xscroll > 0){
+			if (xscroll > 0 && (map_boolean[(xchar-1)/32][ychar/32]==0)){
 			  if(positionChar.x > 720) {
 			      positionChar.x -= 4 * sprint;
 			      if (dir < 20){
@@ -178,7 +197,7 @@ int main(int argc,char** argv){
 				  sprint = 1;
 			      }
 			    }
-			}else if ((map_boolean[(xchar-1)/32][ychar/32]==0)){
+			}else if (map_boolean[(xchar-1)/32][ychar/32]==0){
 			    positionChar.x -= 4 * sprint;
 			    if (dir < 20){
 				dir += (1 * sprint);
@@ -226,15 +245,10 @@ int main(int argc,char** argv){
       SDL_FillRect(stamina, NULL, SDL_MapRGB(screen->format, 1, 215, 88));
       SDL_FillRect(lifePoint, NULL, SDL_MapRGB(screen->format, 200, 7, 7));
 
-      mainCharGo.x = 33*(dir/7);
-      mainCharGo.y = 36*width;
-      mainCharGo.h = 36;
+      mainCharGo.x = CHAR_WIDTH*(dir/7);
+      mainCharGo.y = CHAR_HEIGHT*width;
+      mainCharGo.h = CHAR_HEIGHT;
       mainCharGo.w = 30;
-
-      posSpriteWizardPNJ.x = 30;
-      posSpriteWizardPNJ.y = 36;
-      posSpriteWizardPNJ.h = 36;
-      posSpriteWizardPNJ.w = 30;
 
       SDL_Rect Rect_dest;
       SDL_Rect Rect_source;

@@ -65,145 +65,149 @@ Uint16** mapBoolean(Uint16** map_builder){
 		      case 17:
 			map_boolean[j][i] = 1;
 			break;
-              case 21:
+		      case 21:
 			map_boolean[j][i] = 1;
 			break;
-              case 22:
+		      case 22:
 			map_boolean[j][i] = 1;
 			break;
-              case 23:
+		      case 23:
 			map_boolean[j][i] = 1;
 			break;
-              case 24:
+		      case 24:
 			map_boolean[j][i] = 1;
 			break;
-              case 25:
+		      case 25:
 			map_boolean[j][i] = 1;
 			break;
-              case 26:
+		      case 26:
 			map_boolean[j][i] = 1;
 			break;
-              case 28:
+		      case 28:
 			map_boolean[j][i] = 1;
 			break;
-              case 29:
+		      case 29:
 			map_boolean[j][i] = 1;
 			break;
-              case 30:
+		      case 30:
 			map_boolean[j][i] = 1;
 			break;
-              case 31:
+		      case 31:
 			map_boolean[j][i] = 1;
 			break;
-              case 32:
+		      case 32:
 			map_boolean[j][i] = 1;
 			break;
-              case 33:
+		      case 33:
 			map_boolean[j][i] = 1;
 			break;
-              case 34:
+		      case 34:
 			map_boolean[j][i] = 1;
 			break;
-              case 35:
+		      case 35:
 			map_boolean[j][i] = 1;
 			break;
-              case 37:
+		      case 37:
 			map_boolean[j][i] = 1;
 			break;
-              case 38:
+		      case 38:
 			map_boolean[j][i] = 1;
 			break;
-              case 39:
+		      case 39:
 			map_boolean[j][i] = 1;
 			break;
-              case 40:
+		      case 40:
 			map_boolean[j][i] = 1;
 			break;
-              case 42:
+		      case 42:
 			map_boolean[j][i] = 1;
 			break;
-              case 47:
+ 		      case 47:
+ 			map_boolean[j][i] = 1;
+ 			break;
+		      case 48:
 			map_boolean[j][i] = 1;
 			break;
-              case 48:
+		      case 49:
 			map_boolean[j][i] = 1;
 			break;
-              case 49:
+		      case 50:
 			map_boolean[j][i] = 1;
 			break;
-              case 50:
+		      case 51:
 			map_boolean[j][i] = 1;
 			break;
-              case 51:
+		      case 52:
 			map_boolean[j][i] = 1;
 			break;
-              case 52:
+		      case 53:
 			map_boolean[j][i] = 1;
 			break;
-              case 53:
+		      case 54:
 			map_boolean[j][i] = 1;
 			break;
-              case 54:
+		      case 55:
 			map_boolean[j][i] = 1;
 			break;
-              case 55:
+		      case 56:
 			map_boolean[j][i] = 1;
 			break;
-              case 56:
+		      case 59:
 			map_boolean[j][i] = 1;
 			break;
-              case 59:
+		      case 61:
 			map_boolean[j][i] = 1;
 			break;
-              case 61:
+		      case 62:
 			map_boolean[j][i] = 1;
 			break;
-              case 62:
+		      case 63:
 			map_boolean[j][i] = 1;
 			break;
-              case 63:
+		      case 64:
 			map_boolean[j][i] = 1;
 			break;
-              case 64:
+		      case 65:
 			map_boolean[j][i] = 1;
 			break;
-              case 65:
+		      case 66:
 			map_boolean[j][i] = 1;
 			break;
-              case 66:
+		      case 67:
 			map_boolean[j][i] = 1;
 			break;
-              case 67:
+		      case 68:
 			map_boolean[j][i] = 1;
 			break;
-              case 68:
+		      case 69:
 			map_boolean[j][i] = 1;
 			break;
-              case 69:
+		      case 70:
 			map_boolean[j][i] = 1;
 			break;
-              case 70:
+		      case 71:
 			map_boolean[j][i] = 1;
 			break;
-              case 71:
+		      case 72:
 			map_boolean[j][i] = 1;
 			break;
-              case 72:
+		      case 73:
 			map_boolean[j][i] = 1;
 			break;
-              case 73:
+		      case 74:
 			map_boolean[j][i] = 1;
 			break;
-              case 74:
+		      case 75:
 			map_boolean[j][i] = 1;
 			break;
-              case 75:
+		      case 76:
 			map_boolean[j][i] = 1;
 			break;
-              case 77:
+		      case 77:
 			map_boolean[j][i] = 1;
 			break;
-            
+		      default:
+			break;
 		    }
 	    }
     }
