@@ -10,22 +10,22 @@ int main(int argc,char** argv){
 
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
+    int xchar, ychar, xscroll, yscroll;
+
+    SDL_Surface *screen, *tileset;
+    SDL_Event event;
+    
+    SDL_Init(SDL_INIT_VIDEO);
+    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
     Uint16** map_builder = mapBuilder();
     Uint16** map_boolean = mapBoolean(map_builder);
 
-    int xscroll = MAP_PIXELS_X/4, yscroll = MAP_PIXELS_Y/4;
-
-    SDL_Surface *screen, *tileset;
-    SDL_Event event;
-
     positionChar.x = SCREEN_WIDTH/2;
     positionChar.y = SCREEN_HEIGHT/2;
 
-    SDL_Init(SDL_INIT_VIDEO);
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
-
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
+    SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     tileset = SDL_LoadBMP("./pictures/tileset_background.bmp");
 
     staminaPos.x = 10;
@@ -35,11 +35,12 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
+    
     //mainMenu(&gameOver);
 
     if(!tileset){
-	printf("Error : tileset didn't load\n");
-	return 0;
+      printf("Error : tileset didn't load\n");
+      return 0;
     }
     
     for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
@@ -48,11 +49,15 @@ int main(int argc,char** argv){
         }
         printf("\n");
     }
-
-    SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
+    
+    xscroll = MAP_PIXELS_X/4;
+    yscroll = MAP_PIXELS_Y/4;
 
     while (!gameOver){
-      int xchar = positionChar.x + xscroll, ychar = positionChar.y + yscroll;
+        
+      xchar = positionChar.x + xscroll;
+      ychar = positionChar.y + yscroll;
+      
       SDL_PollEvent(&event);
       switch(event.type){
           case SDL_KEYDOWN:
@@ -69,29 +74,29 @@ int main(int argc,char** argv){
 			    if((positionChar.y > 448) && (map_boolean[xchar/32][ychar/32]==0)) {
  			      positionChar.y -= 4 * sprint;
  			      if (dir < 20){
- 				  dir += (1 * sprint);
+                    dir += (1 * sprint);
  			      }else{
- 				  dir = 0;
+                    dir = 0;
  			      }
 			    }else{
 			      yscroll -= 8 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			      if (sprint == 2 && staminaLength > 1){
-				  staminaLength -= (2 * sprint);
+                    staminaLength -= (2 * sprint);
 			      }else if (staminaLength <= 2){
-				  sprint = 1;
+                    sprint = 1;
 			      }
 			    }
 			}else if(map_boolean[xchar/32][ychar/32]==0){
 			    positionChar.y -= 4 * sprint;
 			    if (dir < 20){
-				dir += (1 * sprint);
+                    dir += (1 * sprint);
 			    }else{
-				dir = 0;
+                    dir = 0;
 			    }
 			}else{
 			  positionChar.y -= 0;
@@ -106,29 +111,29 @@ int main(int argc,char** argv){
 			    if(positionChar.y < 448) {
 			      positionChar.y += 4 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			    }else{
 			      yscroll += 8 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			      if (sprint == 2 && staminaLength > 1){
-				  staminaLength -= (2 * sprint);
+                    staminaLength -= (2 * sprint);
 			      }else if (staminaLength <= 2){
-				  sprint = 1;
+                    sprint = 1;
 			      }
 			    }
 			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT) && (map_boolean[xchar/32][(ychar+4)/32+1]==0)){
 			    positionChar.y += 4 * sprint;
 			    if (dir < 20){
-				dir += (1 * sprint);
+                    dir += (1 * sprint);
 			    }else{
-				dir = 0;
+                    dir = 0;
 			    }
 			}else{
 			  positionChar.y += 0;
@@ -143,29 +148,29 @@ int main(int argc,char** argv){
 			    if(positionChar.x < 720) {
 			      positionChar.x += 4 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			    }else{
 			      xscroll += 8 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			      if (sprint == 2 && staminaLength > 1){
-				  staminaLength -= (2 * sprint);
+                    staminaLength -= (2 * sprint);
 			      }else if (staminaLength <= 2){
-				  sprint = 1;
+                    sprint = 1;
 			      }
 			    }
 			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH) && (map_boolean[(xchar+4)/32+1][ychar/32]==0)){
 			    positionChar.x += 4 * sprint;
 			    if (dir < 20){
-				dir += (1 * sprint);
+                    dir += (1 * sprint);
 			    }else{
-				dir = 0;
+                    dir = 0;
 			    }
 			}else{
 			  positionChar.x += 0;
@@ -180,29 +185,29 @@ int main(int argc,char** argv){
 			  if(positionChar.x > 720) {
 			      positionChar.x -= 4 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			    }else{
 			      xscroll -= 8 * sprint;
 			      if (dir < 20){
-				  dir += (1 * sprint);
+                    dir += (1 * sprint);
 			      }else{
-				  dir = 0;
+                    dir = 0;
 			      }
 			      if (sprint == 2 && staminaLength > 1){
-				  staminaLength -= (2 * sprint);
+                    staminaLength -= (2 * sprint);
 			      }else if (staminaLength <= 2){
-				  sprint = 1;
+                    sprint = 1;
 			      }
 			    }
 			}else if (map_boolean[(xchar-1)/32][ychar/32]==0){
 			    positionChar.x -= 4 * sprint;
 			    if (dir < 20){
-				dir += (1 * sprint);
+                    dir += (1 * sprint);
 			    }else{
-				dir = 0;
+                    dir = 0;
 			    }
 			}else{
 			    positionChar.x -= 0;
@@ -236,7 +241,7 @@ int main(int argc,char** argv){
       }
 
       if (staminaLength > -2 && staminaLength <= 194 && sprint == 1){
-	  staminaLength += (2 * sprint);
+        staminaLength += (2 * sprint);
       }
 
       stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, staminaLength + 5, 15, 32, 0, 0 ,0 ,0);
@@ -256,13 +261,13 @@ int main(int argc,char** argv){
       Rect_source.h = HEIGHT_TILE;
 
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
-	for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-	  Rect_dest.x = i*WIDTH_TILE - xscroll;
-	  Rect_dest.y = j*HEIGHT_TILE - yscroll;
-	  Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-	  Rect_source.y = 0;
-	  SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
-	}
+        for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
+          Rect_dest.x = i*WIDTH_TILE - xscroll;
+          Rect_dest.y = j*HEIGHT_TILE - yscroll;
+          Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
+          Rect_source.y = 0;
+          SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
+        }
       }
 
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
@@ -287,6 +292,7 @@ int main(int argc,char** argv){
     }
     free(map_boolean);
 
+    // SDL memory restitution
     SDL_FreeSurface(tileset);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);

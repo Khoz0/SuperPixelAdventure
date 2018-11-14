@@ -1,23 +1,31 @@
 #include "mapBoolean.h"
 
+/********************************************
+This funtion fill a table with boolean values
+0 = empty (everything is empty my default)
+1 = full
+********************************************/
+
 Uint16** mapBoolean(Uint16** map_builder){
 
-    int tmp;
+    int tmp, i, j;
     
-    // allocation mémoire
+    // memory allocation
     Uint16 **map_boolean = malloc(MAP_BLOCKS_WIDTH*sizeof(Uint16*));
-    for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
+    for(j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
       map_boolean[j] = malloc(MAP_BLOCKS_HEIGHT*sizeof(Uint16));
     }
     
-    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
-        for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+    // full 0 by default
+    for(i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
+        for(j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
             map_boolean[j][i] = 0;
         }
     }
     
-    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
-	    for(int j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
+    // only define full blocs
+    for(i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
+      for(j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
  		    tmp = map_builder[j][i];
 		    switch (tmp){
 		      case 0:
