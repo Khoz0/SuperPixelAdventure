@@ -13,7 +13,7 @@ void mainMenu(){
     tabCollide[j] = malloc(SCREEN_HEIGHT*sizeof(int));
   }
 
-  screenMenu = SDL_SetVideoMode(WIDTH_TILE*MAP_BLOCKS_WIDTH, HEIGHT_TILE*MAP_BLOCKS_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
+  screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
   SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
 
   playCasePos.x = 200;
@@ -225,7 +225,7 @@ void mainMenu(){
   SDL_FreeSurface(quitButton);
   SDL_FreeSurface(playButton);
   SDL_FreeSurface(goalButton);
-  
+
   for(int j = 0 ; j < SCREEN_HEIGHT ; j++){
      free(tabCollide[j]);
   }

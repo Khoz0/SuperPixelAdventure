@@ -10,7 +10,7 @@ int main(int argc,char** argv){
 
     int gameOver = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
-    
+
     Uint16** map_builder = mapBuilder();
     Uint16** map_boolean = mapBoolean(map_builder);
 
@@ -21,7 +21,7 @@ int main(int argc,char** argv){
 
     positionChar.x = SCREEN_WIDTH/2;
     positionChar.y = SCREEN_HEIGHT/2;
-    
+
     SDL_Init(SDL_INIT_VIDEO);
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
@@ -35,7 +35,7 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    //mainMenu();
+    mainMenu();
 
     if(!tileset){
 	printf("Error : tileset didn't load\n");
@@ -186,7 +186,7 @@ int main(int argc,char** argv){
 				dir = 0;
 			    }
 			}else{
-			    positionChar.x -= 0; 
+			    positionChar.x -= 0;
 			}
 		    break;
 		    case SDLK_ESCAPE:
@@ -264,7 +264,7 @@ int main(int argc,char** argv){
        free(map_builder[j]);
     }
     free(map_builder);
-    
+
     // memory restitution of map_boolean
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_boolean[j]);
