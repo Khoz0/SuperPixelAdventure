@@ -1,3 +1,3 @@
 #include "constants.h"
 
-void mainMenu();
+void mainMenu(int* gameOver);

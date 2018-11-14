@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void mainMenu(){
+void mainMenu(int* gameOver){
 
   SDL_Surface *playCase = NULL, *ruleCase = NULL, *quitCase = NULL, *screenMenu, *menuChar;
   SDL_Surface *quitButton = NULL, *playButton = NULL, *goalButton = NULL;
@@ -16,26 +16,26 @@ void mainMenu(){
   screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
   SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
 
-  playCasePos.x = 200;
-  playCasePos.y = 100;
+  playCasePos.x = 600;
+  playCasePos.y = 200;
 
-  ruleCasePos.x = 200;
-  ruleCasePos.y = 200;
+  ruleCasePos.x = 600;
+  ruleCasePos.y = 400;
 
-  quitCasePos.x = 200;
-  quitCasePos.y = 300;
+  quitCasePos.x = 600;
+  quitCasePos.y = 600;
 
   positionChar.x = 0;
   positionChar.y = 0;
 
-  quitButtonPos.x = 200;
-  quitButtonPos.y = 300;
+  quitButtonPos.x = 600;
+  quitButtonPos.y = 600;
 
-  playButtonPos.x = 200;
-  playButtonPos.y = 100;
+  playButtonPos.x = 600;
+  playButtonPos.y = 200;
 
-  goalButtonPos.x = 200;
-  goalButtonPos.y = 200;
+  goalButtonPos.x = 600;
+  goalButtonPos.y = 400;
 
   playCase = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 50, 32, 0, 0 ,0 ,0);
   SDL_FillRect(playCase, NULL, SDL_MapRGB(screenMenu->format, 160, 220, 40));
@@ -65,19 +65,19 @@ void mainMenu(){
   }
 
   for (i = playCasePos.x - 33; i <= playCasePos.x + 200; i++){
-    for (j = playCasePos.y; j <= playCasePos.y + 50; j++){
+    for (j = playCasePos.y - 36; j <= playCasePos.y + 50; j++){
        tabCollide[i][j] = 2;					// il y a une collision
     }
   }
 
   for (i = ruleCasePos.x - 33; i <= ruleCasePos.x + 200; i++){
-    for (j = ruleCasePos.y; j <= ruleCasePos.y + 50; j++){
+    for (j = ruleCasePos.y - 36; j <= ruleCasePos.y + 50; j++){
        tabCollide[i][j] = 2;					// il y a une collision
     }
   }
 
   for (i = quitCasePos.x - 33; i <= quitCasePos.x + 200; i++){
-    for (j = quitCasePos.y; j <= quitCasePos.y + 50; j++){
+    for (j = quitCasePos.y - 36; j <= quitCasePos.y + 50; j++){
        tabCollide[i][j] = 2;					// il y a une collision
     }
   }
@@ -126,9 +126,16 @@ void mainMenu(){
            speed = 1;
            if ((event.button.x - positionChar.x) < 0){
              speed = 1;
+             orientation = 2;
            }
            if ((event.button.x - positionChar.x) > 0){
              speed = -1;
+             orientation = 0;
+           }
+           if (movement < 2){
+             movement += 1;
+           }else{
+             movement = 0;
            }
            positionChar.y += speed;
          }
@@ -172,33 +179,41 @@ void mainMenu(){
            speed = 1;
            if ((event.button.y - positionChar.y) < 0){
              speed = -1;
+             orientation = 3;
            }
            if ((event.button.y - positionChar.y) > 0){
              speed = 1;
+             orientation = 1;
+           }
+           if (movement < 2){
+             movement += 1;
+           }else{
+             movement = 0;
            }
            positionChar.x += speed;
          }
        }
        authorizedY = 1;
-       if (event.button.x > playCasePos.x - 33 && event.button.x < playCasePos.x + 200 &&
-           event.button.y > playCasePos.y - 1 && event.button.y < playCasePos.y + 50){
+       if (event.button.x > playCasePos.x && event.button.x < playCasePos.x + 200 &&
+           event.button.y > playCasePos.y && event.button.y < playCasePos.y + 50){
          if (positionChar.x >= playCasePos.x - 34 && positionChar.x <= playCasePos.x + 201 &&
            positionChar.y >= playCasePos.y - 1 && positionChar.y <= playCasePos.y + 51){
              endMenu = 0;
              }
          }
 
-      if (event.button.x > ruleCasePos.x - 33 && event.button.x < ruleCasePos.x + 200 &&
-          event.button.y > ruleCasePos.y - 1 && event.button.y < ruleCasePos.y + 50){
+      if (event.button.x > ruleCasePos.x && event.button.x < ruleCasePos.x + 200 &&
+          event.button.y > ruleCasePos.y && event.button.y < ruleCasePos.y + 50){
         if (positionChar.x >= ruleCasePos.x - 34 && positionChar.x <= ruleCasePos.x + 201 &&
           positionChar.y >= ruleCasePos.y - 1 && positionChar.y <= ruleCasePos.y + 51){
             endMenu = 0;
         }
       }
-      if (event.button.x > quitCasePos.x - 33 && event.button.x < quitCasePos.x + 200 &&
-          event.button.y > quitCasePos.y - 1 && event.button.y < quitCasePos.y + 50){
+      if (event.button.x > quitCasePos.x && event.button.x < quitCasePos.x + 200 &&
+          event.button.y > quitCasePos.y && event.button.y < quitCasePos.y + 50){
         if (positionChar.x >= quitCasePos.x - 34 && positionChar.x <= quitCasePos.x + 201 &&
           positionChar.y >= quitCasePos.y - 1 && positionChar.y <= quitCasePos.y + 51){
+            *gameOver = 1;
             endMenu = 0;
         }
      }
@@ -218,16 +233,16 @@ void mainMenu(){
     SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
 
   }
-
+  SDL_FreeSurface(menuChar);
   SDL_FreeSurface(playCase);
   SDL_FreeSurface(ruleCase);
   SDL_FreeSurface(quitCase);
   SDL_FreeSurface(quitButton);
   SDL_FreeSurface(playButton);
   SDL_FreeSurface(goalButton);
-
-  for(int j = 0 ; j < SCREEN_HEIGHT ; j++){
+  for(int j = 0 ; j < SCREEN_WIDTH ; j++){
      free(tabCollide[j]);
   }
   free(tabCollide);
+  SDL_FreeSurface(screenMenu);
 }

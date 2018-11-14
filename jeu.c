@@ -35,7 +35,7 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    mainMenu();
+    mainMenu(&gameOver);
 
     if(!tileset){
 	printf("Error : tileset didn't load\n");
@@ -256,6 +256,8 @@ int main(int argc,char** argv){
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
+      SDL_FreeSurface(stamina);
+      SDL_FreeSurface(lifePoint);
 
     }
 
@@ -272,8 +274,6 @@ int main(int argc,char** argv){
     free(map_boolean);
 
     SDL_FreeSurface(tileset);
-    SDL_FreeSurface(stamina);
-    SDL_FreeSurface(lifePoint);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);
     SDL_Quit();
