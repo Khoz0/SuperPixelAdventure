@@ -4,22 +4,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-// haueur et largeur des tiles
+// height and width of the tiles
 #define WIDTH_TILE 32
 #define HEIGHT_TILE 32 
 
-// dimensions totale du monde en tiles
+// total sizes of the map (in blocs)
 #define MAP_BLOCKS_WIDTH 135
 #define MAP_BLOCKS_HEIGHT 84
 
-// dimensions de la fenêtre SDL
+// sizes of the screen (in pixels)
 #define SCREEN_WIDTH 1440
 #define SCREEN_HEIGHT 896
 
-// dimensions totale du monde en pixels
+// total sizes of the map (in pixels)
 #define MAP_PIXELS_X MAP_BLOCKS_WIDTH*WIDTH_TILE
 #define MAP_PIXELS_Y MAP_BLOCKS_HEIGHT*HEIGHT_TILE
 
-// bordures de la fenêtre qui bloquent le pesonnage
+// sizes of the character (in pixels)
 #define CHAR_WIDTH 33
 #define CHAR_HEIGHT 36
