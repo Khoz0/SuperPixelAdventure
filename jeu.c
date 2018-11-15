@@ -5,7 +5,7 @@
 
 int main(int argc,char** argv){
 
-    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL, *waterfall = NULL;
+    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL;
     SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallPos, waterfallAnim, waterfallNeg;
 
     int gameOver = 0, cpt = 0, animation = 0;
@@ -35,7 +35,7 @@ int main(int argc,char** argv){
     lifePointPos.x = 10;
     lifePointPos.y = 20;
 
-    waterfallPos.x = -400;
+    waterfallPos.x = -408;
     waterfallPos.y = -640;
 
     SDL_EnableKeyRepeat(10, 10);
@@ -88,7 +88,7 @@ int main(int argc,char** argv){
     				             dir = 0;
     			         }
     			         if (sprint == 2 && staminaLength > 1){
-    				             staminaLength -= (2 * sprint);
+    				             staminaLength -= (1 * sprint);
     			         }else if (staminaLength <= 2){
     				             sprint = 1;
     			         }
@@ -123,7 +123,7 @@ int main(int argc,char** argv){
 				             dir = 0;
 			         }
 			         if (sprint == 2 && staminaLength > 1){
-				             staminaLength -= (2 * sprint);
+				             staminaLength -= (1 * sprint);
 			         }else if (staminaLength <= 2){
 				             sprint = 1;
 			         }
@@ -160,7 +160,7 @@ int main(int argc,char** argv){
 				             dir = 0;
 			         }
 			         if (sprint == 2 && staminaLength > 1){
-				             staminaLength -= (2 * sprint);
+				             staminaLength -= (1 * sprint);
 			         }else if (staminaLength <= 2){
 				             sprint = 1;
 			         }
@@ -195,7 +195,7 @@ int main(int argc,char** argv){
 				             dir = 0;
 			         }
 			         if (sprint == 2 && staminaLength > 1){
-				             staminaLength -= (2 * sprint);
+				             staminaLength -= (1 * sprint);
 			         }else if (staminaLength <= 2){
 				             sprint = 1;
 			         }
@@ -275,10 +275,10 @@ int main(int argc,char** argv){
 
       cpt += 1;
 
-      if (cpt % 47 == 0){
+      if (cpt % 37 == 0){
         animation = 0;
       }
-      if (cpt % 43 == 0){
+      if (cpt % 33 == 0){
         animation = 1;
       }
 
