@@ -14,7 +14,7 @@ int main(int argc,char** argv){
 
     SDL_Surface *screen, *tileset;
     SDL_Event event;
-    
+
     SDL_Init(SDL_INIT_VIDEO);
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
@@ -35,200 +35,200 @@ int main(int argc,char** argv){
     lifePointPos.y = 20;
 
     SDL_EnableKeyRepeat(10, 10);
-    
+
     //mainMenu(&gameOver);
 
     if(!tileset){
       printf("Error : tileset didn't load\n");
       return 0;
     }
-    
+
     for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
             printf("%d", map_boolean[j][i]);
         }
         printf("\n");
     }
-    
+
     xscroll = MAP_PIXELS_X/4;
     yscroll = MAP_PIXELS_Y/4;
 
     while (!gameOver){
-        
+
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
-      
+
       SDL_PollEvent(&event);
       switch(event.type){
-          case SDL_KEYDOWN:
-              switch(event.key.keysym.sym){
-		    case SDLK_LSHIFT:
-			sprint = 2;
-		    break;
-		    case SDLK_z:
-			width = 0;
-			if (yscroll > 0){
-			    if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar+30)/32]==0) && (map_boolean[xchar/32+1][(ychar+30)/32]==0)) { 
- 			      positionChar.y -= 4 * sprint;
- 			      if (dir < 20){
-				dir += (1 * sprint);
- 			      }else{
-				dir = 0;
- 			      }
-			    }else if((map_boolean[xchar/32][(ychar+30)/32]==0) && (map_boolean[xchar/32+1][(ychar+30)/32]==0)){
-			      yscroll -= 8 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
-			      if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			      }else if (staminaLength <= 2){
-				sprint = 1;
-			      }
-			    }
-			}else if((map_boolean[xchar/32][(ychar+30)/32]==0) && (map_boolean[xchar/32+1][(ychar+30)/32]==0)){
-			    positionChar.y -= 4 * sprint;
-			    if (dir < 20){
-			      dir += (1 * sprint);
+      case SDL_KEYDOWN:
+      switch(event.key.keysym.sym){
+		  case SDLK_LSHIFT:
+			   sprint = 2;
+		  break;
+		  case SDLK_z:
+			    width = 0;
+			    if (yscroll > 0){
+			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)) {
+ 			             positionChar.y -= 4 * sprint;
+ 			             if (dir < 20){
+				                 dir += (1 * sprint);
+         		       }else{
+				                 dir = 0;
+ 			             }
+    			     }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
+    			         yscroll -= 8 * sprint;
+    			         if (dir < 20){
+    				             dir += (1 * sprint);
+    			         }else{
+    				             dir = 0;
+    			         }
+    			         if (sprint == 2 && staminaLength > 1){
+    				             staminaLength -= (2 * sprint);
+    			         }else if (staminaLength <= 2){
+    				             sprint = 1;
+    			         }
+			         }
+			    }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
+			        positionChar.y -= 4 * sprint;
+			        if (dir < 20){
+			             dir += (1 * sprint);
+			        }else{
+			             dir = 0;
+			        }
 			    }else{
-			      dir = 0;
+			        positionChar.y -= 0;
 			    }
-			}else{
-			  positionChar.y -= 0;
-			}
-		    break;
-		    case SDLK_s:
+		      break;
+		  case SDLK_s:
 			width = 2;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if((positionChar.y < 448) && (map_boolean[xchar/32][ychar/32+2]==0) && (map_boolean[xchar/32+1][ychar/32+2]==0)) {
-			      positionChar.y += 4 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
+			         positionChar.y += 4 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
 			    }else if ((map_boolean[xchar/32][ychar/32+2]==0) && (map_boolean[xchar/32+1][ychar/32+2]==0)){
-			      yscroll += 8 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
-			      if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			      }else if (staminaLength <= 2){
-				sprint = 1;
-			      }
+			         yscroll += 8 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
+			         if (sprint == 2 && staminaLength > 1){
+				             staminaLength -= (2 * sprint);
+			         }else if (staminaLength <= 2){
+				             sprint = 1;
+			         }
 			    }
 			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT) && (map_boolean[xchar/32][(ychar+4)/32+1]==0)){
 			    if(map_boolean[xchar/32+1][(ychar+4)/32+1]==0){
-			      positionChar.y += 4 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
+			         positionChar.y += 4 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
 			    }
 			}else{
-			  positionChar.y += 0;
+			    positionChar.y += 0;
 			}
-		    break;
-		    case SDLK_d:
-			width = 1;
-			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
-			    if((positionChar.x < 720) && (map_boolean[xchar/32+1][ychar/32]==0) && (map_boolean[xchar/32+1][ychar/32+1]==0)) {
-			      positionChar.x += 4 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
-			    }else if ((map_boolean[xchar/32+1][ychar/32]==0) && (map_boolean[xchar/32+1][ychar/32+1]==0)){
-			      xscroll += 8 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
-			      if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			      }else if (staminaLength <= 2){
-				sprint = 1;
-			      }
-			    }
-			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH) && (map_boolean[(xchar+3)/32+1][ychar/32]==0)){
-			    positionChar.x += 4 * sprint;
-			    if (dir < 20){
-			      dir += (1 * sprint);
-			    }else{
-			      dir = 0;
-			    }
-			}else{
-			  positionChar.x += 0;
-			}
-		    break;
-		    case SDLK_q:
-			width = 3;
-			if (xscroll > 0){
-			    if((positionChar.x > 720) && (map_boolean[xchar/32][ychar/32]==0) && (map_boolean[xchar/32][ychar/32+1]==0)) {
-			      positionChar.x -= 4 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
-			    }else if ((map_boolean[xchar/32][ychar/32]==0) && (map_boolean[xchar/32][ychar/32+1]==0)){
-			      xscroll -= 8 * sprint;
-			      if (dir < 20){
-				dir += (1 * sprint);
-			      }else{
-				dir = 0;
-			      }
-			      if (sprint == 2 && staminaLength > 1){
-				staminaLength -= (2 * sprint);
-			      }else if (staminaLength <= 2){
-				sprint = 1;
-			      }
-			    }
-			}else if (map_boolean[xchar/32][ychar/32]==0){
-			    positionChar.x -= 4 * sprint;
-			    if (dir < 20){
-			      dir += (1 * sprint);
-			    }else{
-			      dir = 0;
-			    }
-			}else{
-			    positionChar.x -= 0;
-			}
-		    break;
-		    case SDLK_ESCAPE:
-			gameOver = 1;
-		    break;
-	      }
-          break;
-
-	  case SDL_KEYUP:
-	      switch(event.key.keysym.sym){
-		  case SDLK_LSHIFT:
-		    sprint = 1;
-		  break;
-		  case SDLK_z:
-			dir = 8;
-		  break;
-		  case SDLK_s:
-			dir = 8;
 		  break;
 		  case SDLK_d:
-			dir = 8;
+			width = 1;
+			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
+			    if((positionChar.x < 720) && (map_boolean[(xchar+20)/32+1][ychar/32]==0) && (map_boolean[(xchar+20)/32+1][ychar/32+1]==0)) {
+			         positionChar.x += 4 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
+			    }else if ((map_boolean[(xchar+20)/32+1][ychar/32]==0) && (map_boolean[(xchar+20)/32+1][ychar/32+1]==0)){
+			         xscroll += 8 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
+			         if (sprint == 2 && staminaLength > 1){
+				             staminaLength -= (2 * sprint);
+			         }else if (staminaLength <= 2){
+				             sprint = 1;
+			         }
+			    }
+			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH) && (map_boolean[((xchar+20)+3)/32+1][ychar/32]==0)){
+			    positionChar.x += 4 * sprint;
+			    if (dir < 20){
+			         dir += (1 * sprint);
+			    }else{
+			         dir = 0;
+			    }
+			}else{
+			     positionChar.x += 0;
+			}
 		  break;
 		  case SDLK_q:
-			dir = 8;
+			width = 3;
+			if (xscroll > 0){
+			    if((positionChar.x > 720) && (map_boolean[(xchar-5)/32][ychar/32]==0) && (map_boolean[(xchar-5)/32][ychar/32+1]==0)) {
+			         positionChar.x -= 4 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
+			    }else if ((map_boolean[(xchar-5)/32][ychar/32]==0) && (map_boolean[(xchar-5)/32][ychar/32+1]==0)){
+			         xscroll -= 8 * sprint;
+			         if (dir < 20){
+				             dir += (1 * sprint);
+			         }else{
+				             dir = 0;
+			         }
+			         if (sprint == 2 && staminaLength > 1){
+				             staminaLength -= (2 * sprint);
+			         }else if (staminaLength <= 2){
+				             sprint = 1;
+			         }
+			    }
+			}else if (map_boolean[(xchar-5)/32][ychar/32]==0){
+			    positionChar.x -= 4 * sprint;
+			    if (dir < 20){
+			         dir += (1 * sprint);
+			    }else{
+			         dir = 0;
+			    }
+			}else{
+			     positionChar.x -= 0;
+			}
 		  break;
-	      }
+		  case SDLK_ESCAPE:
+			gameOver = 1;
+		  break;
+	    }
+      break;
+
+	    case SDL_KEYUP:
+	      switch(event.key.keysym.sym){
+		  case SDLK_LSHIFT:
+		      sprint = 1;
+		      break;
+		  case SDLK_z:
+			     dir = 8;
+		       break;
+		  case SDLK_s:
+			     dir = 8;
+		       break;
+		  case SDLK_d:
+			     dir = 8;
+		       break;
+		  case SDLK_q:
+			     dir = 8;
+		       break;
+	  }
 	  break;
-      }
+    }
 
       if (staminaLength > -2 && staminaLength <= 194 && sprint == 1){
         staminaLength += (2 * sprint);
