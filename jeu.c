@@ -5,10 +5,10 @@
 
 int main(int argc,char** argv){
 
-    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL;
-    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ;
+    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *wizardWPNJ = NULL, *waterfall = NULL;
+    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallPos, waterfallAnim, waterfallNeg;
 
-    int gameOver = 0;
+    int gameOver = 0, cpt = 0, animation = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     int xchar, ychar, xscroll, yscroll;
 
@@ -27,12 +27,16 @@ int main(int argc,char** argv){
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     tileset = SDL_LoadBMP("./pictures/tileset_background.bmp");
+    waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
 
     staminaPos.x = 10;
     staminaPos.y = 45;
 
     lifePointPos.x = 10;
     lifePointPos.y = 20;
+
+    waterfallPos.x = -400;
+    waterfallPos.y = -640;
 
     SDL_EnableKeyRepeat(10, 10);
 
@@ -77,6 +81,7 @@ int main(int argc,char** argv){
  			             }
     			     }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
     			         yscroll -= 8 * sprint;
+                   waterfallPos.y += 8 * sprint;
     			         if (dir < 20){
     				             dir += (1 * sprint);
     			         }else{
@@ -111,6 +116,7 @@ int main(int argc,char** argv){
 			         }
 			    }else if ((map_boolean[xchar/32][ychar/32+2]==0) && (map_boolean[xchar/32+1][ychar/32+2]==0)){
 			         yscroll += 8 * sprint;
+               waterfallPos.y -= 8 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
 			         }else{
@@ -147,6 +153,7 @@ int main(int argc,char** argv){
 			         }
 			    }else if ((map_boolean[(xchar+20)/32+1][ychar/32]==0) && (map_boolean[(xchar+20)/32+1][ychar/32+1]==0)){
 			         xscroll += 8 * sprint;
+               waterfallPos.x -= 8 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
 			         }else{
@@ -181,6 +188,7 @@ int main(int argc,char** argv){
 			         }
 			    }else if ((map_boolean[(xchar-5)/32][ychar/32]==0) && (map_boolean[(xchar-5)/32][ychar/32+1]==0)){
 			         xscroll -= 8 * sprint;
+               waterfallPos.x += 8 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
 			         }else{
@@ -245,6 +253,11 @@ int main(int argc,char** argv){
       mainCharGo.h = CHAR_HEIGHT;
       mainCharGo.w = 30;
 
+      waterfallAnim.x = 32 * animation;
+      waterfallAnim.y = 0;
+      waterfallAnim.h = 192;
+      waterfallAnim.w = 64;
+
       SDL_Rect Rect_dest;
       SDL_Rect Rect_source;
       Rect_source.w = WIDTH_TILE;
@@ -260,8 +273,21 @@ int main(int argc,char** argv){
         }
       }
 
+      cpt += 1;
+
+      if (cpt % 47 == 0){
+        animation = 0;
+      }
+      if (cpt % 43 == 0){
+        animation = 1;
+      }
+
+      waterfallNeg.x = waterfallPos.x;
+      waterfallNeg.y = waterfallPos.y;
+
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
+      SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
@@ -283,6 +309,7 @@ int main(int argc,char** argv){
     free(map_boolean);
 
     // SDL memory restitution
+    SDL_FreeSurface(waterfall);
     SDL_FreeSurface(tileset);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);
