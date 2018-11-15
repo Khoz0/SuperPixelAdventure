@@ -66,22 +66,16 @@ int main(int argc,char** argv){
 			sprint = 2;
 		    break;
 		    case SDLK_z:
-		      printf("personnage : (%d", xchar/32);
-		      printf(" ; %d)\n", ychar/32);
-		      printf("map_boolean : %d\n", map_boolean[xchar/32][ychar/32]);
-		      printf("map_boolean +1x : %d\n", map_boolean[xchar/32+1][ychar/32]);
-		      printf("positionChar.y : %d\n", positionChar.y);
-		      printf("yscroll : %d\n", yscroll);
 			width = 0;
 			if (yscroll > 0){
-			    if((positionChar.y > 448) && (map_boolean[xchar/32][ychar/32]==0) && (map_boolean[xchar/32+1][ychar/32]==0)) {
+			    if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar+30)/32]==0) && (map_boolean[xchar/32+1][(ychar+30)/32]==0)) { 
  			      positionChar.y -= 4 * sprint;
  			      if (dir < 20){
 				dir += (1 * sprint);
  			      }else{
 				dir = 0;
  			      }
-			    }else if(map_boolean[xchar/32][ychar/32]==0 && (map_boolean[xchar/32+1][ychar/32]==0)){
+			    }else if((map_boolean[xchar/32][(ychar+30)/32]==0) && (map_boolean[xchar/32+1][(ychar+30)/32]==0)){
 			      yscroll -= 8 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
@@ -94,7 +88,7 @@ int main(int argc,char** argv){
 				sprint = 1;
 			      }
 			    }
-			}else if(map_boolean[xchar/32][ychar/32]==0 && (map_boolean[xchar/32+1][ychar/32]==0)){
+			}else if((map_boolean[xchar/32][(ychar+30)/32]==0) && (map_boolean[xchar/32+1][(ychar+30)/32]==0)){
 			    positionChar.y -= 4 * sprint;
 			    if (dir < 20){
 			      dir += (1 * sprint);
@@ -106,24 +100,16 @@ int main(int argc,char** argv){
 			}
 		    break;
 		    case SDLK_s:
-		      printf("personnage : (%d", xchar/32);
-		      printf(" ; %d)\n", ychar/32);
-		      printf("map_boolean : %d\n", map_boolean[xchar/32][(ychar+4)/32]);
-		      printf("map_boolean +1y : %d\n", map_boolean[xchar/32][(ychar+4)/32+1]);
-		      printf("map_boolean +1x : %d\n", map_boolean[(xchar+1)/32+1][(ychar+4)/32]);
-		      printf("positionChar.x : %d\n", positionChar.x);
-		      printf("SINON SI yscroll : %d < %d\n", yscroll, MAP_PIXELS_Y);
-		      printf("positionChar.y : %d < %d\n\n", positionChar.y, SCREEN_HEIGHT); 
 			width = 2;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
-			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+4)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+4)/32]==0)) {
+			    if((positionChar.y < 448) && (map_boolean[xchar/32][ychar/32+2]==0) && (map_boolean[xchar/32+1][ychar/32+2]==0)) {
 			      positionChar.y += 4 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
 			      }else{
 				dir = 0;
 			      }
-			    }else if ((map_boolean[xchar/32][(ychar+4)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+4)/32]==0)){
+			    }else if ((map_boolean[xchar/32][ychar/32+2]==0) && (map_boolean[xchar/32+1][ychar/32+2]==0)){
 			      yscroll += 8 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
@@ -150,22 +136,16 @@ int main(int argc,char** argv){
 			}
 		    break;
 		    case SDLK_d:
-		        //printf("personnage : (%d", xchar/32);
-		        //printf(" ; %d)\n", ychar/32);
-		        printf("xscroll : %d < %d\n", xscroll, MAP_PIXELS_X - SCREEN_WIDTH);
-			printf("positionChar.x %d < 720\n", positionChar.x); 
-		        printf("map_boolean x+1 : %d\n", map_boolean[(xchar+3)/32+1][(ychar+4)/32+1]);
 			width = 1;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
-			    printf("IF\n\n");
-			    if((positionChar.x < 720) && (map_boolean[(xchar+3)/32+1][ychar/32]==0)) {
+			    if((positionChar.x < 720) && (map_boolean[xchar/32+1][ychar/32]==0) && (map_boolean[xchar/32+1][ychar/32+1]==0)) {
 			      positionChar.x += 4 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
 			      }else{
 				dir = 0;
 			      }
-			    }else if (map_boolean[(xchar+3)/32+1][(ychar+4)/32+1]==0){
+			    }else if ((map_boolean[xchar/32+1][ychar/32]==0) && (map_boolean[xchar/32+1][ychar/32+1]==0)){
 			      xscroll += 8 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
@@ -179,7 +159,6 @@ int main(int argc,char** argv){
 			      }
 			    }
 			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH) && (map_boolean[(xchar+3)/32+1][ychar/32]==0)){
-			    printf("ELSE IF\n\n");
 			    positionChar.x += 4 * sprint;
 			    if (dir < 20){
 			      dir += (1 * sprint);
@@ -187,26 +166,20 @@ int main(int argc,char** argv){
 			      dir = 0;
 			    }
 			}else{
-			  printf("ELSE\n\n");
 			  positionChar.x += 0;
 			}
 		    break;
 		    case SDLK_q:
-		      printf("personnage : (%d", xchar/32);
-		      printf(" ; %d)\n", ychar/32);
-		      printf("map_boolean : %d\n", map_boolean[xchar/32][ychar/32]);
-		      printf("positionChar.x : %d\n", positionChar.x);
-		      printf("xscroll : %d\n", xscroll);
 			width = 3;
 			if (xscroll > 0){
-			    if(positionChar.x > 720 && (map_boolean[xchar/32][ychar/32]==0)) {
+			    if((positionChar.x > 720) && (map_boolean[xchar/32][ychar/32]==0) && (map_boolean[xchar/32][ychar/32+1]==0)) {
 			      positionChar.x -= 4 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
 			      }else{
 				dir = 0;
 			      }
-			    }else if (map_boolean[(xchar+3)/32+1][(ychar+4)/32-1]==0){
+			    }else if ((map_boolean[xchar/32][ychar/32]==0) && (map_boolean[xchar/32][ychar/32+1]==0)){
 			      xscroll -= 8 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
