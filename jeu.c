@@ -21,8 +21,8 @@ int main(int argc,char** argv){
     Uint16** map_builder = mapBuilder();
     Uint16** map_boolean = mapBoolean(map_builder);
 
-    positionChar.x = SCREEN_WIDTH/2;
-    positionChar.y = SCREEN_HEIGHT/2;
+    positionChar.y = SCREEN_HEIGHT/1.4;
+    positionChar.x = SCREEN_WIDTH/1.1;
 
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
@@ -54,10 +54,15 @@ int main(int argc,char** argv){
         printf("\n");
     }
 
-    xscroll = MAP_PIXELS_X/4;
-    yscroll = MAP_PIXELS_Y/4;
+    //xscroll = MAP_PIXELS_X/4;
+    //yscroll = MAP_PIXELS_Y/4;
+    xscroll = MAP_PIXELS_X - SCREEN_WIDTH;
+    yscroll = MAP_PIXELS_Y - SCREEN_HEIGHT;
 
     while (!gameOver){
+
+      printf("(%d", positionChar.x);
+      printf(";%d)\n", positionChar.y);
 
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
