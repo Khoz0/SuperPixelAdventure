@@ -61,9 +61,6 @@ int main(int argc,char** argv){
 
     while (!gameOver){
 
-      printf("(%d", positionChar.x);
-      printf(";%d)\n", positionChar.y);
-
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
 
@@ -74,6 +71,16 @@ int main(int argc,char** argv){
 		  case SDLK_LSHIFT:
 			   sprint = 2;
 		  break;
+
+      case SDLK_e:
+          printf("%d\n",map_boolean[xchar/32][ychar/32-1]);
+          if(map_boolean[xchar/32][ychar/32-1]==3){
+            printf("ACTION : PRESS E SUR LE PANNEAU\n");
+          }else{
+            printf("PAS D'ACTION\n");
+          }
+          break;
+
 		  case SDLK_z:
 			    width = 0;
 			    if (yscroll > 0){

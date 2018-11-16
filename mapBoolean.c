@@ -9,20 +9,20 @@ This funtion fill a table with boolean values
 Uint16** mapBoolean(Uint16** map_builder){
 
     int tmp, i, j;
-    
+
     // memory allocation
     Uint16 **map_boolean = malloc(MAP_BLOCKS_WIDTH*sizeof(Uint16*));
     for(j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
       map_boolean[j] = malloc(MAP_BLOCKS_HEIGHT*sizeof(Uint16));
     }
-    
+
     // full 0 by default
     for(i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
         for(j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
             map_boolean[j][i] = 0;
         }
     }
-    
+
     // only define full blocs
     for(i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
       for(j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
@@ -209,7 +209,7 @@ Uint16** mapBoolean(Uint16** map_builder){
 			map_boolean[j][i] = 1;
 			break;
 		      case 76:
-			map_boolean[j][i] = 1;
+			map_boolean[j][i] = 3;
 			break;
 		      case 77:
 			map_boolean[j][i] = 1;
@@ -219,7 +219,7 @@ Uint16** mapBoolean(Uint16** map_builder){
 		    }
 	    }
     }
-    
+
     return map_boolean;
-    
+
 }
