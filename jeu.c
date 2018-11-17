@@ -16,6 +16,7 @@ int main(int argc,char** argv){
     SDL_Event event;
 
     SDL_Init(SDL_INIT_VIDEO);
+
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
     Uint16** map_builder = mapBuilder();
@@ -74,7 +75,7 @@ int main(int argc,char** argv){
 
       case SDLK_e:
           printf("%d\n",map_boolean[xchar/32][ychar/32-1]);
-          if(map_boolean[xchar/32][ychar/32-1]==3){
+          if(map_boolean[xchar/32][(ychar-2)/32]==3){
             printf("ACTION : PRESS E SUR LE PANNEAU\n");
           }else{
             printf("PAS D'ACTION\n");
