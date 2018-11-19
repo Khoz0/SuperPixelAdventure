@@ -12,7 +12,7 @@ int main(int argc,char** argv){
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     int xchar, ychar, xscroll, yscroll;
 
-    SDL_Surface *screen, *tileset;
+    SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
     SDL_Event event;
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -27,7 +27,9 @@ int main(int argc,char** argv){
 
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
-    tileset = SDL_LoadBMP("./pictures/tileset_background.bmp");
+    tileset1 = SDL_LoadBMP("./pictures/tileset1.bmp");
+    tileset2 = SDL_LoadBMP("./pictures/tileset2.bmp");
+    tileset3 = SDL_LoadBMP("./pictures/tileset3.bmp");
     waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
 
     staminaPos.x = 10;
@@ -43,7 +45,7 @@ int main(int argc,char** argv){
 
     //mainMenu(&gameOver);
 
-    if(!tileset){
+    if(!tileset1 || !tileset2 || !tileset3){
       printf("Error : tileset didn't load\n");
       return 0;
     }
@@ -276,13 +278,28 @@ int main(int argc,char** argv){
       Rect_source.w = WIDTH_TILE;
       Rect_source.h = HEIGHT_TILE;
 
+      
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-          Rect_dest.x = i*WIDTH_TILE - xscroll;
-          Rect_dest.y = j*HEIGHT_TILE - yscroll;
-          Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-          Rect_source.y = 0;
-          SDL_BlitSurface(tileset,&Rect_source,screen,&Rect_dest);
+	  if(map_builder[i][j]<171){
+	    Rect_dest.x = i*WIDTH_TILE - xscroll;
+	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
+	    Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
+	    Rect_source.y = 0;
+	    SDL_BlitSurface(tileset1,&Rect_source,screen,&Rect_dest);
+	  }else if((map_builder[i][j]<341) && (map_builder[i][j]>170)){
+	    Rect_dest.x = i*WIDTH_TILE - xscroll;
+	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
+	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
+	    Rect_source.y = 0;
+	    SDL_BlitSurface(tileset2,&Rect_source,screen,&Rect_dest);
+	  }else{
+	    Rect_dest.x = i*WIDTH_TILE - xscroll;
+	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
+	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
+	    Rect_source.y = 0;
+	    SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
+	  }
         }
       }
 
@@ -323,7 +340,9 @@ int main(int argc,char** argv){
 
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
-    SDL_FreeSurface(tileset);
+    SDL_FreeSurface(tileset1);
+    SDL_FreeSurface(tileset2);
+    SDL_FreeSurface(tileset3);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);
     SDL_Quit();
