@@ -20,7 +20,11 @@ Uint16** mapBoolean(Uint16** map_builder){
     // only define full blocs
     for(i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
       for(j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
-        map_boolean[j][i] = isFull(map_builder[j][i]);
+        if(map_builder[j][i] == 77){
+          map_boolean[j][i] = 2;
+        }else{
+          map_boolean[j][i] = isFull(map_builder[j][i]);
+        }
       }
     }
     
