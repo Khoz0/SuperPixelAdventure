@@ -41,8 +41,8 @@ int main(int argc,char** argv){
     lifePointPos.x = 10;
     lifePointPos.y = 20;
 
-    waterfallPos.x = -408;
-    waterfallPos.y = -640;
+    waterfallPos.x = 2208;
+    waterfallPos.y = -1728;
 
     SDL_EnableKeyRepeat(10, 10);
 
