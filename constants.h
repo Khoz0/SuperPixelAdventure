@@ -7,7 +7,7 @@
 
 // height and width of the tiles
 #define WIDTH_TILE 32
-#define HEIGHT_TILE 32 
+#define HEIGHT_TILE 32
 
 // total sizes of the map (in blocs)
 #define MAP_BLOCKS_WIDTH 135
@@ -24,3 +24,7 @@
 // sizes of the character (in pixels)
 #define CHAR_WIDTH 33
 #define CHAR_HEIGHT 36
+
+// number of the level
+#define MAP_WATER 1
+#define MAP_NOT_WATER 2

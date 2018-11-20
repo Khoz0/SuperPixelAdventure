@@ -20,7 +20,7 @@ int main(int argc,char** argv){
 
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
-    Uint16** map_builder = mapBuilder();
+    Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
     positionChar.y = SCREEN_HEIGHT/1.4;
@@ -75,10 +75,10 @@ int main(int argc,char** argv){
     posTexte.x = 500;
     posTexte.y = 500;
 
-    
-    
+
+
     while (!gameOver){
-      
+
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
 
@@ -91,17 +91,24 @@ int main(int argc,char** argv){
 		  break;
 
       case SDLK_e:
-          if(map_boolean[xchar/32][(ychar-5)/32]==2){
-	    if(ttf_bool == 0){
-	      printf("ACTION : PRESS E SUR LE PANNEAU\n");
-	      ttf_bool = 1;
-	      texte = TTF_RenderText_Solid(police, "*lecture du panneau* Bienvenue à Joliland!", couleurNoire);
-	    }
-	  }else{
-            printf("PAS D'ACTION\n");
+        if(map_boolean[xchar/32][(ychar-5)/32]==2){
+	        if(ttf_bool == 0){
+	          printf("ACTION : LECTURE PANNEAU\n");
+	          ttf_bool = 1;
+	          texte = TTF_RenderText_Solid(police, "*lecture du panneau* Bienvenue à Joliland!", couleurNoire);
+            map_builder = mapBuilder(MAP_NOT_WATER);
+            map_boolean = mapBoolean(map_builder);
+            for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
+                for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+                    printf("%d", map_boolean[j][i]);
+                }
+                printf("\n");
+            }
           }
-          
-	  break;
+  	    }else{
+          printf("PAS D'ACTION\n");
+        }
+	    break;
 
 		  case SDLK_z:
 			    width = 0;
@@ -183,7 +190,7 @@ int main(int argc,char** argv){
 				dir += (1 * sprint);
 			      }else{
 				dir = 0;
-			      }	    
+			      }
 			    }else{
 			      positionChar.y += 0;
 			    }
@@ -330,25 +337,25 @@ int main(int argc,char** argv){
 
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-	  if(map_builder[i][j]<171){
-	    Rect_dest.x = i*WIDTH_TILE - xscroll;
-	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
-	    Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-	    Rect_source.y = 0;
-	    SDL_BlitSurface(tileset1,&Rect_source,screen,&Rect_dest);
-	  }else if((map_builder[i][j]<341) && (map_builder[i][j]>170)){
-	    Rect_dest.x = i*WIDTH_TILE - xscroll;
-	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
-	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
-	    Rect_source.y = 0;
-	    SDL_BlitSurface(tileset2,&Rect_source,screen,&Rect_dest);
-	  }else{
-	    Rect_dest.x = i*WIDTH_TILE - xscroll;
-	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
-	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
-	    Rect_source.y = 0;
-	    SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
-	  }
+      	  if(map_builder[i][j]<171){
+      	    Rect_dest.x = i*WIDTH_TILE - xscroll;
+      	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
+      	    Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
+      	    Rect_source.y = 0;
+      	    SDL_BlitSurface(tileset1,&Rect_source,screen,&Rect_dest);
+      	  }else if((map_builder[i][j]<341) && (map_builder[i][j]>170)){
+      	    Rect_dest.x = i*WIDTH_TILE - xscroll;
+      	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
+      	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
+      	    Rect_source.y = 0;
+      	    SDL_BlitSurface(tileset2,&Rect_source,screen,&Rect_dest);
+      	  }else{
+      	    Rect_dest.x = i*WIDTH_TILE - xscroll;
+      	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
+      	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
+      	    Rect_source.y = 0;
+      	    SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
+      	  }
         }
       }
 
