@@ -66,7 +66,9 @@ int main(int argc,char** argv){
     yscroll = MAP_PIXELS_Y - SCREEN_HEIGHT;
 
     while (!gameOver){
-
+      
+      printf("%d\n", xchar);
+      
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
 
@@ -90,7 +92,7 @@ int main(int argc,char** argv){
 		  case SDLK_z:
 			    width = 0;
 			    if (yscroll > 0){
-			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)) {
+			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32][(ychar-5)/32]==0)) {
  			             positionChar.y -= 4 * sprint;
  			             if (dir < 20){
 				                 dir += (1 * sprint);
@@ -125,7 +127,7 @@ int main(int argc,char** argv){
 		  case SDLK_s:
 			width = 2;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
-			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32+1]==0)) {
+			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32]==0)) {
 			         positionChar.y += 4 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
@@ -134,7 +136,7 @@ int main(int argc,char** argv){
 			         }
 			    }else if ((map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32+1]==0)){
 			         yscroll += 8 * sprint;
-               waterfallPos.y -= 8 * sprint;
+                                 waterfallPos.y -= 8 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
 			         }else{
@@ -147,16 +149,29 @@ int main(int argc,char** argv){
 			         }
 			    }
 			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT)){
+			  if(xchar/32 < 133){
 			    if((map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32+1]==0)){
-			         positionChar.y += 4 * sprint;
-			         if (dir < 20){
-				             dir += (1 * sprint);
-			         }else{
-				             dir = 0;
-			         }
+			      positionChar.y += 4 * sprint;
+			      if (dir < 20){
+				dir += (1 * sprint);
+			      }else{
+				dir = 0;
+			      }
+			    }else{
+			      positionChar.y += 0;
 			    }
-			}else{
-			    positionChar.y += 0;
+			  }else{
+			    if((map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32][(ychar+10)/32+1]==0)){
+			      positionChar.y += 4 * sprint;
+			      if (dir < 20){
+				dir += (1 * sprint);
+			      }else{
+				dir = 0;
+			      }	    
+			    }else{
+			      positionChar.y += 0;
+			    }
+			  }
 			}
 		  break;
 		  case SDLK_d:
@@ -171,7 +186,7 @@ int main(int argc,char** argv){
 			         }
 			    }else if ((map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)){
 			         xscroll += 8 * sprint;
-               waterfallPos.x -= 8 * sprint;
+                                 waterfallPos.x -= 8 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
 			         }else{
@@ -183,15 +198,28 @@ int main(int argc,char** argv){
 				             sprint = 1;
 			         }
 			    }
-			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH) && (map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)){
-			    positionChar.x += 4 * sprint;
-			    if (dir < 20){
-			         dir += (1 * sprint);
-			    }else{
-			         dir = 0;
+			}else if((xscroll < MAP_PIXELS_X) && (positionChar.x < SCREEN_WIDTH - CHAR_WIDTH)){
+			  if((xchar)/32 < 133){
+			    if((map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)){
+			      positionChar.x += 4 * sprint;
+			      if (dir < 20){
+				dir += (1 * sprint);
+			      }else{
+				dir = 0;
+			      }
 			    }
+			  }else{
+			    if((map_boolean[(xchar+10)/32][ychar/32]==0) && (map_boolean[(xchar+10)/32][ychar/32+1]==0) && (xchar < 4281)){
+			      positionChar.x += 4 * sprint;
+			      if (dir < 20){
+				dir += (1 * sprint);
+			      }else{
+				dir = 0;
+			      }
+			    }
+			  }
 			}else{
-			     positionChar.x += 0;
+			  positionChar.x += 0;
 			}
 		  break;
 		  case SDLK_q:
