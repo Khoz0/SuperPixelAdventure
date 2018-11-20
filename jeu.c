@@ -25,11 +25,14 @@ int main(int argc,char** argv){
     positionChar.y = SCREEN_HEIGHT/1.4;
     positionChar.x = SCREEN_WIDTH/1.1;
 
+    // loading pictures
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
+    // loading the entire tileset cut in 3 separated parts
     tileset1 = SDL_LoadBMP("./pictures/tileset1.bmp");
     tileset2 = SDL_LoadBMP("./pictures/tileset2.bmp");
     tileset3 = SDL_LoadBMP("./pictures/tileset3.bmp");
+
     waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
 
     staminaPos.x = 10;
@@ -278,7 +281,7 @@ int main(int argc,char** argv){
       Rect_source.w = WIDTH_TILE;
       Rect_source.h = HEIGHT_TILE;
 
-      
+
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
 	  if(map_builder[i][j]<171){
