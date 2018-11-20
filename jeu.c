@@ -10,7 +10,7 @@ int main(int argc,char** argv){
 
     int gameOver = 0, cpt = 0, animation = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
-    int xchar, ychar, xscroll, yscroll;
+    int xchar, ychar, xscroll, yscroll, ttf_bool = 0;
 
     SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
     SDL_Event event;
@@ -68,17 +68,16 @@ int main(int argc,char** argv){
 
     // SDL_ttf initialisation
     TTF_Font *police = NULL;
-    police = TTF_OpenFont("Alexandria_Script.ttf", 35);
+    police = TTF_OpenFont("Alexandria_Script.ttf", 75);
     SDL_Color couleurNoire = {0, 0, 0};
     SDL_Surface *texte;
     SDL_Rect posTexte;
     posTexte.x = 500;
     posTexte.y = 500;
+
     
     
     while (!gameOver){
-      
-      texte = TTF_RenderText_Solid(police, "test, 1, 2, 1, 2", couleurNoire);
       
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
@@ -93,8 +92,11 @@ int main(int argc,char** argv){
 
       case SDLK_e:
           if(map_boolean[xchar/32][(ychar-5)/32]==2){
-            printf("ACTION : PRESS E SUR LE PANNEAU\n");
-            texte = TTF_RenderText_Solid(police, "Appui sur le panneau", couleurNoire);
+	    if(ttf_bool == 0){
+	      printf("ACTION : PRESS E SUR LE PANNEAU\n");
+	      ttf_bool = 1;
+	      texte = TTF_RenderText_Solid(police, "*lecture du panneau* Bienvenue à Joliland!", couleurNoire);
+	    }
 	  }else{
             printf("PAS D'ACTION\n");
           }
@@ -103,6 +105,7 @@ int main(int argc,char** argv){
 
 		  case SDLK_z:
 			    width = 0;
+			    ttf_bool = 0;
 			    if (yscroll > 0){
 			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)) {
  			             positionChar.y -= 4 * sprint;
@@ -138,6 +141,7 @@ int main(int argc,char** argv){
 		      break;
 		  case SDLK_s:
 			width = 2;
+			ttf_bool = 0;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32]==0)) {
 			         positionChar.y += 4 * sprint;
@@ -188,6 +192,7 @@ int main(int argc,char** argv){
 		  break;
 		  case SDLK_d:
 			width = 1;
+			ttf_bool = 0;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
 			    if((positionChar.x < 720) && (map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)) {
 			         positionChar.x += 4 * sprint;
@@ -236,6 +241,7 @@ int main(int argc,char** argv){
 		  break;
 		  case SDLK_q:
 			width = 3;
+			ttf_bool = 0;
 			if (xscroll > 0){
 			    if((positionChar.x > 720) && (map_boolean[(xchar-10)/32][ychar/32]==0) && (map_boolean[(xchar-10)/32][ychar/32+1]==0)) {
 			         positionChar.x -= 4 * sprint;
@@ -362,7 +368,7 @@ int main(int argc,char** argv){
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
-      SDL_BlitSurface(texte, NULL, screen, &posTexte);
+      if(ttf_bool == 1) SDL_BlitSurface(texte, NULL, screen, &posTexte);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
       SDL_FreeSurface(stamina);
