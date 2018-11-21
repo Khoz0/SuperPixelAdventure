@@ -29,3 +29,9 @@
 // number of the level
 #define MAP_WATER 1
 #define MAP_NOT_WATER 2
+
+// sizes of pannel
+#define PANNEL_WIDTH 870
+#define PANNEL_HEIGHT 206
+
+#define FPS_CAP 25

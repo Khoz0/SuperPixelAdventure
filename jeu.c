@@ -5,13 +5,14 @@
 
 int main(int argc,char** argv){
 
-    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL;
-    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallPos, waterfallAnim, waterfallNeg, positionChatBox;
+    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL;
+    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallPos, waterfallAnim, waterfallNeg, positionChatBox, positionPannel;
 
     int gameOver = 0, cpt = 0, animation = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
-    int xchar, ychar, xscroll, yscroll, ttf_bool = 0, chatBox_bool = 0;
-
+    int xchar, ychar, xscroll, yscroll, ttf_bool = 0, pannel_bool = 0;
+    int actualTime = 0, lastTimes = 0;
+    
     SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
     SDL_Event event;
 
@@ -23,7 +24,6 @@ int main(int argc,char** argv){
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
     
     // initialisation of SDL_mixer
-    SDL_WM_SetCaption("SDL_Mixer", NULL);
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
       printf("Error SDL_mixer : %s\n", Mix_GetError());
     }
@@ -37,14 +37,19 @@ int main(int argc,char** argv){
     positionChar.y = SCREEN_HEIGHT/1.4;
     positionChar.x = SCREEN_WIDTH/1.1;
     
-    positionChatBox.x = SCREEN_HEIGHT/4;
-    positionChatBox.y = SCREEN_WIDTH/4;
+    positionChatBox.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
+    positionChatBox.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
+    
+    positionPannel.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
+    positionPannel.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
     
     // loading pictures
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
     chatBox = SDL_LoadBMP("./pictures/chatBox.bmp");
+    pannel = SDL_LoadBMP("./pictures/pannel.bmp");
     waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
+    SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
     // loading the entire tileset cut in 3 separated parts
     tileset1 = SDL_LoadBMP("./pictures/tileset1.bmp");
@@ -87,12 +92,22 @@ int main(int argc,char** argv){
     SDL_Color couleurNoire = {0, 0, 0};
     SDL_Surface *texte;
     SDL_Rect posTexte;
-    posTexte.x = 500;
-    posTexte.y = 500;
+    posTexte.x = 470;
+    posTexte.y = 415;
 
 
 
     while (!gameOver){
+        
+        
+      //Compteur d'images par secondes
+      actualTime = SDL_GetTicks();
+      float dt = (actualTime - lastTimes);
+      if(dt < 1000.0 / FPS_CAP){
+        SDL_Delay((1000.0 / FPS_CAP) - dt); //On limite les images par secondes en faisant des pauses entre chaque image
+      }
+      lastTimes = SDL_GetTicks();
+      //Compteur d'images par secondes
 
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
@@ -110,7 +125,7 @@ int main(int argc,char** argv){
 	        if(ttf_bool == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
 	          ttf_bool = 1;
-              chatBox_bool = 1;
+              pannel_bool = 1;
 	          texte = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
 		  map_builder = mapBuilder(MAP_NOT_WATER);
 		  map_boolean = mapBoolean(map_builder);
@@ -129,7 +144,7 @@ int main(int argc,char** argv){
 		  case SDLK_z:
 			    width = 0;
 			    ttf_bool = 0;
-                chatBox_bool = 0;
+                pannel_bool = 0;
 			    if (yscroll > 0){
 			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)) {
  			             positionChar.y -= 4 * sprint;
@@ -171,7 +186,7 @@ int main(int argc,char** argv){
 		  case SDLK_s:
 			width = 2;
 			ttf_bool = 0;
-            chatBox_bool = 0;
+            pannel_bool = 0;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32]==0)) {
 			         positionChar.y += 4 * sprint;
@@ -223,7 +238,7 @@ int main(int argc,char** argv){
 		  case SDLK_d:
 			width = 1;
 			ttf_bool = 0;
-            chatBox_bool = 0;
+            pannel_bool = 0;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
 			    if((positionChar.x < 720) && (map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)) {
 			         positionChar.x += 4 * sprint;
@@ -273,7 +288,7 @@ int main(int argc,char** argv){
 		  case SDLK_q:
 			width = 3;
 			ttf_bool = 0;
-            chatBox_bool = 0;
+            pannel_bool = 0;
 			if (xscroll > 0){
 			    if((positionChar.x > 720) && (map_boolean[(xchar-10)/32][ychar/32]==0) && (map_boolean[(xchar-10)/32][ychar/32+1]==0)) {
 			         positionChar.x -= 4 * sprint;
@@ -363,25 +378,28 @@ int main(int argc,char** argv){
       // printing tiles, the file depend on the number of the tile
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-      	  if(map_builder[i][j]<171){
-      	    Rect_dest.x = i*WIDTH_TILE - xscroll;
-      	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
-      	    Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-      	    Rect_source.y = 0;
-      	    SDL_BlitSurface(tileset1,&Rect_source,screen,&Rect_dest);
-      	  }else if((map_builder[i][j]<341) && (map_builder[i][j]>170)){
-      	    Rect_dest.x = i*WIDTH_TILE - xscroll;
-      	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
-      	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
-      	    Rect_source.y = 0;
-      	    SDL_BlitSurface(tileset2,&Rect_source,screen,&Rect_dest);
-      	  }else{
-      	    Rect_dest.x = i*WIDTH_TILE - xscroll;
-      	    Rect_dest.y = j*HEIGHT_TILE - yscroll;
-      	    Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
-      	    Rect_source.y = 0;
-      	    SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
-      	  }
+          if((i*WIDTH_TILE > xscroll - WIDTH_TILE) && (i*WIDTH_TILE < xscroll + SCREEN_WIDTH + WIDTH_TILE)
+            && (j*WIDTH_TILE > yscroll - WIDTH_TILE) && (j*WIDTH_TILE < yscroll + SCREEN_HEIGHT + WIDTH_TILE)){
+            if(map_builder[i][j]<171){
+                Rect_dest.x = i*WIDTH_TILE - xscroll;
+                Rect_dest.y = j*HEIGHT_TILE - yscroll;
+                Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
+                Rect_source.y = 0;
+                SDL_BlitSurface(tileset1,&Rect_source,screen,&Rect_dest);
+            }else if((map_builder[i][j]<341) && (map_builder[i][j]>170)){
+                Rect_dest.x = i*WIDTH_TILE - xscroll;
+                Rect_dest.y = j*HEIGHT_TILE - yscroll;
+                Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
+                Rect_source.y = 0;
+                SDL_BlitSurface(tileset2,&Rect_source,screen,&Rect_dest);
+            }else{
+                Rect_dest.x = i*WIDTH_TILE - xscroll;
+                Rect_dest.y = j*HEIGHT_TILE - yscroll;
+                Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
+                Rect_source.y = 0;
+                SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
+            }      
+          }
         }
       }
 
@@ -401,7 +419,7 @@ int main(int argc,char** argv){
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
-      if(chatBox_bool == 1) SDL_BlitSurface(chatBox, NULL, screen, &positionChatBox);
+      if(pannel_bool == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
       if(ttf_bool == 1) SDL_BlitSurface(texte, NULL, screen, &posTexte);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
@@ -432,6 +450,7 @@ int main(int argc,char** argv){
     SDL_FreeSurface(tileset3);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(chatBox);
+    SDL_FreeSurface(pannel);
     SDL_FreeSurface(screen);
     Mix_FreeMusic(theme);
     TTF_Quit();
