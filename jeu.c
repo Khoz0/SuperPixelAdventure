@@ -12,7 +12,7 @@ int main(int argc,char** argv){
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
     int xchar, ychar, xscroll, yscroll, ttf_bool = 0, pannel_bool = 0;
     int actualTime = 0, lastTimes = 0;
-    
+
     SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
     SDL_Event event;
 
@@ -22,7 +22,7 @@ int main(int argc,char** argv){
     Mix_Init(MIX_INIT_MP3);
 
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
-    
+
     // initialisation of SDL_mixer
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
       printf("Error SDL_mixer : %s\n", Mix_GetError());
@@ -30,19 +30,19 @@ int main(int argc,char** argv){
     Mix_Music *theme;
     theme = Mix_LoadMUS("theme.mp3");
     Mix_PlayMusic(theme, -1);
-    
+
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
     positionChar.y = SCREEN_HEIGHT/1.4;
     positionChar.x = SCREEN_WIDTH/1.1;
-    
+
     positionChatBox.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
     positionChatBox.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
-    
+
     positionPannel.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
     positionPannel.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
-    
+
     // loading pictures
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
     chatBox = SDL_LoadBMP("./pictures/chatBox.bmp");
@@ -55,14 +55,14 @@ int main(int argc,char** argv){
     tileset1 = SDL_LoadBMP("./pictures/tileset1.bmp");
     tileset2 = SDL_LoadBMP("./pictures/tileset2.bmp");
     tileset3 = SDL_LoadBMP("./pictures/tileset3.bmp");
-    
+
     staminaPos.x = 10;
     staminaPos.y = 45;
 
     lifePointPos.x = 10;
     lifePointPos.y = 20;
 
-    waterfallPos.x = 2208;
+    waterfallPos.x = -2208;
     waterfallPos.y = -1728;
 
     SDL_EnableKeyRepeat(10, 10);
@@ -98,8 +98,8 @@ int main(int argc,char** argv){
 
 
     while (!gameOver){
-        
-        
+
+
       //Compteur d'images par secondes
       actualTime = SDL_GetTicks();
       float dt = (actualTime - lastTimes);
@@ -398,7 +398,7 @@ int main(int argc,char** argv){
                 Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
                 Rect_source.y = 0;
                 SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
-            }      
+            }
           }
         }
       }
@@ -438,11 +438,11 @@ int main(int argc,char** argv){
        free(map_boolean[j]);
     }
     free(map_boolean);
-    
-    // closing SDL libs 
+
+    // closing SDL libs
     TTF_CloseFont(font);
     Mix_CloseAudio();
-    
+
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
     SDL_FreeSurface(tileset1);
