@@ -117,7 +117,7 @@ int main(int argc,char** argv){
       case SDL_KEYDOWN:
       switch(event.key.keysym.sym){
 		  case SDLK_LSHIFT:
-			   sprint = 2;
+			   sprint = 5;
 		  break;
 
       case SDLK_e:
