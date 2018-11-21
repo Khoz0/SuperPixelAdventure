@@ -67,8 +67,8 @@ int main(int argc,char** argv){
     yscroll = MAP_PIXELS_Y - SCREEN_HEIGHT;
 
     // SDL_ttf initialisation
-    TTF_Font *police = NULL;
-    police = TTF_OpenFont("Alexandria_Script.ttf", 75);
+    TTF_Font *font = NULL;
+    font = TTF_OpenFont("Alexandria_Script.ttf", 75);
     SDL_Color couleurNoire = {0, 0, 0};
     SDL_Surface *texte;
     SDL_Rect posTexte;
@@ -95,7 +95,7 @@ int main(int argc,char** argv){
 	        if(ttf_bool == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
 	          ttf_bool = 1;
-	          texte = TTF_RenderText_Solid(police, "*lecture du panneau* Bienvenue à Joliland!", couleurNoire);
+	          texte = TTF_RenderText_Solid(font, "*lecture du panneau* Bienvenue à Joliland!", couleurNoire);
             map_builder = mapBuilder(MAP_NOT_WATER);
             map_boolean = mapBoolean(map_builder);
             for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
@@ -393,6 +393,9 @@ int main(int argc,char** argv){
        free(map_boolean[j]);
     }
     free(map_boolean);
+    
+    // SDL_ttf free font
+    TTF_CloseFont(font);
 
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
@@ -401,7 +404,7 @@ int main(int argc,char** argv){
     SDL_FreeSurface(tileset3);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);
-    SDL_FreeSurface(texte);
+    TTF_Quit();
     SDL_Quit();
     return 0;
 
