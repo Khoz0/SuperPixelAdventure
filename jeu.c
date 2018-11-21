@@ -10,7 +10,7 @@ int main(int argc,char** argv){
 
     int gameOver = 0, cpt = 0, animation = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
-    int xchar, ychar, xscroll, yscroll, ttf_bool = 0;
+    int xchar, ychar, xscroll, yscroll, ttf_bool = 0, chatBox_bool = 0;
 
     SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
     SDL_Event event;
@@ -110,6 +110,7 @@ int main(int argc,char** argv){
 	        if(ttf_bool == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
 	          ttf_bool = 1;
+              chatBox_bool = 1;
 	          texte = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
 		  map_builder = mapBuilder(MAP_NOT_WATER);
 		  map_boolean = mapBoolean(map_builder);
@@ -128,6 +129,7 @@ int main(int argc,char** argv){
 		  case SDLK_z:
 			    width = 0;
 			    ttf_bool = 0;
+                chatBox_bool = 0;
 			    if (yscroll > 0){
 			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)) {
  			             positionChar.y -= 4 * sprint;
@@ -169,6 +171,7 @@ int main(int argc,char** argv){
 		  case SDLK_s:
 			width = 2;
 			ttf_bool = 0;
+            chatBox_bool = 0;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+10)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+10)/32]==0)) {
 			         positionChar.y += 4 * sprint;
@@ -220,6 +223,7 @@ int main(int argc,char** argv){
 		  case SDLK_d:
 			width = 1;
 			ttf_bool = 0;
+            chatBox_bool = 0;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
 			    if((positionChar.x < 720) && (map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)) {
 			         positionChar.x += 4 * sprint;
@@ -269,6 +273,7 @@ int main(int argc,char** argv){
 		  case SDLK_q:
 			width = 3;
 			ttf_bool = 0;
+            chatBox_bool = 0;
 			if (xscroll > 0){
 			    if((positionChar.x > 720) && (map_boolean[(xchar-10)/32][ychar/32]==0) && (map_boolean[(xchar-10)/32][ychar/32+1]==0)) {
 			         positionChar.x -= 4 * sprint;
@@ -355,6 +360,7 @@ int main(int argc,char** argv){
       Rect_source.h = HEIGHT_TILE;
 
 
+      // printing tiles, the file depend on the number of the tile
       for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
       	  if(map_builder[i][j]<171){
@@ -395,6 +401,7 @@ int main(int argc,char** argv){
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
+      if(chatBox_bool == 1) SDL_BlitSurface(chatBox, NULL, screen, &positionChatBox);
       if(ttf_bool == 1) SDL_BlitSurface(texte, NULL, screen, &posTexte);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
