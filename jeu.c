@@ -5,8 +5,8 @@
 
 int main(int argc,char** argv){
 
-    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL;
-    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallPos, waterfallAnim, waterfallNeg;
+    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL;
+    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallPos, waterfallAnim, waterfallNeg, positionChatBox;
 
     int gameOver = 0, cpt = 0, animation = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
@@ -27,7 +27,7 @@ int main(int argc,char** argv){
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
       printf("Error SDL_mixer : %s\n", Mix_GetError());
     }
-    Mix_Music *theme, *openning;
+    Mix_Music *theme;
     theme = Mix_LoadMUS("theme.mp3");
     Mix_PlayMusic(theme, -1);
     
@@ -36,17 +36,21 @@ int main(int argc,char** argv){
 
     positionChar.y = SCREEN_HEIGHT/1.4;
     positionChar.x = SCREEN_WIDTH/1.1;
-
+    
+    positionChatBox.x = SCREEN_HEIGHT/4;
+    positionChatBox.y = SCREEN_WIDTH/4;
+    
     // loading pictures
     mainChar = SDL_LoadBMP("./pictures/hero.bmp");
+    chatBox = SDL_LoadBMP("./pictures/chatBox.bmp");
+    waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
+    SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
     // loading the entire tileset cut in 3 separated parts
     tileset1 = SDL_LoadBMP("./pictures/tileset1.bmp");
     tileset2 = SDL_LoadBMP("./pictures/tileset2.bmp");
     tileset3 = SDL_LoadBMP("./pictures/tileset3.bmp");
-
-    waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
-
+    
     staminaPos.x = 10;
     staminaPos.y = 45;
 
@@ -102,21 +106,21 @@ int main(int argc,char** argv){
 		  break;
 
       case SDLK_e:
-        if(map_boolean[xchar/32][(ychar-5)/32]==2){
+        if((map_boolean[xchar/32][(ychar-5)/32]==2) || (map_boolean[xchar/32+1][(ychar-5)/32]==2)){
 	        if(ttf_bool == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
 	          ttf_bool = 1;
 	          texte = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
-            map_builder = mapBuilder(MAP_NOT_WATER);
-            map_boolean = mapBoolean(map_builder);
-            for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
-                for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-                    printf("%d", map_boolean[j][i]);
-                }
-                printf("\n");
-            }
-          }
-  	    }else{
+		  map_builder = mapBuilder(MAP_NOT_WATER);
+		  map_boolean = mapBoolean(map_builder);
+		  for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
+		      for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+			  printf("%d", map_boolean[j][i]);
+		      }
+		      printf("\n");
+		  }
+		}
+        }else{
           printf("PAS D'ACTION\n");
         }
 	    break;
@@ -420,9 +424,9 @@ int main(int argc,char** argv){
     SDL_FreeSurface(tileset2);
     SDL_FreeSurface(tileset3);
     SDL_FreeSurface(mainChar);
+    SDL_FreeSurface(chatBox);
     SDL_FreeSurface(screen);
     Mix_FreeMusic(theme);
-    Mix_FreeMusic(openning);
     TTF_Quit();
     Mix_Quit();
     SDL_Quit();
