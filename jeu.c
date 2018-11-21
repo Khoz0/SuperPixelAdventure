@@ -16,10 +16,21 @@ int main(int argc,char** argv){
     SDL_Event event;
 
     SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_AUDIO);
     TTF_Init();
+    Mix_Init(MIX_INIT_MP3);
 
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
-
+    
+    // initialisation of SDL_mixer
+    SDL_WM_SetCaption("SDL_Mixer", NULL);
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
+      printf("Error SDL_mixer : %s\n", Mix_GetError());
+    }
+    Mix_Music *theme, *openning;
+    theme = Mix_LoadMUS("theme.mp3");
+    Mix_PlayMusic(theme, -1);
+    
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
@@ -68,7 +79,7 @@ int main(int argc,char** argv){
 
     // SDL_ttf initialisation
     TTF_Font *font = NULL;
-    font = TTF_OpenFont("Alexandria_Script.ttf", 75);
+    font = TTF_OpenFont("Alexandria_Script.ttf", 50);
     SDL_Color couleurNoire = {0, 0, 0};
     SDL_Surface *texte;
     SDL_Rect posTexte;
@@ -95,7 +106,7 @@ int main(int argc,char** argv){
 	        if(ttf_bool == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
 	          ttf_bool = 1;
-	          texte = TTF_RenderText_Solid(font, "*lecture du panneau* Bienvenue à Joliland!", couleurNoire);
+	          texte = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
             map_builder = mapBuilder(MAP_NOT_WATER);
             map_boolean = mapBoolean(map_builder);
             for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
@@ -121,20 +132,20 @@ int main(int argc,char** argv){
          		             }else{
 				                 dir = 0;
  			             }
-    			      }else if((map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)){
-    			         yscroll -= 8 * sprint;
-                                 waterfallPos.y += 8 * sprint;
-    			         if (dir < 20){
-    				             dir += (1 * sprint);
-    			         }else{
-    				             dir = 0;
-    			         }
-    			         if (sprint == 2 && staminaLength > 1){
-    				             staminaLength -= (1 * sprint);
-    			         }else if (staminaLength <= 2){
-    				             sprint = 1;
-    			         }
-			      }
+				 }else if((map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)){
+				   yscroll -= 8 * sprint;
+				   waterfallPos.y += 8 * sprint;
+				   if (dir < 20){
+					dir += (1 * sprint);
+				   }else{
+					dir = 0;
+				   }
+				   if (sprint == 2 && staminaLength > 1){
+					staminaLength -= (1 * sprint);
+				   }else if (staminaLength <= 2){
+					sprint = 1;
+				   }
+				 }
 			    }else if((map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)){
 			        positionChar.y -= 4 * sprint;
 			        if (dir < 20){
@@ -142,6 +153,11 @@ int main(int argc,char** argv){
 			        }else{
 			             dir = 0;
 			        }
+ 			        if (sprint == 2 && staminaLength > 1){
+    				     staminaLength -= (1 * sprint);
+    			        }else if (staminaLength <= 2){
+    				     sprint = 1;
+    			        }
 			    }else{
 			        positionChar.y -= 0;
 			    }
@@ -394,9 +410,10 @@ int main(int argc,char** argv){
     }
     free(map_boolean);
     
-    // SDL_ttf free font
+    // closing SDL libs 
     TTF_CloseFont(font);
-
+    Mix_CloseAudio();
+    
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
     SDL_FreeSurface(tileset1);
@@ -404,7 +421,10 @@ int main(int argc,char** argv){
     SDL_FreeSurface(tileset3);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(screen);
+    Mix_FreeMusic(theme);
+    Mix_FreeMusic(openning);
     TTF_Quit();
+    Mix_Quit();
     SDL_Quit();
     return 0;
 

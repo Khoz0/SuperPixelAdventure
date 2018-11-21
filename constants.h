@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 
 // height and width of the tiles
 #define WIDTH_TILE 32
