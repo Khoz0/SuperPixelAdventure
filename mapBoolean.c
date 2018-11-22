@@ -1,5 +1,5 @@
 #include "mapBoolean.h"
-#include "isFull.h"
+#include "isEmpty.h"
 
 /********************************************
 This funtion fill a table with boolean values
@@ -23,7 +23,7 @@ Uint16** mapBoolean(Uint16** map_builder){
         if(map_builder[j][i] == 77){
           map_boolean[j][i] = 2;
         }else{
-          map_boolean[j][i] = isFull(map_builder[j][i]);
+          map_boolean[j][i] = isEmpty(map_builder[j][i]);
         }
       }
     }

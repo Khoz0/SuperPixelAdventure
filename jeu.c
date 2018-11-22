@@ -146,14 +146,14 @@ int main(int argc,char** argv){
 			    ttf_bool = 0;
                 pannel_bool = 0;
 			    if (yscroll > 0){
-			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar+20)/32]==0) && (map_boolean[xchar/32+1][(ychar+20)/32]==0)) {
+			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)) {
  			             positionChar.y -= 4 * sprint;
  			             if (dir < 20){
 				                 dir += (1 * sprint);
          		             }else{
 				                 dir = 0;
  			             }
-				 }else if((map_boolean[xchar/32][(ychar+20)/32]==0) && (map_boolean[xchar/32+1][(ychar+20)/32]==0)){
+				 }else if((map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)){
 				   yscroll -= 8 * sprint;
 				   waterfallPos.y += 8 * sprint;
 				   if (dir < 20){
@@ -167,7 +167,7 @@ int main(int argc,char** argv){
 					sprint = 1;
 				   }
 				 }
-			    }else if((map_boolean[xchar/32][(ychar+20)/32]==0) && (map_boolean[xchar/32+1][(ychar+20)/32]==0)){
+			    }else if((map_boolean[xchar/32][(ychar-5)/32]==0) && (map_boolean[xchar/32+1][(ychar-5)/32]==0)){
 			        positionChar.y -= 4 * sprint;
 			        if (dir < 20){
 			             dir += (1 * sprint);
@@ -238,7 +238,7 @@ int main(int argc,char** argv){
 		  case SDLK_d:
 			width = 1;
 			ttf_bool = 0;
-            pannel_bool = 0;
+			pannel_bool = 0;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
 			    if((positionChar.x < 720) && (map_boolean[(xchar+10)/32+1][ychar/32]==0) && (map_boolean[(xchar+10)/32+1][ychar/32+1]==0)) {
 			         positionChar.x += 4 * sprint;
