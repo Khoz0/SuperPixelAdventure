@@ -45,16 +45,16 @@ int main(int argc,char** argv){
 
     // loading pictures
     mainChar = SDL_LoadBMP("./pictures/characters/hero.bmp");
-    chatBox = SDL_LoadBMP("./pictures/chatBox.bmp");
-    pannel = SDL_LoadBMP("./pictures/pannel.bmp");
-    waterfall = SDL_LoadBMP("./pictures/cascades_grandes.bmp");
+    chatBox = SDL_LoadBMP("./pictures/chat/chatBox.bmp");
+    pannel = SDL_LoadBMP("./pictures/chat/pannel.bmp");
+    waterfall = SDL_LoadBMP("./pictures/waterfall/cascades_grandes.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
     // loading the entire tileset cut in 3 separated parts
-    tileset1 = SDL_LoadBMP("./pictures/tileset1.bmp");
-    tileset2 = SDL_LoadBMP("./pictures/tileset2.bmp");
-    tileset3 = SDL_LoadBMP("./pictures/tileset3.bmp");
+    tileset1 = SDL_LoadBMP("./pictures/tileset/tileset1.bmp");
+    tileset2 = SDL_LoadBMP("./pictures/tileset/tileset2.bmp");
+    tileset3 = SDL_LoadBMP("./pictures/tileset/tileset3.bmp");
 
     staminaPos.x = 10;
     staminaPos.y = 45;

@@ -46,16 +46,16 @@ void mainMenu(int* gameOver){
   quitCase = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 50, 32, 0, 0 ,0 ,0);
   SDL_FillRect(quitCase, NULL, SDL_MapRGB(screenMenu->format, 160, 220, 40));
 
-  menuChar = SDL_LoadBMP("./pictures/hero.bmp");
+  menuChar = SDL_LoadBMP("./pictures/characters/hero.bmp");
   SDL_SetColorKey(menuChar, SDL_SRCCOLORKEY, SDL_MapRGB(menuChar->format, 255, 255, 255));
 
-  quitButton = SDL_LoadBMP("./pictures/boutonQuitter.bmp");
+  quitButton = SDL_LoadBMP("./pictures/menu/boutonQuitter.bmp");
   SDL_SetColorKey(quitButton, SDL_SRCCOLORKEY, SDL_MapRGB(quitButton->format, 255, 255, 255));
 
-  playButton = SDL_LoadBMP("./pictures/boutonJouer.bmp");
+  playButton = SDL_LoadBMP("./pictures/menu/boutonJouer.bmp");
   SDL_SetColorKey(playButton, SDL_SRCCOLORKEY, SDL_MapRGB(playButton->format, 255, 255, 255));
 
-  goalButton = SDL_LoadBMP("./pictures/boutonBut.bmp");
+  goalButton = SDL_LoadBMP("./pictures/menu/boutonBut.bmp");
   SDL_SetColorKey(goalButton, SDL_SRCCOLORKEY, SDL_MapRGB(goalButton->format, 255, 255, 255));
 
   for (i = 0; i < SCREEN_WIDTH-1; i++){
