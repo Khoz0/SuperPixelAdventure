@@ -188,14 +188,14 @@ int main(int argc,char** argv){
 			ttf_bool = 0;
 			pannel_bool = 0;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
-			    if((positionChar.y < 448) && (map_boolean[xchar/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
+			    if((positionChar.y < 448) && (map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
 			         positionChar.y += 4 * sprint;
 			         if (dir < 20){
 				             dir += (1 * sprint);
 			         }else{
 				             dir = 0;
 			         }
-			    }else if ((map_boolean[xchar/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
+			    }else if ((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
 			         yscroll += 8 * sprint;
                                  waterfallPos.y -= 8 * sprint;
 			         if (dir < 20){
@@ -211,7 +211,7 @@ int main(int argc,char** argv){
 			    }
 			}else if((yscroll < MAP_PIXELS_Y) && (positionChar.y < SCREEN_HEIGHT - CHAR_HEIGHT)){
 			  if(xchar/32 < 133){
-			    if((map_boolean[xchar/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
+			    if((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
 			      positionChar.y += 4 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
@@ -222,7 +222,7 @@ int main(int argc,char** argv){
 			      positionChar.y += 0;
 			    }
 			  }else{
-			    if((map_boolean[xchar/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32][(ychar+8)/32+1]==0)){
+			    if((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32][(ychar+8)/32+1]==0)){
 			      positionChar.y += 4 * sprint;
 			      if (dir < 20){
 				dir += (1 * sprint);
