@@ -23,8 +23,8 @@
 #define MAP_PIXELS_Y MAP_BLOCKS_HEIGHT*HEIGHT_TILE
 
 // sizes of the character (in pixels)
-#define CHAR_WIDTH 33
-#define CHAR_HEIGHT 36
+#define CHAR_WIDTH 32
+#define CHAR_HEIGHT 32
 
 // number corresponding to the level
 #define MAP_WATER 1
