@@ -26,12 +26,13 @@
 #define CHAR_WIDTH 33
 #define CHAR_HEIGHT 36
 
-// number of the level
+// number corresponding to the level
 #define MAP_WATER 1
-#define MAP_NOT_WATER 2
+#define MAP_NO_WATER 2
 
 // sizes of pannel
 #define PANNEL_WIDTH 870
 #define PANNEL_HEIGHT 206
 
+// define of the max pictures/seconds
 #define FPS_CAP 25
