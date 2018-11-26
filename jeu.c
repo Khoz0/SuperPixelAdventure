@@ -16,6 +16,8 @@ int main(int argc,char** argv){
     SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
     SDL_Event event;
 
+    mainMenu(&gameOver);
+
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Init(SDL_INIT_AUDIO);
     TTF_Init();
@@ -66,8 +68,6 @@ int main(int argc,char** argv){
     waterfallPos.y = -1728;
 
     SDL_EnableKeyRepeat(10, 10);
-
-    //mainMenu(&gameOver);
 
     if(!tileset1 || !tileset2 || !tileset3){
       printf("Error : tileset didn't load\n");

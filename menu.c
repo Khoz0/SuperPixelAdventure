@@ -2,11 +2,15 @@
 
 void mainMenu(int* gameOver){
 
-  SDL_Surface *playCase = NULL, *ruleCase = NULL, *quitCase = NULL, *screenMenu, *menuChar;
+  SDL_Surface *playCase = NULL, *ruleCase = NULL, *quitCase = NULL, *screenMenu, *menuChar, *scroll;
   SDL_Surface *quitButton = NULL, *playButton = NULL, *goalButton = NULL;
   SDL_Event event;
-  SDL_Rect playCasePos, ruleCasePos, quitCasePos, quitButtonPos, playButtonPos, goalButtonPos, positionChar, mainCharGo;
-  int endMenu = 1, i, j, speed, authorizedX = 1, authorizedY = 1, orientation = 2, movement = 1;
+  SDL_Rect playCasePos, ruleCasePos, quitCasePos, quitButtonPos, playButtonPos, goalButtonPos, positionChar, mainCharGo, scrollPos;
+  int endMenu = 1, i, j, speed, authorizedX = 1, authorizedY = 1, orientation = 2, movement = 1, goalPurpose = 0;
+  TTF_Font *font = NULL;
+  SDL_Color couleurNoire = {0, 0, 0};
+  SDL_Surface *texte1, *texte2, *texte3, *texte4, *texte5, *texte6;
+  SDL_Rect posTexte1, posTexte2, posTexte3, posTexte4, posTexte5, posTexte6;
 
   int **tabCollide = malloc(SCREEN_WIDTH*sizeof(int*));
   for(int j = 0 ; j < SCREEN_WIDTH; j++){
@@ -15,6 +19,17 @@ void mainMenu(int* gameOver){
 
   screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
   SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
+
+  Mix_Init(MIX_INIT_MP3);
+  TTF_Init();
+
+  // initialisation of SDL_mixer
+  if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
+    printf("Error SDL_mixer : %s\n", Mix_GetError());
+  }
+  Mix_Music *themeMenu;
+  themeMenu = Mix_LoadMUS("themeMenu.mp3");
+  Mix_PlayMusic(themeMenu, -1);
 
   playCasePos.x = 600;
   playCasePos.y = 200;
@@ -37,6 +52,28 @@ void mainMenu(int* gameOver){
   goalButtonPos.x = 600;
   goalButtonPos.y = 400;
 
+  scrollPos.x = 400;
+  scrollPos.y = 200;
+
+  font = TTF_OpenFont("./font/font.ttf", 20);
+  posTexte1.x = 550;
+  posTexte1.y = 260;
+
+  posTexte2.x = 450;
+  posTexte2.y = 300;
+
+  posTexte3.x = 450;
+  posTexte3.y = 350;
+
+  posTexte4.x = 450;
+  posTexte4.y = 400;
+
+  posTexte5.x = 450;
+  posTexte5.y = 450;
+
+  posTexte6.x = 550;
+  posTexte6.y = 500;
+
   playCase = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 50, 32, 0, 0 ,0 ,0);
   SDL_FillRect(playCase, NULL, SDL_MapRGB(screenMenu->format, 160, 220, 40));
 
@@ -57,6 +94,9 @@ void mainMenu(int* gameOver){
 
   goalButton = SDL_LoadBMP("./pictures/menu/boutonBut.bmp");
   SDL_SetColorKey(goalButton, SDL_SRCCOLORKEY, SDL_MapRGB(goalButton->format, 255, 255, 255));
+
+  scroll = SDL_LoadBMP("./pictures/menu/parch1.bmp");
+  SDL_SetColorKey(scroll, SDL_SRCCOLORKEY, SDL_MapRGB(scroll->format, 0, 0, 0));
 
   for (i = 0; i < SCREEN_WIDTH-1; i++){
     for (j = 0; j < SCREEN_HEIGHT-1; j++){
@@ -84,18 +124,19 @@ void mainMenu(int* gameOver){
 
   while(endMenu){
   SDL_PollEvent(&event);
-  mainCharGo.x = 33 * movement;
-  mainCharGo.y = 36 * orientation;
-  mainCharGo.h = 36;
+  mainCharGo.x = CHAR_WIDTH * movement;
+  mainCharGo.y = CHAR_HEIGHT * orientation;
+  mainCharGo.h = CHAR_WIDTH;
   mainCharGo.w = 30;
   switch(event.type)
     {
     case SDL_MOUSEBUTTONUP:
+    goalPurpose = 0;
     if (event.button.button == SDL_BUTTON_LEFT){
        if ((positionChar.x != event.button.x) && authorizedX){
          if (tabCollide[positionChar.x + 1][positionChar.y] == 0 ){
            if (abs(event.button.x - (positionChar.x + 1)) < abs(event.button.x - (positionChar.x - 1))){
-             orientation = 1;
+             orientation = 2;
              if (movement < 2){
                movement += 1;
              }else{
@@ -108,7 +149,7 @@ void mainMenu(int* gameOver){
          }
          if (tabCollide[positionChar.x - 1][positionChar.y] == 0 ){
            if (abs(event.button.x - (positionChar.x - 1)) < abs(event.button.x - (positionChar.x + 1))){
-             orientation = 3;
+             orientation = 1;
              if (movement < 2){
                movement += 1;
              }else{
@@ -126,11 +167,11 @@ void mainMenu(int* gameOver){
            speed = 1;
            if ((event.button.x - positionChar.x) < 0){
              speed = 1;
-             orientation = 2;
+             orientation = 0;
            }
            if ((event.button.x - positionChar.x) > 0){
              speed = -1;
-             orientation = 0;
+             orientation = 3;
            }
            if (movement < 2){
              movement += 1;
@@ -146,7 +187,7 @@ void mainMenu(int* gameOver){
        if ((positionChar.y != event.button.y) && (authorizedY)){
          if (tabCollide[positionChar.x][positionChar.y + 1] == 0 ){
            if (abs(event.button.y - (positionChar.y + 1)) < abs(event.button.y - (positionChar.y - 1))){
-             orientation = 2;
+             orientation = 0;
              if (movement < 2){
                movement += 1;
              }else{
@@ -158,7 +199,7 @@ void mainMenu(int* gameOver){
          }
          if (tabCollide[positionChar.x][positionChar.y - 1] == 0 ){
            if (abs(event.button.y - (positionChar.y - 1)) < abs(event.button.y - (positionChar.y + 1))){
-             orientation = 0;
+             orientation = 3;
              if (movement < 2){
                movement += 1;
              }else{
@@ -179,11 +220,11 @@ void mainMenu(int* gameOver){
            speed = 1;
            if ((event.button.y - positionChar.y) < 0){
              speed = -1;
-             orientation = 3;
+             orientation = 1;
            }
            if ((event.button.y - positionChar.y) > 0){
              speed = 1;
-             orientation = 1;
+             orientation = 2;
            }
            if (movement < 2){
              movement += 1;
@@ -206,7 +247,15 @@ void mainMenu(int* gameOver){
           event.button.y > ruleCasePos.y && event.button.y < ruleCasePos.y + 50){
         if (positionChar.x >= ruleCasePos.x - 34 && positionChar.x <= ruleCasePos.x + 201 &&
           positionChar.y >= ruleCasePos.y - 1 && positionChar.y <= ruleCasePos.y + 51){
-            endMenu = 0;
+            texte1 = TTF_RenderText_Solid(font, "bienvenue dans 'Le mythe de Zoldo.'", couleurNoire);
+            texte2 = TTF_RenderText_Solid(font, "Vous incarnerez Lien, le hero et detective sans peur. Vous devrez", couleurNoire);
+            texte3 = TTF_RenderText_Solid(font, "aider les habitants de Joliland a comprendre pourquoi l'eau ne", couleurNoire);
+            texte4 = TTF_RenderText_Solid(font, "coule plus dans leur jolie ville, et resoudre ce probleme", couleurNoire);
+            texte5 = TTF_RenderText_Solid(font, "par vous meme.", couleurNoire);
+            texte6 = TTF_RenderText_Solid(font, "* BONNE CHANCE INVOCATEUR *", couleurNoire);
+            goalPurpose = 1;
+            authorizedX = 0;
+            authorizedY = 0;
         }
       }
       if (event.button.x > quitCasePos.x && event.button.x < quitCasePos.x + 200 &&
@@ -220,19 +269,33 @@ void mainMenu(int* gameOver){
    }
    break;
  }
+
     SDL_BlitSurface(menuChar, &mainCharGo, screenMenu, &positionChar);
     SDL_BlitSurface(playCase, NULL, screenMenu, &playCasePos);
     SDL_BlitSurface(ruleCase, NULL, screenMenu, &ruleCasePos);
     SDL_BlitSurface(quitCase, NULL, screenMenu, &quitCasePos);
-
     SDL_BlitSurface(quitButton, NULL, screenMenu, &quitButtonPos);
     SDL_BlitSurface(playButton, NULL, screenMenu, &playButtonPos);
     SDL_BlitSurface(goalButton, NULL, screenMenu, &goalButtonPos);
+    if (goalPurpose){
+      SDL_BlitSurface(scroll, NULL, screenMenu, &scrollPos);
+      SDL_BlitSurface(texte1, NULL, screenMenu, &posTexte1);
+      SDL_BlitSurface(texte2, NULL, screenMenu, &posTexte2);
+      SDL_BlitSurface(texte3, NULL, screenMenu, &posTexte3);
+      SDL_BlitSurface(texte4, NULL, screenMenu, &posTexte4);
+      SDL_BlitSurface(texte5, NULL, screenMenu, &posTexte5);
+      SDL_BlitSurface(texte6, NULL, screenMenu, &posTexte6);
+    }
     SDL_UpdateRect(screenMenu, 0, 0, 0, 0);
     SDL_Flip(screenMenu);
     SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
 
   }
+
+  Mix_CloseAudio();
+  TTF_CloseFont(font);
+
+  Mix_FreeMusic(themeMenu);
   SDL_FreeSurface(menuChar);
   SDL_FreeSurface(playCase);
   SDL_FreeSurface(ruleCase);
