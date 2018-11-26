@@ -303,6 +303,7 @@ void mainMenu(int* gameOver){
   SDL_FreeSurface(quitButton);
   SDL_FreeSurface(playButton);
   SDL_FreeSurface(goalButton);
+  SDL_FreeSurface(scroll);
   for(int j = 0 ; j < SCREEN_WIDTH ; j++){
      free(tabCollide[j]);
   }
