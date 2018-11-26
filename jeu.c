@@ -29,10 +29,16 @@ int main(int argc,char** argv){
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
       printf("Error SDL_mixer : %s\n", Mix_GetError());
     }
-    Mix_Music *theme;
-    theme = Mix_LoadMUS("theme.mp3");
-    Mix_PlayMusic(theme, -1);
-
+    Mix_AllocateChannels(2);
+    Mix_Chunk *theme, *event_music;;
+    
+    theme = Mix_LoadWAV("theme.wav");
+    Mix_Volume(0, 4);
+    Mix_PlayChannel(0, theme, VOLUME_THEME);
+    
+    event_music = Mix_LoadWAV("event.wav");
+    Mix_Volume(1, VOLUME_EVENT);
+    
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
@@ -112,6 +118,9 @@ int main(int argc,char** argv){
       xchar = positionChar.x + xscroll;
       ychar = positionChar.y + yscroll;
 
+      // we resume the main channel if it had been paused
+      if(!Mix_Playing(1)) Mix_Resume(0);
+      
       SDL_PollEvent(&event);
       switch(event.type){
       case SDL_KEYDOWN:
@@ -125,7 +134,9 @@ int main(int argc,char** argv){
 	        if(ttf_bool == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
 	          ttf_bool = 1;
-              pannel_bool = 1;
+		  pannel_bool = 1;
+		  Mix_Pause(0);
+		  Mix_PlayChannel(1, event_music, 0);
 	          texte = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
 		  map_builder = mapBuilder(MAP_NO_WATER);
 		  map_boolean = mapBoolean(map_builder);
@@ -452,7 +463,8 @@ int main(int argc,char** argv){
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
     SDL_FreeSurface(screen);
-    Mix_FreeMusic(theme);
+    Mix_FreeChunk(theme);
+    Mix_FreeChunk(event_music);
     TTF_Quit();
     Mix_Quit();
     SDL_Quit();
