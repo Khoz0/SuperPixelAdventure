@@ -20,16 +20,18 @@ Uint16** mapBoolean(Uint16** map_builder){
     // only define full blocs
     for(i = 0 ; i < MAP_BLOCKS_HEIGHT; i++){
       for(j = 0 ; j < MAP_BLOCKS_WIDTH; j++){
-        if(map_builder[j][i] == 77){
+        if(map_builder[j][i]==77){
           map_boolean[j][i] = 2;
+        }else if(map_builder[j][i]==399 || map_builder[j][i]==400) {
+          map_boolean[j][i] = 3;
+	}else if(map_builder[j][i]==78) {
+          map_boolean[j][i] = 4;
         }else{
           map_boolean[j][i] = isEmpty(map_builder[j][i]);
         }
       }
     }
     
-    // definitions of the special interactions blocs (like pannel, door,...)
-
     return map_boolean;
 
 }

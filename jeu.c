@@ -10,7 +10,7 @@ int main(int argc,char** argv){
 
     int gameOver = 0, cpt = 0, animation = 0;
     int dir = 1, width = 2, sprint = 1, staminaLength = 195;
-    int xchar, ychar, xscroll, yscroll, ttf_bool = 0, pannel_bool = 0;
+    int xchar, ychar, xscroll, yscroll, bool_pannel = 0, bool_pannel_cave = 0, bool_pannel_start = 0;
     int actualTime = 0, lastTimes = 0;
 
     SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
@@ -96,10 +96,14 @@ int main(int argc,char** argv){
     TTF_Font *font = NULL;
     font = TTF_OpenFont("./font/font.ttf", 50);
     SDL_Color couleurNoire = {0, 0, 0};
-    SDL_Surface *texte;
+    SDL_Surface *text_pannel_start, *text_pannel_cave;
     SDL_Rect posTexte;
     posTexte.x = 470;
     posTexte.y = 415;
+    
+    // ttf texts
+    text_pannel_start = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
+    text_pannel_cave = TTF_RenderText_Solid(font, "*DANGER* entrée de la grote *DANGER*", couleurNoire);
 
 
 
@@ -130,16 +134,16 @@ int main(int argc,char** argv){
 		  break;
 
       case SDLK_e:
-        if((map_boolean[xchar/32][(ychar-5)/32]==2) || (map_boolean[xchar/32+1][(ychar-5)/32]==2)){
-	        if(ttf_bool == 0){
+	        if(bool_pannel_start == 0){
 	          printf("ACTION : LECTURE PANNEAU\n");
-	          ttf_bool = 1;
-		  pannel_bool = 1;
+	          bool_pannel_start = 1;
+		  if((map_boolean[xchar/32][(ychar-5)/32]==2) || (map_boolean[xchar/32+1][(ychar-5)/32]==2)) bool_pannel_start = 1;
+		  if((map_boolean[xchar/32][(ychar-5)/32]==4) || (map_boolean[xchar/32+1][(ychar-5)/32]==4)) bool_pannel_cave = 1;
+		  bool_pannel = 1;
 		  Mix_Pause(0);
 		  Mix_PlayChannel(1, event_music, 0);
-	          texte = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
-		  map_builder = mapBuilder(MAP_NO_WATER);
-		  map_boolean = mapBoolean(map_builder);
+		  //map_builder = mapBuilder(MAP_NO_WATER);
+		  //map_boolean = mapBoolean(map_builder);
 		  for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
 		      for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
 			  printf("%d", map_boolean[j][i]);
@@ -147,16 +151,17 @@ int main(int argc,char** argv){
 		      printf("\n");
 		  }
 		}
-        }else{
-          printf("PAS D'ACTION\n");
-        }
 	    break;
 
 		  case SDLK_z:
 			    width = 3;
-			    ttf_bool = 0;
-                pannel_bool = 0;
-			    if (yscroll > 0){
+			    bool_pannel_start = 0;
+                            bool_pannel = 0;
+			    bool_pannel_cave = 0;
+			    if(map_boolean[xchar/32][(ychar-15)/32]==3 && map_boolean[xchar/32+1][(ychar-15)/32]==3){
+			      positionChar.y -= 4 * sprint;
+			    }
+                            if (yscroll > 0){
 			         if((positionChar.y > 448) && (map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)) {
  			             positionChar.y -= 4 * sprint;
  			             if (dir < 20){
@@ -196,8 +201,9 @@ int main(int argc,char** argv){
 		      break;
 		  case SDLK_s:
 			width = 0;
-			ttf_bool = 0;
-			pannel_bool = 0;
+			bool_pannel_start = 0;
+			bool_pannel = 0;
+			bool_pannel_cave = 0;
 			if (yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			    if((positionChar.y < 448) && (map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
 			         positionChar.y += 4 * sprint;
@@ -248,8 +254,9 @@ int main(int argc,char** argv){
 		  break;
 		  case SDLK_d:
 			width = 2;
-			ttf_bool = 0;
-			pannel_bool = 0;
+			bool_pannel_start = 0;
+			bool_pannel = 0;
+			bool_pannel_cave = 0;
 			if (xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
 			    if((positionChar.x < 720) && (map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)) {
 			         positionChar.x += 4 * sprint;
@@ -298,8 +305,9 @@ int main(int argc,char** argv){
 		  break;
 		  case SDLK_q:
 			width = 1;
-			ttf_bool = 0;
-			pannel_bool = 0;
+			bool_pannel_start = 0;
+			bool_pannel = 0;
+			bool_pannel_cave = 0;
 			if (xscroll > 0){
 			    if((positionChar.x > 720) && (map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)) {
 			         positionChar.x -= 4 * sprint;
@@ -430,8 +438,9 @@ int main(int argc,char** argv){
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
-      if(pannel_bool == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
-      if(ttf_bool == 1) SDL_BlitSurface(texte, NULL, screen, &posTexte);
+      if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
+      if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
+      if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
       SDL_FreeSurface(stamina);
