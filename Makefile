@@ -1,7 +1,7 @@
-SRC=jeu.c mapBuilder.c mapBoolean.c menu.c isEmpty.c display.c
+SRC=jeu.c mapBuilder.c mapBoolean.c menu.c isEmpty.c display.c keyboardEvent.c
 BIN=jeu
 
-$(BIN): $(SRC) mapBuilder.h constants.h mapBoolean.h menu.h isEmpty.h display.h
+$(BIN): $(SRC) mapBuilder.h constants.h mapBoolean.h menu.h isEmpty.h display.h keyboardEvent.h
 	gcc -g -std=c99 $(SRC) `sdl-config --cflags --libs` -lSDL_ttf -lSDL_mixer -L./usr/lib -I./usr/include -lm -o $(BIN)
 
 clean:
