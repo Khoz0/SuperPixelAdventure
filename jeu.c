@@ -1,5 +1,6 @@
 #include "mapBuilder.h"
 #include "mapBoolean.h"
+#include "display.h"
 #include "constants.h"
 #include "menu.h"
 
@@ -13,8 +14,14 @@ int main(int argc,char** argv){
     int xchar, ychar, xscroll, yscroll, bool_pannel = 0, bool_pannel_cave = 0, bool_pannel_start = 0;
     int actualTime = 0, lastTimes = 0;
 
-    SDL_Surface *screen, *tileset1, *tileset2, *tileset3;
+    SDL_Surface *screen;
     SDL_Event event;
+    
+    SDL_Surface *tileset1, *tileset2, *tileset3;
+    // loading the entire tileset cut in 3 separated parts
+    tileset1 = SDL_LoadBMP("./pictures/tileset/tileset1.bmp");
+    tileset2 = SDL_LoadBMP("./pictures/tileset/tileset2.bmp");
+    tileset3 = SDL_LoadBMP("./pictures/tileset/tileset3.bmp");
 
     //mainMenu(&gameOver);
 
@@ -59,10 +66,6 @@ int main(int argc,char** argv){
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
-    // loading the entire tileset cut in 3 separated parts
-    tileset1 = SDL_LoadBMP("./pictures/tileset/tileset1.bmp");
-    tileset2 = SDL_LoadBMP("./pictures/tileset/tileset2.bmp");
-    tileset3 = SDL_LoadBMP("./pictures/tileset/tileset3.bmp");
 
     staminaPos.x = 10;
     staminaPos.y = 45;
@@ -74,11 +77,6 @@ int main(int argc,char** argv){
     waterfallPos.y = -1728;
 
     SDL_EnableKeyRepeat(10, 10);
-
-    if(!tileset1 || !tileset2 || !tileset3){
-      printf("Error : tileset didn't load\n");
-      return 0;
-    }
 
     for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
         for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
@@ -388,40 +386,6 @@ int main(int argc,char** argv){
       waterfallAnim.h = 192;
       waterfallAnim.w = 64;
 
-      SDL_Rect Rect_dest;
-      SDL_Rect Rect_source;
-      Rect_source.w = WIDTH_TILE;
-      Rect_source.h = HEIGHT_TILE;
-
-
-      // printing tiles, the file depend on the number of the tile
-      for(int i = 0 ; i < MAP_BLOCKS_WIDTH ; i++){
-        for(int j = 0 ; j < MAP_BLOCKS_HEIGHT ; j++){
-          if((i*WIDTH_TILE > xscroll - WIDTH_TILE) && (i*WIDTH_TILE < xscroll + SCREEN_WIDTH + WIDTH_TILE)
-            && (j*WIDTH_TILE > yscroll - WIDTH_TILE) && (j*WIDTH_TILE < yscroll + SCREEN_HEIGHT + WIDTH_TILE)){
-            if(map_builder[i][j]<171){
-                Rect_dest.x = i*WIDTH_TILE - xscroll;
-                Rect_dest.y = j*HEIGHT_TILE - yscroll;
-                Rect_source.x = (map_builder[i][j])*WIDTH_TILE;
-                Rect_source.y = 0;
-                SDL_BlitSurface(tileset1,&Rect_source,screen,&Rect_dest);
-            }else if((map_builder[i][j]<341) && (map_builder[i][j]>170)){
-                Rect_dest.x = i*WIDTH_TILE - xscroll;
-                Rect_dest.y = j*HEIGHT_TILE - yscroll;
-                Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
-                Rect_source.y = 0;
-                SDL_BlitSurface(tileset2,&Rect_source,screen,&Rect_dest);
-            }else{
-                Rect_dest.x = i*WIDTH_TILE - xscroll;
-                Rect_dest.y = j*HEIGHT_TILE - yscroll;
-                Rect_source.x = (map_builder[i][j]%171)*WIDTH_TILE;
-                Rect_source.y = 0;
-                SDL_BlitSurface(tileset3,&Rect_source,screen,&Rect_dest);
-            }
-          }
-        }
-      }
-
       cpt += 1;
 
       if (cpt % 37 == 0){
@@ -445,8 +409,12 @@ int main(int argc,char** argv){
       SDL_Flip(screen);
       SDL_FreeSurface(stamina);
       SDL_FreeSurface(lifePoint);
+    
+      // print of the map
+      display(map_builder, screen, xscroll, yscroll, tileset1, tileset2, tileset3);
+      
     }
-
+    
     // memory restitution of map_builder
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_builder[j]);
@@ -465,13 +433,13 @@ int main(int argc,char** argv){
 
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
-    SDL_FreeSurface(tileset1);
-    SDL_FreeSurface(tileset2);
-    SDL_FreeSurface(tileset3);
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
     SDL_FreeSurface(screen);
+    SDL_FreeSurface(tileset1);
+    SDL_FreeSurface(tileset2);
+    SDL_FreeSurface(tileset3);
     Mix_FreeChunk(theme);
     Mix_FreeChunk(event_music);
     TTF_Quit();
