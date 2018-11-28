@@ -138,7 +138,7 @@ int main(int argc,char** argv){
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, &positionChar, &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver);
 
-      if(map_boolean[xchar/32][(ychar-5)/32]==3){
+      if(map_boolean[xchar/32][(ychar - 30)/32 + 1]==3){
         bool_tp_cave = 1;
         map_builder = mapBuilder(MAP_NO_WATER);
         map_boolean = mapBoolean(map_builder);
