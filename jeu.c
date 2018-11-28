@@ -145,9 +145,9 @@ int main(int argc,char** argv){
       }
 
       if (bool_tp_cave){
-        //bool_fog = 1;
-        xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH);
-        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/1.5) ;
+        bool_fog = 1;
+        xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
+        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
         positionChar.x = SCREEN_WIDTH/2;
         positionChar.y = SCREEN_HEIGHT/2;
         bool_tp_cave = 0;
@@ -219,7 +219,7 @@ int main(int argc,char** argv){
        free(map_boolean[j]);
     }
     free(map_boolean);
-    
+
     destroyTileset(tileset);
 
     // closing SDL libs
