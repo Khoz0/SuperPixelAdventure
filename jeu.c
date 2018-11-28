@@ -1,6 +1,7 @@
 #include "mapBuilder.h"
 #include "mapBoolean.h"
 #include "display.h"
+#include "tileset.h"
 #include "keyboardEvent.h"
 #include "constants.h"
 #include "menu.h"
@@ -28,11 +29,7 @@ int main(int argc,char** argv){
     SDL_Surface *screen;
     SDL_Event event;
 
-    SDL_Surface *tileset1, *tileset2, *tileset3;
-    // loading the entire tileset cut in 3 separated parts
-    tileset1 = SDL_LoadBMP("./pictures/tileset/tileset1.bmp");
-    tileset2 = SDL_LoadBMP("./pictures/tileset/tileset2.bmp");
-    tileset3 = SDL_LoadBMP("./pictures/tileset/tileset3.bmp");
+    TileSet* tileset = createTileset();
 
     //mainMenu(&gameOver);
 
@@ -207,7 +204,7 @@ int main(int argc,char** argv){
       SDL_FreeSurface(lifePoint);
 
       // print of the map
-      display(map_builder, screen, xscroll, yscroll, tileset1, tileset2, tileset3);
+      display(map_builder, screen, xscroll, yscroll, tileset);
 
     }
 
@@ -222,6 +219,8 @@ int main(int argc,char** argv){
        free(map_boolean[j]);
     }
     free(map_boolean);
+    
+    destroyTileset(tileset);
 
     // closing SDL libs
     TTF_CloseFont(font);
@@ -232,11 +231,10 @@ int main(int argc,char** argv){
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
+    SDL_FreeSurface(text_pannel_start);
+    SDL_FreeSurface(text_pannel_cave);
     SDL_FreeSurface(fog);
     SDL_FreeSurface(screen);
-    SDL_FreeSurface(tileset1);
-    SDL_FreeSurface(tileset2);
-    SDL_FreeSurface(tileset3);
     Mix_FreeChunk(theme);
     Mix_FreeChunk(event_music);
     TTF_Quit();
