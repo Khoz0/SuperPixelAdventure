@@ -9,12 +9,14 @@
 
 int main(int argc,char** argv){
     printf("1\n");
-    SDL_Surface *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
-    SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
+    SDL_Surface *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL, *old_man = NULL;
+    SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ, oldManNeg, oldManFace, oldManPos;
     SDL_Rect waterfallAnim, waterfallNeg, positionChatBox, positionPannel, fogPos;
     SDL_Rect waterfallPos;
 
     Picture* hero = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
+    old_man = SDL_LoadBMP("./pictures/characters/papi.bmp");
+    Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", 30, CHAR_HEIGHT);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
@@ -78,6 +80,8 @@ int main(int argc,char** argv){
     waterfall = SDL_LoadBMP("./pictures/waterfall/cascades_grandes.bmp");
     fog = SDL_LoadBMP("./pictures/tileset/fog.bmp");
     SDL_SetColorKey(hero->surface, SDL_SRCCOLORKEY, SDL_MapRGB(hero->surface->format, 255, 255, 255));
+    SDL_SetColorKey(old_man, SDL_SRCCOLORKEY, SDL_MapRGB(old_man->format, 255, 255, 255));
+    SDL_SetColorKey(old_woman->surface, SDL_SRCCOLORKEY, SDL_MapRGB(old_woman->surface->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
     SDL_SetColorKey(fog, SDL_SRCCOLORKEY, SDL_MapRGB(fog->format, 255, 255, 255));
@@ -90,6 +94,9 @@ int main(int argc,char** argv){
 
     waterfallPos.x = -2208;
     waterfallPos.y = -1728;
+
+    oldManPos.x = -670;
+    oldManPos.y = -1410;
 
     SDL_EnableKeyRepeat(10, 10);
 
@@ -136,7 +143,8 @@ int main(int argc,char** argv){
       if(!Mix_Playing(1)) Mix_Resume(0);
 
       SDL_PollEvent(&event);
-      keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, hero, &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver);
+      keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, hero,
+                    &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver, &oldManPos, old_woman);
 
       if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
         bool_tp_cave = 1;
@@ -170,6 +178,11 @@ int main(int argc,char** argv){
       waterfallAnim.h = 192;
       waterfallAnim.w = 64;
 
+      oldManFace.x = 0;
+      oldManFace.y = 0;
+      oldManFace.h = 32;
+      oldManFace.w = 32;
+
       cpt += 1;
 
       if (cpt % 37 == 0){
@@ -182,18 +195,23 @@ int main(int argc,char** argv){
       waterfallNeg.x = waterfallPos.x;
       waterfallNeg.y = waterfallPos.y;
 
-      SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
-      SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
+      oldManNeg.x = oldManPos.x;
+      oldManNeg.y = oldManPos.y;
+
       if (bool_waterfall){
         SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       }
       SDL_BlitSurface(hero->surface, &hero->src, screen, &hero->dst);
+      SDL_BlitSurface(old_man, &oldManFace, screen, &oldManNeg);
+      //SDL_BlitSurface(old_woman->surface, &old_woman->src, screen, &old_woman->dst);
       if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
       if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
       if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
       if(bool_fog){
         SDL_BlitSurface(fog, NULL, screen, &fogPos);
       }
+      SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
+      SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
       SDL_FreeSurface(stamina);
