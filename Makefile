@@ -1,4 +1,4 @@
-SRC=jeu.c mapBuilder.c mapBoolean.c menu.c isEmpty.c display.c keyboardEvent.c tileset.c picture.c
+SRC=jeu.c mapBuilder.c mapBoolean.c menu.c isEmpty.c display.c keyboardEvent.c tileset.c picture.c constants.c
 BIN=jeu
 
 $(BIN): $(SRC) mapBuilder.h constants.h mapBoolean.h menu.h isEmpty.h display.h keyboardEvent.h tileset.h picture.h

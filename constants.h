@@ -1,3 +1,4 @@
+#pragma once
 // includes
 #include <SDL/SDL.h>
 #include <stdio.h>
@@ -15,8 +16,8 @@
 #define MAP_BLOCKS_HEIGHT 84
 
 // sizes of the screen (in pixels)
-#define SCREEN_WIDTH 1440
-#define SCREEN_HEIGHT 896
+int SCREEN_WIDTH;
+int SCREEN_HEIGHT;
 
 // total sizes of the map (in pixels)
 #define MAP_PIXELS_X MAP_BLOCKS_WIDTH*WIDTH_TILE
