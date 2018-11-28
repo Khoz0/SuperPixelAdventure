@@ -1,17 +1,20 @@
 #include "mapBuilder.h"
 #include "mapBoolean.h"
 #include "display.h"
+#include "picture.h"
 #include "tileset.h"
 #include "keyboardEvent.h"
 #include "constants.h"
 #include "menu.h"
 
 int main(int argc,char** argv){
-
-    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
-    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ;
+    printf("1\n");
+    SDL_Surface *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
+    SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
     SDL_Rect waterfallAnim, waterfallNeg, positionChatBox, positionPannel, fogPos;
     SDL_Rect waterfallPos;
+
+    Picture* hero = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
@@ -57,8 +60,7 @@ int main(int argc,char** argv){
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
-    positionChar.y = SCREEN_HEIGHT/1.4;
-    positionChar.x = SCREEN_WIDTH/1.1;
+    setDstPosition(hero, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
 
     positionChatBox.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
     positionChatBox.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
@@ -70,12 +72,12 @@ int main(int argc,char** argv){
     fogPos.y = 0;
 
     // loading pictures
-    mainChar = SDL_LoadBMP("./pictures/characters/hero.bmp");
+    //mainChar = SDL_LoadBMP("./pictures/characters/hero.bmp");
     chatBox = SDL_LoadBMP("./pictures/chat/chatBox.bmp");
     pannel = SDL_LoadBMP("./pictures/chat/pannel.bmp");
     waterfall = SDL_LoadBMP("./pictures/waterfall/cascades_grandes.bmp");
     fog = SDL_LoadBMP("./pictures/tileset/fog.bmp");
-    SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
+    SDL_SetColorKey(hero->surface, SDL_SRCCOLORKEY, SDL_MapRGB(hero->surface->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
     SDL_SetColorKey(fog, SDL_SRCCOLORKEY, SDL_MapRGB(fog->format, 255, 255, 255));
@@ -98,8 +100,6 @@ int main(int argc,char** argv){
         printf("\n");
     }
 
-    //xscroll = MAP_PIXELS_X/4;
-    //yscroll = MAP_PIXELS_Y/4;
     xscroll = MAP_PIXELS_X - SCREEN_WIDTH;
     yscroll = MAP_PIXELS_Y - SCREEN_HEIGHT;
 
@@ -129,16 +129,16 @@ int main(int argc,char** argv){
       lastTimes = SDL_GetTicks();
       //Compteur d'images par secondes
 
-      xchar = positionChar.x + xscroll;
-      ychar = positionChar.y + yscroll;
+      xchar = hero->dst.x + xscroll;
+      ychar = hero->dst.y + yscroll;
 
       // we resume the main channel if it had been paused
       if(!Mix_Playing(1)) Mix_Resume(0);
 
       SDL_PollEvent(&event);
-      keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, &positionChar, &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver);
+      keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, hero, &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver);
 
-      if(map_boolean[xchar/32][(ychar - 30)/32 + 1]==3){
+      if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
         bool_tp_cave = 1;
         map_builder = mapBuilder(MAP_NO_WATER);
         map_boolean = mapBoolean(map_builder);
@@ -148,8 +148,7 @@ int main(int argc,char** argv){
         bool_fog = 1;
         xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
         yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
-        positionChar.x = SCREEN_WIDTH/2;
-        positionChar.y = SCREEN_HEIGHT/2;
+        setDstPosition(hero, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         bool_tp_cave = 0;
         bool_waterfall = 0;
       }
@@ -164,10 +163,7 @@ int main(int argc,char** argv){
       SDL_FillRect(stamina, NULL, SDL_MapRGB(screen->format, 1, 215, 88));
       SDL_FillRect(lifePoint, NULL, SDL_MapRGB(screen->format, 200, 7, 7));
 
-      mainCharGo.x = CHAR_WIDTH*(dir/7);
-      mainCharGo.y = CHAR_HEIGHT * width;
-      mainCharGo.h = CHAR_HEIGHT;
-      mainCharGo.w = 30;
+      setSrcPosition(hero, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
 
       waterfallAnim.x = 32 * animation;
       waterfallAnim.y = 0;
@@ -191,7 +187,7 @@ int main(int argc,char** argv){
       if (bool_waterfall){
         SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       }
-      SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
+      SDL_BlitSurface(hero->surface, &hero->src, screen, &hero->dst);
       if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
       if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
       if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
@@ -221,6 +217,7 @@ int main(int argc,char** argv){
     free(map_boolean);
 
     destroyTileset(tileset);
+    destroyPicture(hero);
 
     // closing SDL libs
     TTF_CloseFont(font);
@@ -228,7 +225,7 @@ int main(int argc,char** argv){
 
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
-    SDL_FreeSurface(mainChar);
+    //SDL_FreeSurface(mainChar);
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
     SDL_FreeSurface(text_pannel_start);
