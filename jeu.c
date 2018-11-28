@@ -7,12 +7,13 @@
 
 int main(int argc,char** argv){
 
-    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL;
-    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ, waterfallAnim, waterfallNeg, positionChatBox, positionPannel;
+    SDL_Surface *mainChar = NULL, *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
+    SDL_Rect positionChar, mainCharGo, staminaPos, lifePointPos, posSpriteWizardPNJ;
+    SDL_Rect waterfallAnim, waterfallNeg, positionChatBox, positionPannel, fogPos;
     SDL_Rect waterfallPos;
-    
+
     int cpt = 0, animation = 0;
-    int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver;
+    int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
     sprint = 1;
     bool_pannel_start = 0;
     bool_pannel_cave = 0;
@@ -26,7 +27,7 @@ int main(int argc,char** argv){
 
     SDL_Surface *screen;
     SDL_Event event;
-    
+
     SDL_Surface *tileset1, *tileset2, *tileset3;
     // loading the entire tileset cut in 3 separated parts
     tileset1 = SDL_LoadBMP("./pictures/tileset/tileset1.bmp");
@@ -48,14 +49,14 @@ int main(int argc,char** argv){
     }
     Mix_AllocateChannels(2);
     Mix_Chunk *theme, *event_music;;
-    
+
     theme = Mix_LoadWAV("theme.wav");
     Mix_Volume(0, 4);
     Mix_PlayChannel(0, theme, VOLUME_THEME);
-    
+
     event_music = Mix_LoadWAV("event.wav");
     Mix_Volume(1, VOLUME_EVENT);
-    
+
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
@@ -68,14 +69,19 @@ int main(int argc,char** argv){
     positionPannel.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
     positionPannel.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
 
+    fogPos.x = 0;
+    fogPos.y = 0;
+
     // loading pictures
     mainChar = SDL_LoadBMP("./pictures/characters/hero.bmp");
     chatBox = SDL_LoadBMP("./pictures/chat/chatBox.bmp");
     pannel = SDL_LoadBMP("./pictures/chat/pannel.bmp");
     waterfall = SDL_LoadBMP("./pictures/waterfall/cascades_grandes.bmp");
+    fog = SDL_LoadBMP("./pictures/tileset/fog.bmp");
     SDL_SetColorKey(mainChar, SDL_SRCCOLORKEY, SDL_MapRGB(mainChar->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
+    SDL_SetColorKey(fog, SDL_SRCCOLORKEY, SDL_MapRGB(fog->format, 255, 255, 255));
 
     staminaPos.x = 10;
     staminaPos.y = 45;
@@ -108,7 +114,7 @@ int main(int argc,char** argv){
     SDL_Rect posTexte;
     posTexte.x = 470;
     posTexte.y = 415;
-    
+
     // ttf texts
     text_pannel_start = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
     text_pannel_cave = TTF_RenderText_Solid(font, "*DANGER* entrée de la grote *DANGER*", couleurNoire);
@@ -131,9 +137,25 @@ int main(int argc,char** argv){
 
       // we resume the main channel if it had been paused
       if(!Mix_Playing(1)) Mix_Resume(0);
-      
+
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, &positionChar, &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver);
+
+      if(map_boolean[xchar/32][(ychar-5)/32]==3){
+        bool_tp_cave = 1;
+        map_builder = mapBuilder(MAP_NO_WATER);
+        map_boolean = mapBoolean(map_builder);
+      }
+
+      if (bool_tp_cave){
+        //bool_fog = 1;
+        xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH);
+        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/1.5) ;
+        positionChar.x = SCREEN_WIDTH/2;
+        positionChar.y = SCREEN_HEIGHT/2;
+        bool_tp_cave = 0;
+        bool_waterfall = 0;
+      }
 
       if (staminaLength > -2 && staminaLength  <= 194 && sprint == 1){
         staminaLength  += (2 * sprint);
@@ -169,21 +191,26 @@ int main(int argc,char** argv){
 
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
-      SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
+      if (bool_waterfall){
+        SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
+      }
       SDL_BlitSurface(mainChar, &mainCharGo, screen, &positionChar);
       if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
       if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
       if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
+      if(bool_fog){
+        SDL_BlitSurface(fog, NULL, screen, &fogPos);
+      }
       SDL_UpdateRect(screen, 0, 0, 0, 0);
       SDL_Flip(screen);
       SDL_FreeSurface(stamina);
       SDL_FreeSurface(lifePoint);
-    
+
       // print of the map
       display(map_builder, screen, xscroll, yscroll, tileset1, tileset2, tileset3);
-      
+
     }
-    
+
     // memory restitution of map_builder
     for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
        free(map_builder[j]);
@@ -205,6 +232,7 @@ int main(int argc,char** argv){
     SDL_FreeSurface(mainChar);
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
+    SDL_FreeSurface(fog);
     SDL_FreeSurface(screen);
     SDL_FreeSurface(tileset1);
     SDL_FreeSurface(tileset2);
