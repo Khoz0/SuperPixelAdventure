@@ -1,4 +1,5 @@
 #include "tileset.h"
+#include "atlas.h"
 
 TileSet* createTileset() {
 
@@ -9,6 +10,14 @@ TileSet* createTileset() {
   tileset->tileset3 = SDL_LoadBMP("./pictures/tileset/tileset3.bmp");
 
   return tileset;
+
+}
+
+SDL_Surface* getTileset(Atlas* atlas, int index) {
+
+  if(index==1) return atlas->tileset->tileset1;
+  if(index==2) return atlas->tileset->tileset2;
+  if(index==3) return atlas->tileset->tileset3;
 
 }
 

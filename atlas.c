@@ -1,43 +1,44 @@
 #include "atlas.h"
 
+#define SIZE_ATLAS 11
+
 Atlas* createAtlas() {
-  
+
   Atlas* atlas = malloc(sizeof(Atlas));
-  atlas->pictures = malloc(sizeof(Picture*) * NB_PICTURES);
-  
-  Picture* hero = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
-  atlas->pictures[0] = hero;
-  Picture* old_man = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[1] = old_man;
-  Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[2] = old_woman;
-  Picture* waterfall = createPicture("./pictures/waterfall/cascades_grandes.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[3] = waterfall;
-  Picture* innkeeper = createPicture("./pictures/characters/aubergisteF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[4] = innkeeper;
-  Picture* country_guard = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[5] = country_guard;
-  Picture* kidM = createPicture("./pictures/characters/enfantM.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[6] = kidM;
-  Picture* kidF = createPicture("./pictures/characters/enfantF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[7] = kidF;
-  Picture* wood_hunter = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[8] = wood_hunter;
-  Picture* villager = createPicture("./pictures/characters/villageoise.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[9] = villager;
-  Picture* fish_hunter = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[10] = fish_hunter;
-  
+  atlas->pictures = malloc(sizeof(Picture*) * SIZE_ATLAS);
+
+  atlas->pictures[HERO] = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
+  atlas->pictures[OLD_MAN] = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[OLD_WOMAN] = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[WATERFALL] = createPicture("./pictures/waterfall/cascades_grandes.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[INNKEEPER] = createPicture("./pictures/characters/aubergisteF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[COUNTRY_GUARD] = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[KIDM] = createPicture("./pictures/characters/enfantM.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[KIDF] = createPicture("./pictures/characters/enfantF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[WOOD_HUNTER] = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[VILLAGER] = createPicture("./pictures/characters/villageoise.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[FISH_HUNTER] = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);;
+
+  atlas->tileset = createTileset();
+
   return atlas;
-  
+
+}
+
+Picture* getPicture(Atlas* atlas, int index) {
+
+  return atlas->pictures[index];
+
 }
 
 void destroyAtlas(Atlas* atlas) {
-  
-  for (int i = 0; i < NB_PICTURES; i++) {
+
+  for(int i = 0 ; i < SIZE_ATLAS ; i++) {
     destroyPicture(atlas->pictures[i]);
   }
+  destroyTileset(atlas->tileset);
   free(atlas->pictures);
   free(atlas);
-  
+  atlas = NULL;
+
 }

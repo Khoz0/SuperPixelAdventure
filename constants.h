@@ -41,3 +41,21 @@
 // define the volume of the sounds played on differents channels
 #define VOLUME_THEME 10
 #define VOLUME_EVENT 50
+
+// define of the index of each tileset of the atlas->tileset
+#define TILESET1 1
+#define TILESET2 2
+#define TILESET3 3
+
+// define of the index of each picture in the atlas
+#define HERO 0
+#define OLD_MAN 1
+#define OLD_WOMAN 2
+#define WATERFALL 3
+#define INNKEEPER 4
+#define COUNTRY_GUARD 5
+#define KIDM 6
+#define KIDF 7
+#define WOOD_HUNTER 8
+#define VILLAGER 9
+#define FISH_HUNTER 10

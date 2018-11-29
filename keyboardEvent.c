@@ -1,9 +1,7 @@
 #include "keyboardEvent.h"
 
 void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16** map_boolean, int xchar, int ychar, int* bool_pannel_cave,
-	 								 int *bool_pannel, int *width, Picture* hero, int *yscroll, int *xscroll, int *dir, Picture* waterfall,
-									 int *staminaLength, int *gameOver, Picture* old_man, Picture* old_woman, Picture* innkeeper, Picture* country_guard,
-									 Picture* kidM, Picture* kidF, Picture* wood_hunter, Picture* villager, Picture* fish_hunter){
+	 								 int *bool_pannel, int *width, int *yscroll, int *xscroll, int *dir, int *staminaLength, int *gameOver, Atlas* atlas){
 
   switch(event.type){
 	case SDL_KEYDOWN:
@@ -22,10 +20,10 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 		    //map_builder = mapBuilder(MAP_NO_WATER);
 		    //map_boolean = mapBoolean(map_builder);
 		    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
-			for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-			    printf("%d", map_boolean[j][i]);
-			}
-			printf("\n");
+			    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
+			      printf("%d", map_boolean[j][i]);
+			    }
+			  printf("\n");
 		    }
 		  }
 	      break;
@@ -36,11 +34,11 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			      *bool_pannel = 0;
 			      *bool_pannel_cave = 0;
 			      if(map_boolean[xchar/32][(ychar-15)/32]==3 && map_boolean[xchar/32+1][(ychar-15)/32]==3){
-						setPictureY(hero, getPictureY(hero) - 4 * *sprint);
+						setPictureY(getPicture(atlas, HERO), getPictureY(getPicture(atlas, HERO)) - 4 * *sprint);
 			      }
 			      if (*yscroll > 0){
-				  if((getPictureY(hero) > 448) && (map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)) {
-							setPictureY(hero, getPictureY(hero) - 4 * *sprint);
+				  if((getPictureY(getPicture(atlas, HERO)) > 448) && (map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)) {
+							setPictureY(getPicture(atlas, HERO), getPictureY(getPicture(atlas, HERO)) - 4 * *sprint);
 				      if (*dir < 20){
 						  *dir += (1 * *sprint);
 				      }else{
@@ -48,16 +46,16 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				      }
 				  }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
 				    *yscroll -= 8 * *sprint;
-						setPictureY(waterfall, getPictureY(waterfall) + 8 * *sprint);
-						setPictureY(old_man, getPictureY(old_man) + 8 * *sprint);
-						setPictureY(old_woman, getPictureY(old_woman) + 8 * *sprint);
-						setPictureY(innkeeper, getPictureY(innkeeper) + 8 * *sprint);
-						setPictureY(country_guard, getPictureY(country_guard) + 8 * *sprint);
-						setPictureY(kidM, getPictureY(kidM) + 8 * *sprint);
-						setPictureY(kidF, getPictureY(kidF) + 8 * *sprint);
-						setPictureY(wood_hunter, getPictureY(wood_hunter) + 8 * *sprint);
-						setPictureY(villager, getPictureY(villager) + 8 * *sprint);
-						setPictureY(fish_hunter, getPictureY(fish_hunter) + 8 * *sprint);
+						setPictureY(getPicture(atlas, WATERFALL), getPictureY(getPicture(atlas, WATERFALL)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, OLD_MAN), getPictureY(getPicture(atlas, OLD_MAN)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, OLD_WOMAN), getPictureY(getPicture(atlas, OLD_WOMAN)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, INNKEEPER), getPictureY(getPicture(atlas, INNKEEPER)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, COUNTRY_GUARD), getPictureY(getPicture(atlas, COUNTRY_GUARD)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, KIDM), getPictureY(getPicture(atlas, KIDM)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, KIDF), getPictureY(getPicture(atlas, KIDF)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, WOOD_HUNTER), getPictureY(getPicture(atlas, WOOD_HUNTER)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, VILLAGER), getPictureY(getPicture(atlas, VILLAGER)) + 8 * *sprint);
+						setPictureY(getPicture(atlas, FISH_HUNTER), getPictureY(getPicture(atlas, FISH_HUNTER)) + 8 * *sprint);
 				    if (*dir < 20){
 					  *dir += (1 * *sprint);
 				    }else{
@@ -70,7 +68,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				    }
 				  }
 			      }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
-					setPictureY(hero, getPictureY(hero) - 4 * *sprint);
+					setPictureY(getPicture(atlas, HERO), getPictureY(getPicture(atlas, HERO)) - 4 * *sprint);
 				  if (*dir < 20){
 				      *dir += (1 * *sprint);
 				  }else{
@@ -89,8 +87,8 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			  *bool_pannel = 0;
 			  *bool_pannel_cave = 0;
 			  if (*yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
-			      if((getPictureY(hero) < 448) && (map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
-					setPictureY(hero, getPictureY(hero) + 4 * *sprint);
+			      if((getPictureY(getPicture(atlas, HERO)) < 448) && (map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
+					setPictureY(getPicture(atlas, HERO), getPictureY(getPicture(atlas, HERO)) + 4 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -98,16 +96,16 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  }
 			      }else if ((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
 				  *yscroll += 8 * *sprint;
-					setPictureY(waterfall, getPictureY(waterfall) - 8 * *sprint);
-					setPictureY(old_man, getPictureY(old_man) - 8 * *sprint);
-					setPictureY(old_woman, getPictureY(old_woman) - 8 * *sprint);
-					setPictureY(innkeeper, getPictureY(innkeeper) - 8 * *sprint);
-					setPictureY(country_guard, getPictureY(country_guard) - 8 * *sprint);
-					setPictureY(kidM, getPictureY(kidM) - 8 * *sprint);
-					setPictureY(kidF, getPictureY(kidF) - 8 * *sprint);
-					setPictureY(wood_hunter, getPictureY(wood_hunter) - 8 * *sprint);
-					setPictureY(villager, getPictureY(villager) - 8 * *sprint);
-					setPictureY(fish_hunter, getPictureY(fish_hunter) - 8 * *sprint);
+					setPictureY(getPicture(atlas, WATERFALL), getPictureY(getPicture(atlas, WATERFALL)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, OLD_MAN), getPictureY(getPicture(atlas, OLD_MAN)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, OLD_WOMAN), getPictureY(getPicture(atlas, OLD_WOMAN)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, INNKEEPER), getPictureY(getPicture(atlas, INNKEEPER)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, COUNTRY_GUARD), getPictureY(getPicture(atlas, COUNTRY_GUARD)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, KIDM), getPictureY(getPicture(atlas, KIDM)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, KIDF), getPictureY(getPicture(atlas, KIDF)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, WOOD_HUNTER), getPictureY(getPicture(atlas, WOOD_HUNTER)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, VILLAGER), getPictureY(getPicture(atlas, VILLAGER)) - 8 * *sprint);
+					setPictureY(getPicture(atlas, FISH_HUNTER), getPictureY(getPicture(atlas, FISH_HUNTER)) - 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -119,10 +117,10 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 					      *sprint = 1;
 				  }
 			      }
-			  }else if((*yscroll < MAP_PIXELS_Y) && (getPictureY(hero) < SCREEN_HEIGHT - CHAR_HEIGHT)){
+			  }else if((*yscroll < MAP_PIXELS_Y) && (getPictureY(getPicture(atlas, HERO)) < SCREEN_HEIGHT - CHAR_HEIGHT)){
 			    if(xchar/32 < 133){
 			      if((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
-				setPictureY(hero, getPictureY(hero) + 4 * *sprint);
+				setPictureY(getPicture(atlas, HERO), getPictureY(getPicture(atlas, HERO)) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
 				}else{
@@ -131,7 +129,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			      }
 			    }else{
 			      if((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32][(ychar+8)/32+1]==0)){
-				setPictureY(hero, getPictureY(hero) + 4 * *sprint);
+				setPictureY(getPicture(atlas, HERO), getPictureY(getPicture(atlas, HERO)) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
 				}else{
@@ -147,8 +145,8 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			  *bool_pannel = 0;
 			  *bool_pannel_cave = 0;
 			  if (*xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
-			      if((getPictureX(hero) < 720) && (map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)) {
-					setPictureX(hero, getPictureX(hero) + 4 * *sprint);
+			      if((getPictureX(getPicture(atlas, HERO)) < 720) && (map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)) {
+					setPictureX(getPicture(atlas, HERO), getPictureX(getPicture(atlas, HERO)) + 4 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -156,16 +154,16 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  }
 			      }else if ((map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)){
 				  *xscroll += 8 * *sprint;
-					setPictureX(waterfall, getPictureX(waterfall) - 8 * *sprint);
-					setPictureX(old_man, getPictureX(old_man) - 8 * *sprint);
-					setPictureX(old_woman, getPictureX(old_woman) - 8 * *sprint);
-					setPictureX(innkeeper, getPictureX(innkeeper) - 8 * *sprint);
-					setPictureX(country_guard, getPictureX(country_guard) - 8 * *sprint);
-					setPictureX(kidM, getPictureX(kidM) - 8 * *sprint);
-					setPictureX(kidF, getPictureX(kidF) - 8 * *sprint);
-					setPictureX(wood_hunter, getPictureX(wood_hunter) - 8 * *sprint);
-					setPictureX(villager, getPictureX(villager) - 8 * *sprint);
-					setPictureX(fish_hunter, getPictureX(fish_hunter) - 8 * *sprint);
+					setPictureX(getPicture(atlas, WATERFALL), getPictureX(getPicture(atlas, WATERFALL)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, OLD_MAN), getPictureX(getPicture(atlas, OLD_MAN)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, OLD_WOMAN), getPictureX(getPicture(atlas, OLD_WOMAN)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, INNKEEPER), getPictureX(getPicture(atlas, INNKEEPER)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, COUNTRY_GUARD), getPictureX(getPicture(atlas, COUNTRY_GUARD)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, KIDM), getPictureX(getPicture(atlas, KIDM)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, KIDF), getPictureX(getPicture(atlas, KIDF)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, WOOD_HUNTER), getPictureX(getPicture(atlas, WOOD_HUNTER)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, VILLAGER), getPictureX(getPicture(atlas, VILLAGER)) - 8 * *sprint);
+					setPictureX(getPicture(atlas, FISH_HUNTER), getPictureX(getPicture(atlas, FISH_HUNTER)) - 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -177,10 +175,10 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 					      *sprint = 1;
 				  }
 			      }
-			  }else if((*xscroll < MAP_PIXELS_X) && (getPictureX(hero) < SCREEN_WIDTH - CHAR_WIDTH)){
+			  }else if((*xscroll < MAP_PIXELS_X) && (getPictureX(getPicture(atlas, HERO)) < SCREEN_WIDTH - CHAR_WIDTH)){
 			    if((xchar)/32 < 133){
 			      if((map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)){
-				setPictureX(hero, getPictureX(hero) + 4 * *sprint);
+				setPictureX(getPicture(atlas, HERO), getPictureX(getPicture(atlas, HERO)) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
 				}else{
@@ -189,7 +187,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			      }
 			    }else{
 			      if((map_boolean[(xchar+7)/32][ychar/32]==0) && (map_boolean[(xchar+7)/32][ychar/32+1]==0) && (xchar < 4281)){
-				setPictureX(hero, getPictureX(hero) + 4 * *sprint);
+				setPictureX(getPicture(atlas, HERO), getPictureX(getPicture(atlas, HERO)) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
 				}else{
@@ -205,8 +203,8 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			  *bool_pannel = 0;
 			  *bool_pannel_cave = 0;
 			  if (*xscroll > 0){
-			      if((getPictureX(hero) > 720) && (map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)) {
-				  setPictureX(hero, getPictureX(hero) - 4 * *sprint);
+			      if((getPictureX(getPicture(atlas, HERO)) > 720) && (map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)) {
+				  setPictureX(getPicture(atlas, HERO), getPictureX(getPicture(atlas, HERO)) - 4 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -214,16 +212,16 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  }
 			      }else if ((map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)){
 				  *xscroll -= 8 * *sprint;
-					setPictureX(waterfall, getPictureX(waterfall) + 8 * *sprint);
-					setPictureX(old_man, getPictureX(old_man) + 8 * *sprint);
-					setPictureX(old_woman, getPictureX(old_woman) + 8 * *sprint);
-					setPictureX(innkeeper, getPictureX(innkeeper) + 8 * *sprint);
-					setPictureX(country_guard, getPictureX(country_guard) + 8 * *sprint);
-					setPictureX(kidM, getPictureX(kidM) + 8 * *sprint);
-					setPictureX(kidF, getPictureX(kidF) + 8 * *sprint);
-					setPictureX(wood_hunter, getPictureX(wood_hunter) + 8 * *sprint);
-					setPictureX(villager, getPictureX(villager) + 8 * *sprint);
-					setPictureX(fish_hunter, getPictureX(fish_hunter) + 8 * *sprint);
+					setPictureX(getPicture(atlas, WATERFALL), getPictureX(getPicture(atlas, WATERFALL)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, OLD_MAN), getPictureX(getPicture(atlas, OLD_MAN)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, OLD_WOMAN), getPictureX(getPicture(atlas, OLD_WOMAN)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, INNKEEPER), getPictureX(getPicture(atlas, INNKEEPER)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, COUNTRY_GUARD), getPictureX(getPicture(atlas, COUNTRY_GUARD)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, KIDM), getPictureX(getPicture(atlas, KIDM)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, KIDF), getPictureX(getPicture(atlas, KIDF)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, WOOD_HUNTER), getPictureX(getPicture(atlas, WOOD_HUNTER)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, VILLAGER), getPictureX(getPicture(atlas, VILLAGER)) + 8 * *sprint);
+					setPictureX(getPicture(atlas, FISH_HUNTER), getPictureX(getPicture(atlas, FISH_HUNTER)) + 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -236,7 +234,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  }
 			      }
 			  }else if ((map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)){
-			      setPictureX(hero, getPictureX(hero) - 4 * *sprint);
+			      setPictureX(getPicture(atlas, HERO), getPictureX(getPicture(atlas, HERO)) - 4 * *sprint);
 			      if (*dir < 20){
 				  *dir += (1 * *sprint);
 			      }else{
