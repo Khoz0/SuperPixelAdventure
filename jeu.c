@@ -3,11 +3,13 @@
 #include "display.h"
 #include "picture.h"
 #include "tileset.h"
+#include "destroyTab.h"
 #include "keyboardEvent.h"
 #include "constants.h"
 #include "menu.h"
 
 int main(int argc,char** argv){
+  
     SDL_Surface *stamina = NULL, *lifePoint = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
     SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
     SDL_Rect waterfallAnim, positionChatBox, positionPannel, fogPos;
@@ -277,18 +279,6 @@ int main(int argc,char** argv){
 
     }
 
-    // memory restitution of map_builder
-    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-       free(map_builder[j]);
-    }
-    free(map_builder);
-
-    // memory restitution of map_boolean
-    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-       free(map_boolean[j]);
-    }
-    free(map_boolean);
-
     destroyTileset(tileset);
     destroyPicture(hero);
     destroyPicture(old_man);
@@ -301,6 +291,8 @@ int main(int argc,char** argv){
     destroyPicture(wood_hunter);
     destroyPicture(villager);
     destroyPicture(fish_hunter);
+    destroyTab(map_builder);
+    destroyTab(map_boolean);
 
     // closing SDL libs
     TTF_CloseFont(font);
