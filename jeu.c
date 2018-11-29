@@ -30,7 +30,7 @@ int main(int argc,char** argv){
     bool_pannel_start = 0;
     bool_pannel_cave = 0;
     bool_pannel = 0;
-    width = 2;
+    width = 0;
     dir = 1;
     staminaLength = 195;
     gameOver = 0;
