@@ -8,15 +8,14 @@
 #include "menu.h"
 
 int main(int argc,char** argv){
-    printf("1\n");
-    SDL_Surface *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL, *old_man = NULL;
-    SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ, oldManNeg, oldManFace, oldManPos;
+    SDL_Surface *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
+    SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
     SDL_Rect waterfallAnim, waterfallNeg, positionChatBox, positionPannel, fogPos;
     SDL_Rect waterfallPos;
 
     Picture* hero = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
-    old_man = SDL_LoadBMP("./pictures/characters/papi.bmp");
-    Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", 30, CHAR_HEIGHT);
+    Picture* old_man = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", CHAT_WIDTH, CHAR_HEIGHT);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
@@ -50,13 +49,13 @@ int main(int argc,char** argv){
       printf("Error SDL_mixer : %s\n", Mix_GetError());
     }
     Mix_AllocateChannels(2);
-    Mix_Chunk *theme, *event_music;;
+    Mix_Chunk *music_theme, *music_event;;
 
-    theme = Mix_LoadWAV("theme.wav");
+    music_theme = Mix_LoadWAV("./music/music_theme.wav");
     Mix_Volume(0, 4);
-    Mix_PlayChannel(0, theme, VOLUME_THEME);
+    Mix_PlayChannel(0, music_theme, VOLUME_THEME);
 
-    event_music = Mix_LoadWAV("event.wav");
+    music_event = Mix_LoadWAV("./music/music_event.wav");
     Mix_Volume(1, VOLUME_EVENT);
 
     Uint16** map_builder = mapBuilder(MAP_WATER);
@@ -74,13 +73,12 @@ int main(int argc,char** argv){
     fogPos.y = 0;
 
     // loading pictures
-    //mainChar = SDL_LoadBMP("./pictures/characters/hero.bmp");
     chatBox = SDL_LoadBMP("./pictures/chat/chatBox.bmp");
     pannel = SDL_LoadBMP("./pictures/chat/pannel.bmp");
     waterfall = SDL_LoadBMP("./pictures/waterfall/cascades_grandes.bmp");
     fog = SDL_LoadBMP("./pictures/tileset/fog.bmp");
     SDL_SetColorKey(hero->surface, SDL_SRCCOLORKEY, SDL_MapRGB(hero->surface->format, 255, 255, 255));
-    SDL_SetColorKey(old_man, SDL_SRCCOLORKEY, SDL_MapRGB(old_man->format, 255, 255, 255));
+    SDL_SetColorKey(old_man->surface, SDL_SRCCOLORKEY, SDL_MapRGB(old_man->surface->format, 255, 255, 255));
     SDL_SetColorKey(old_woman->surface, SDL_SRCCOLORKEY, SDL_MapRGB(old_woman->surface->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
@@ -95,8 +93,7 @@ int main(int argc,char** argv){
     waterfallPos.x = -2208;
     waterfallPos.y = -1728;
 
-    oldManPos.x = -670;
-    oldManPos.y = -1410;
+    setDstPosition(old_man, -670, -1410);
 
     SDL_EnableKeyRepeat(10, 10);
 
@@ -144,7 +141,7 @@ int main(int argc,char** argv){
 
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, hero,
-                    &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver, &oldManPos, old_woman);
+                    &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver, old_man, old_woman);
 
       if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
         bool_tp_cave = 1;
@@ -178,11 +175,6 @@ int main(int argc,char** argv){
       waterfallAnim.h = 192;
       waterfallAnim.w = 64;
 
-      oldManFace.x = 0;
-      oldManFace.y = 0;
-      oldManFace.h = 32;
-      oldManFace.w = 32;
-
       cpt += 1;
 
       if (cpt % 37 == 0){
@@ -195,14 +187,14 @@ int main(int argc,char** argv){
       waterfallNeg.x = waterfallPos.x;
       waterfallNeg.y = waterfallPos.y;
 
-      oldManNeg.x = oldManPos.x;
-      oldManNeg.y = oldManPos.y;
+      setPictureNegX(old_man, getPictureX(old_man));
+      setPictureNegY(old_man, getPictureY(old_man));
 
       if (bool_waterfall){
         SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
       }
       SDL_BlitSurface(hero->surface, &hero->src, screen, &hero->dst);
-      SDL_BlitSurface(old_man, &oldManFace, screen, &oldManNeg);
+      SDL_BlitSurface(old_man->surface, &old_man->src, screen, &old_man->neg);
       //SDL_BlitSurface(old_woman->surface, &old_woman->src, screen, &old_woman->dst);
       if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
       if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
@@ -236,6 +228,8 @@ int main(int argc,char** argv){
 
     destroyTileset(tileset);
     destroyPicture(hero);
+    destroyPicture(old_man);
+    destroyPicture(old_woman);
 
     // closing SDL libs
     TTF_CloseFont(font);
@@ -243,15 +237,14 @@ int main(int argc,char** argv){
 
     // SDL memory restitution
     SDL_FreeSurface(waterfall);
-    //SDL_FreeSurface(mainChar);
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
     SDL_FreeSurface(text_pannel_start);
     SDL_FreeSurface(text_pannel_cave);
     SDL_FreeSurface(fog);
     SDL_FreeSurface(screen);
-    Mix_FreeChunk(theme);
-    Mix_FreeChunk(event_music);
+    Mix_FreeChunk(music_theme);
+    Mix_FreeChunk(music_event);
     TTF_Quit();
     Mix_Quit();
     SDL_Quit();

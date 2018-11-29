@@ -5,7 +5,9 @@ Picture* createPicture(char* name, int width, int height) {
   Picture* picture = malloc(sizeof(Picture));
 
   picture->surface = SDL_LoadBMP(name);
+
   picture->isPrinted = 1;
+
   picture->src.x = 0;
   picture->src.y = 0;
   picture->src.w = width;
@@ -15,6 +17,11 @@ Picture* createPicture(char* name, int width, int height) {
   picture->dst.y = 0;
   picture->dst.w = 0;
   picture->dst.h = 0;
+
+  picture->neg.x = 0;
+  picture->neg.y = 0;
+  picture->neg.w = 0;
+  picture->neg.h = 0;
 
   return picture;
 
@@ -56,4 +63,12 @@ void setPictureX(Picture* picture, int x){
 
 void setPictureY(Picture* picture, int y){
   picture->dst.y = y;
+}
+
+void setPictureNegX(Picture* picture, int x){
+  picture->neg.x = x;
+}
+
+void setPictureNegY(Picture* picture, int y){
+  picture->neg.y = y;
 }

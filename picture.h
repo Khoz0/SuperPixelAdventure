@@ -8,6 +8,7 @@ typedef struct Picture {
   int isPrinted;
   SDL_Rect src;
   SDL_Rect dst;
+  SDL_Rect neg;
 
 } Picture;
 
@@ -19,3 +20,5 @@ int getPictureX(Picture* picture);
 int getPictureY(Picture* picture);
 void setPictureX(Picture* picture, int x);
 void setPictureY(Picture* picture, int y);
+void setPictureNegX(Picture* picture, int x);
+void setPictureNegY(Picture* picture, int y);

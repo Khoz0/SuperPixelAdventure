@@ -1,7 +1,7 @@
 #include "keyboardEvent.h"
 
 void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16** map_boolean, int xchar, int ychar, int* bool_pannel_cave, int *bool_pannel,
-		   int *width, Picture* hero, int *yscroll, int *xscroll, int *dir, SDL_Rect *waterfallPos, int *staminaLength, int *gameOver, SDL_Rect *oldManPos, Picture* old_woman){
+		   int *width, Picture* hero, int *yscroll, int *xscroll, int *dir, SDL_Rect *waterfallPos, int *staminaLength, int *gameOver, Picture* old_man, Picture* old_woman){
 
   switch(event.type){
 	case SDL_KEYDOWN:
@@ -47,7 +47,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
 				    *yscroll -= 8 * *sprint;
 				    waterfallPos->y += 8 * *sprint;
-						oldManPos->y += 8 * *sprint;
+						setPictureY(old_man, getPictureY(old_man) + 8 * *sprint);
 				    if (*dir < 20){
 					  *dir += (1 * *sprint);
 				    }else{
@@ -89,7 +89,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			      }else if ((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
 				  *yscroll += 8 * *sprint;
 				  waterfallPos->y -= 8 * *sprint;
-					oldManPos->y -= 8 * *sprint;
+					setPictureY(old_man, getPictureY(old_man) - 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -139,7 +139,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			      }else if ((map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)){
 				  *xscroll += 8 * *sprint;
 				  waterfallPos->x -= 8 * *sprint;
-					oldManPos->x -= 8 * *sprint;
+					setPictureX(old_man, getPictureX(old_man) - 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -189,7 +189,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			      }else if ((map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)){
 				  *xscroll -= 8 * *sprint;
 				  waterfallPos->x += 8 * *sprint;
-					oldManPos->x += 8 * *sprint;
+					setPictureX(old_man, getPictureX(old_man) + 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
