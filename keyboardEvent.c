@@ -1,7 +1,9 @@
 #include "keyboardEvent.h"
 
-void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16** map_boolean, int xchar, int ychar, int* bool_pannel_cave, int *bool_pannel,
-		   int *width, Picture* hero, int *yscroll, int *xscroll, int *dir, Picture* waterfall, int *staminaLength, int *gameOver, Picture* old_man, Picture* old_woman){
+void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16** map_boolean, int xchar, int ychar, int* bool_pannel_cave,
+	 								 int *bool_pannel, int *width, Picture* hero, int *yscroll, int *xscroll, int *dir, Picture* waterfall,
+									 int *staminaLength, int *gameOver, Picture* old_man, Picture* old_woman, Picture* innkeeper, Picture* country_guard,
+									 Picture* kidM, Picture* kidF, Picture* wood_hunter, Picture* villager, Picture* fish_hunter){
 
   switch(event.type){
 	case SDL_KEYDOWN:
@@ -48,6 +50,14 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				    *yscroll -= 8 * *sprint;
 						setPictureY(waterfall, getPictureY(waterfall) + 8 * *sprint);
 						setPictureY(old_man, getPictureY(old_man) + 8 * *sprint);
+						setPictureY(old_woman, getPictureY(old_woman) + 8 * *sprint);
+						setPictureY(innkeeper, getPictureY(innkeeper) + 8 * *sprint);
+						setPictureY(country_guard, getPictureY(country_guard) + 8 * *sprint);
+						setPictureY(kidM, getPictureY(kidM) + 8 * *sprint);
+						setPictureY(kidF, getPictureY(kidF) + 8 * *sprint);
+						setPictureY(wood_hunter, getPictureY(wood_hunter) + 8 * *sprint);
+						setPictureY(villager, getPictureY(villager) + 8 * *sprint);
+						setPictureY(fish_hunter, getPictureY(fish_hunter) + 8 * *sprint);
 				    if (*dir < 20){
 					  *dir += (1 * *sprint);
 				    }else{
@@ -90,6 +100,14 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  *yscroll += 8 * *sprint;
 					setPictureY(waterfall, getPictureY(waterfall) - 8 * *sprint);
 					setPictureY(old_man, getPictureY(old_man) - 8 * *sprint);
+					setPictureY(old_woman, getPictureY(old_woman) - 8 * *sprint);
+					setPictureY(innkeeper, getPictureY(innkeeper) - 8 * *sprint);
+					setPictureY(country_guard, getPictureY(country_guard) - 8 * *sprint);
+					setPictureY(kidM, getPictureY(kidM) - 8 * *sprint);
+					setPictureY(kidF, getPictureY(kidF) - 8 * *sprint);
+					setPictureY(wood_hunter, getPictureY(wood_hunter) - 8 * *sprint);
+					setPictureY(villager, getPictureY(villager) - 8 * *sprint);
+					setPictureY(fish_hunter, getPictureY(fish_hunter) - 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -140,6 +158,14 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  *xscroll += 8 * *sprint;
 					setPictureX(waterfall, getPictureX(waterfall) - 8 * *sprint);
 					setPictureX(old_man, getPictureX(old_man) - 8 * *sprint);
+					setPictureX(old_woman, getPictureX(old_woman) - 8 * *sprint);
+					setPictureX(innkeeper, getPictureX(innkeeper) - 8 * *sprint);
+					setPictureX(country_guard, getPictureX(country_guard) - 8 * *sprint);
+					setPictureX(kidM, getPictureX(kidM) - 8 * *sprint);
+					setPictureX(kidF, getPictureX(kidF) - 8 * *sprint);
+					setPictureX(wood_hunter, getPictureX(wood_hunter) - 8 * *sprint);
+					setPictureX(villager, getPictureX(villager) - 8 * *sprint);
+					setPictureX(fish_hunter, getPictureX(fish_hunter) - 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
@@ -190,6 +216,14 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 				  *xscroll -= 8 * *sprint;
 					setPictureX(waterfall, getPictureX(waterfall) + 8 * *sprint);
 					setPictureX(old_man, getPictureX(old_man) + 8 * *sprint);
+					setPictureX(old_woman, getPictureX(old_woman) + 8 * *sprint);
+					setPictureX(innkeeper, getPictureX(innkeeper) + 8 * *sprint);
+					setPictureX(country_guard, getPictureX(country_guard) + 8 * *sprint);
+					setPictureX(kidM, getPictureX(kidM) + 8 * *sprint);
+					setPictureX(kidF, getPictureX(kidF) + 8 * *sprint);
+					setPictureX(wood_hunter, getPictureX(wood_hunter) + 8 * *sprint);
+					setPictureX(villager, getPictureX(villager) + 8 * *sprint);
+					setPictureX(fish_hunter, getPictureX(fish_hunter) + 8 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{

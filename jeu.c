@@ -16,6 +16,13 @@ int main(int argc,char** argv){
     Picture* old_man = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
     Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
     Picture* waterfall = createPicture("./pictures/waterfall/cascades_grandes.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* innkeeper = createPicture("./pictures/characters/aubergisteF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* country_guard = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* kidM = createPicture("./pictures/characters/enfantM.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* kidF = createPicture("./pictures/characters/enfantF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* wood_hunter = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* villager = createPicture("./pictures/characters/villageoise.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* fish_hunter = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
@@ -79,6 +86,13 @@ int main(int argc,char** argv){
     SDL_SetColorKey(hero->surface, SDL_SRCCOLORKEY, SDL_MapRGB(hero->surface->format, 255, 255, 255));
     SDL_SetColorKey(old_man->surface, SDL_SRCCOLORKEY, SDL_MapRGB(old_man->surface->format, 255, 255, 255));
     SDL_SetColorKey(old_woman->surface, SDL_SRCCOLORKEY, SDL_MapRGB(old_woman->surface->format, 255, 255, 255));
+    SDL_SetColorKey(innkeeper->surface, SDL_SRCCOLORKEY, SDL_MapRGB(innkeeper->surface->format, 255, 255, 255));
+    SDL_SetColorKey(country_guard->surface, SDL_SRCCOLORKEY, SDL_MapRGB(country_guard->surface->format, 255, 255, 255));
+    SDL_SetColorKey(kidM->surface, SDL_SRCCOLORKEY, SDL_MapRGB(kidM->surface->format, 255, 255, 255));
+    SDL_SetColorKey(kidF->surface, SDL_SRCCOLORKEY, SDL_MapRGB(kidF->surface->format, 255, 255, 255));
+    SDL_SetColorKey(wood_hunter->surface, SDL_SRCCOLORKEY, SDL_MapRGB(wood_hunter->surface->format, 255, 255, 255));
+    SDL_SetColorKey(villager->surface, SDL_SRCCOLORKEY, SDL_MapRGB(villager->surface->format, 255, 255, 255));
+    SDL_SetColorKey(fish_hunter->surface, SDL_SRCCOLORKEY, SDL_MapRGB(fish_hunter->surface->format, 255, 255, 255));
     SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
     SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
     SDL_SetColorKey(fog, SDL_SRCCOLORKEY, SDL_MapRGB(fog->format, 255, 255, 255));
@@ -89,9 +103,18 @@ int main(int argc,char** argv){
     lifePointPos.x = 10;
     lifePointPos.y = 20;
 
+    // x: 2368 - 2880 = -512 --> -2880 différence fen/map en x
+    // y: 380 - 1790 = -1410 --> -1790 différence fen/map en y
     setDstPosition(waterfall, -2208, -1728);
-
     setDstPosition(old_man, -670, -1410);
+    setDstPosition(old_woman, -640, -1410);
+    setDstPosition(innkeeper, -512, 138);
+    setDstPosition(country_guard, 1320, 700);
+    setDstPosition(kidM, -824, 2);
+    setDstPosition(kidF, -216, 238);
+    setDstPosition(wood_hunter, 926, -1586);
+    setDstPosition(villager, -1062, 255);
+    setDstPosition(fish_hunter, -1664, 625);
 
     SDL_EnableKeyRepeat(10, 10);
 
@@ -139,7 +162,8 @@ int main(int argc,char** argv){
 
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, hero,
-                    &yscroll, &xscroll, &dir, waterfall, &staminaLength, &gameOver, old_man, old_woman);
+                    &yscroll, &xscroll, &dir, waterfall, &staminaLength, &gameOver, old_man, old_woman, innkeeper, country_guard,
+                    kidM, kidF, wood_hunter, villager, fish_hunter);
 
       if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
         bool_tp_cave = 1;
@@ -172,13 +196,24 @@ int main(int argc,char** argv){
       waterfall->src.h = 192;
       waterfall->src.w = 64;
 
+      setSrcPosition(old_man, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(old_woman, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(innkeeper, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(country_guard, CHAR_WIDTH * 1, CHAR_HEIGHT * 3);
+      setSrcPosition(kidM, CHAR_WIDTH * 1, CHAR_HEIGHT * 2);
+      setSrcPosition(kidF, CHAR_WIDTH * 1, CHAR_HEIGHT * 1);
+      setSrcPosition(wood_hunter, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(villager, CHAR_WIDTH * 1, CHAR_HEIGHT * 1);
+      setSrcPosition(fish_hunter, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+
       cpt += 1;
 
-      if (cpt % 37 == 0){
-        animation = 0;
-      }
-      if (cpt % 33 == 0){
-        animation = 1;
+      if (cpt % 3 == 0){
+        if (animation){
+          animation = 0;
+        }else{
+          animation = 1;
+        }
       }
 
       setPictureNegX(waterfall, getPictureX(waterfall));
@@ -187,13 +222,43 @@ int main(int argc,char** argv){
       setPictureNegX(old_man, getPictureX(old_man));
       setPictureNegY(old_man, getPictureY(old_man));
 
+      setPictureNegX(old_woman, getPictureX(old_woman));
+      setPictureNegY(old_woman, getPictureY(old_woman));
+
+      setPictureNegX(innkeeper, getPictureX(innkeeper));
+      setPictureNegY(innkeeper, getPictureY(innkeeper));
+
+      setPictureNegX(country_guard, getPictureX(country_guard));
+      setPictureNegY(country_guard, getPictureY(country_guard));
+
+      setPictureNegX(kidM, getPictureX(kidM));
+      setPictureNegY(kidM, getPictureY(kidM));
+
+      setPictureNegX(kidF, getPictureX(kidF));
+      setPictureNegY(kidF, getPictureY(kidF));
+
+      setPictureNegX(wood_hunter, getPictureX(wood_hunter));
+      setPictureNegY(wood_hunter, getPictureY(wood_hunter));
+
+      setPictureNegX(villager, getPictureX(villager));
+      setPictureNegY(villager, getPictureY(villager));
+
+      setPictureNegX(fish_hunter, getPictureX(fish_hunter));
+      setPictureNegY(fish_hunter, getPictureY(fish_hunter));
+
       if (bool_waterfall){
-        printf("OUI");
         SDL_BlitSurface(waterfall->surface, &waterfall->src, screen, &waterfall->neg);
       }
-      SDL_BlitSurface(hero->surface, &hero->src, screen, &hero->dst);
       SDL_BlitSurface(old_man->surface, &old_man->src, screen, &old_man->neg);
-      //SDL_BlitSurface(old_woman->surface, &old_woman->src, screen, &old_woman->dst);
+      SDL_BlitSurface(old_woman->surface, &old_woman->src, screen, &old_woman->neg);
+      SDL_BlitSurface(innkeeper->surface, &innkeeper->src, screen, &innkeeper->neg);
+      SDL_BlitSurface(country_guard->surface, &country_guard->src, screen, &country_guard->neg);
+      SDL_BlitSurface(kidM->surface, &kidM->src, screen, &kidM->neg);
+      SDL_BlitSurface(kidF->surface, &kidF->src, screen, &kidF->neg);
+      SDL_BlitSurface(wood_hunter->surface, &wood_hunter->src, screen, &wood_hunter->neg);
+      SDL_BlitSurface(villager->surface, &villager->src, screen, &villager->neg);
+      SDL_BlitSurface(fish_hunter->surface, &fish_hunter->src, screen, &fish_hunter->neg);
+      SDL_BlitSurface(hero->surface, &hero->src, screen, &hero->dst);
       if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
       if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
       if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
@@ -227,8 +292,15 @@ int main(int argc,char** argv){
     destroyTileset(tileset);
     destroyPicture(hero);
     destroyPicture(old_man);
-    destroyPicture(old_woman);
     destroyPicture(waterfall);
+    destroyPicture(old_woman);
+    destroyPicture(innkeeper);
+    destroyPicture(country_guard);
+    destroyPicture(kidM);
+    destroyPicture(kidF);
+    destroyPicture(wood_hunter);
+    destroyPicture(villager);
+    destroyPicture(fish_hunter);
 
     // closing SDL libs
     TTF_CloseFont(font);
