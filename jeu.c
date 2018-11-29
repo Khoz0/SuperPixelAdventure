@@ -8,14 +8,14 @@
 #include "menu.h"
 
 int main(int argc,char** argv){
-    SDL_Surface *stamina = NULL, *lifePoint = NULL, *waterfall = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
+    SDL_Surface *stamina = NULL, *lifePoint = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
     SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
-    SDL_Rect waterfallAnim, waterfallNeg, positionChatBox, positionPannel, fogPos;
-    SDL_Rect waterfallPos;
+    SDL_Rect waterfallAnim, positionChatBox, positionPannel, fogPos;
 
     Picture* hero = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
     Picture* old_man = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", CHAT_WIDTH, CHAR_HEIGHT);
+    Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+    Picture* waterfall = createPicture("./pictures/waterfall/cascades_grandes.bmp", CHAR_WIDTH, CHAR_HEIGHT);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
@@ -75,7 +75,6 @@ int main(int argc,char** argv){
     // loading pictures
     chatBox = SDL_LoadBMP("./pictures/chat/chatBox.bmp");
     pannel = SDL_LoadBMP("./pictures/chat/pannel.bmp");
-    waterfall = SDL_LoadBMP("./pictures/waterfall/cascades_grandes.bmp");
     fog = SDL_LoadBMP("./pictures/tileset/fog.bmp");
     SDL_SetColorKey(hero->surface, SDL_SRCCOLORKEY, SDL_MapRGB(hero->surface->format, 255, 255, 255));
     SDL_SetColorKey(old_man->surface, SDL_SRCCOLORKEY, SDL_MapRGB(old_man->surface->format, 255, 255, 255));
@@ -90,8 +89,7 @@ int main(int argc,char** argv){
     lifePointPos.x = 10;
     lifePointPos.y = 20;
 
-    waterfallPos.x = -2208;
-    waterfallPos.y = -1728;
+    setDstPosition(waterfall, -2208, -1728);
 
     setDstPosition(old_man, -670, -1410);
 
@@ -141,7 +139,7 @@ int main(int argc,char** argv){
 
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width, hero,
-                    &yscroll, &xscroll, &dir, &waterfallPos, &staminaLength, &gameOver, old_man, old_woman);
+                    &yscroll, &xscroll, &dir, waterfall, &staminaLength, &gameOver, old_man, old_woman);
 
       if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
         bool_tp_cave = 1;
@@ -170,10 +168,9 @@ int main(int argc,char** argv){
 
       setSrcPosition(hero, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
 
-      waterfallAnim.x = 32 * animation;
-      waterfallAnim.y = 0;
-      waterfallAnim.h = 192;
-      waterfallAnim.w = 64;
+      setSrcPosition(waterfall, 32*animation, 0);
+      waterfall->src.h = 192;
+      waterfall->src.w = 64;
 
       cpt += 1;
 
@@ -184,14 +181,15 @@ int main(int argc,char** argv){
         animation = 1;
       }
 
-      waterfallNeg.x = waterfallPos.x;
-      waterfallNeg.y = waterfallPos.y;
+      setPictureNegX(waterfall, getPictureX(waterfall));
+      setPictureNegY(waterfall, getPictureY(waterfall));
 
       setPictureNegX(old_man, getPictureX(old_man));
       setPictureNegY(old_man, getPictureY(old_man));
 
       if (bool_waterfall){
-        SDL_BlitSurface(waterfall, &waterfallAnim, screen, &waterfallNeg);
+        printf("OUI");
+        SDL_BlitSurface(waterfall->surface, &waterfall->src, screen, &waterfall->neg);
       }
       SDL_BlitSurface(hero->surface, &hero->src, screen, &hero->dst);
       SDL_BlitSurface(old_man->surface, &old_man->src, screen, &old_man->neg);
@@ -230,13 +228,13 @@ int main(int argc,char** argv){
     destroyPicture(hero);
     destroyPicture(old_man);
     destroyPicture(old_woman);
+    destroyPicture(waterfall);
 
     // closing SDL libs
     TTF_CloseFont(font);
     Mix_CloseAudio();
 
     // SDL memory restitution
-    SDL_FreeSurface(waterfall);
     SDL_FreeSurface(chatBox);
     SDL_FreeSurface(pannel);
     SDL_FreeSurface(text_pannel_start);
