@@ -36,8 +36,8 @@ void destroyAtlas(Atlas* atlas) {
   for(int i = 0 ; i < SIZE_ATLAS ; i++) {
     destroyPicture(atlas->pictures[i]);
   }
-  destroyTileset(atlas->tileset);
   free(atlas->pictures);
+  destroyTileset(atlas->tileset);
   free(atlas);
   atlas = NULL;
 
