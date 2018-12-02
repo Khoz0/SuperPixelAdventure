@@ -1,4 +1,5 @@
 #include "picture.h"
+#include "atlas.h"
 
 Picture* createPicture(char* name, int width, int height) {
 
@@ -35,26 +36,26 @@ void destroyPicture(Picture* picture) {
 
 }
 
-void setDstPosition(Picture* picture, int x, int y) {
+void setDstPosition(Atlas* atlas, int index, int x, int y) {
 
-  picture->dst.x = x;
-  picture->dst.y = y;
-
-}
-
-void setSrcPosition(Picture* picture, int x, int y) {
-
-  picture->src.x = x;
-  picture->src.y = y;
+  atlas->pictures[index]->dst.x = x;
+  atlas->pictures[index]->dst.y = y;
 
 }
 
-int getPictureX(Picture* picture){
-  return picture->dst.x;
+void setSrcPosition(Atlas* atlas, int index, int x, int y) {
+
+  atlas->pictures[index]->src.x = x;
+  atlas->pictures[index]->src.y = y;
+
 }
 
-int getPictureY(Picture* picture){
-  return picture->dst.y;
+int getPictureX(Atlas* atlas, int index){
+  return atlas->pictures[index]->dst.x;
+}
+
+int getPictureY(Atlas* atlas, int index){
+  return atlas->pictures[index]->dst.y;
 }
 
 void setPictureX(Picture* picture, int x){

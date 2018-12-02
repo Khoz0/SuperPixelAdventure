@@ -15,18 +15,6 @@ int main(int argc,char** argv){
 
     Atlas* atlas = createAtlas();
 
-    //Picture* hero = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
-    //Picture* old_man = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* old_woman = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* waterfall = createPicture("./pictures/waterfall/cascades_grandes.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* innkeeper = createPicture("./pictures/characters/aubergisteF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* country_guard = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* kidM = createPicture("./pictures/characters/enfantM.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* kidF = createPicture("./pictures/characters/enfantF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* wood_hunter = createPicture("./pictures/characters/bucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* villager = createPicture("./pictures/characters/villageoise.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-    //Picture* fish_hunter = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
     sprint = 1;
@@ -69,7 +57,7 @@ int main(int argc,char** argv){
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
 
-    setDstPosition(getPicture(atlas, HERO), SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
+    setDstPosition(atlas, HERO, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
 
     positionChatBox.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
     positionChatBox.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
@@ -106,16 +94,16 @@ int main(int argc,char** argv){
 
     // x: 2368 - 2880 = -512 --> -2880 différence fen/map en x
     // y: 380 - 1790 = -1410 --> -1790 différence fen/map en y
-    setDstPosition(getPicture(atlas, WATERFALL), -2208, -1728);
-    setDstPosition(getPicture(atlas, OLD_MAN), -670, -1410);
-    setDstPosition(getPicture(atlas, OLD_WOMAN), -640, -1410);
-    setDstPosition(getPicture(atlas, INNKEEPER), -512, 138);
-    setDstPosition(getPicture(atlas, COUNTRY_GUARD), 1320, 700);
-    setDstPosition(getPicture(atlas, KIDM), -824, 2);
-    setDstPosition(getPicture(atlas, KIDF), -216, 238);
-    setDstPosition(getPicture(atlas, WOOD_HUNTER), 926, -1586);
-    setDstPosition(getPicture(atlas, VILLAGER), -1062, 255);
-    setDstPosition(getPicture(atlas, FISH_HUNTER), -1664, 625);
+    setDstPosition(atlas, WATERFALL, -2208, -1728);
+    setDstPosition(atlas, OLD_MAN, -670, -1410);
+    setDstPosition(atlas, OLD_WOMAN, -640, -1410);
+    setDstPosition(atlas, INNKEEPER, -512, 138);
+    setDstPosition(atlas, COUNTRY_GUARD, 1320, 700);
+    setDstPosition(atlas, KIDM, -824, 2);
+    setDstPosition(atlas, KIDF, -216, 238);
+    setDstPosition(atlas, WOOD_HUNTER, 926, -1586);
+    setDstPosition(atlas, VILLAGER, -1062, 255);
+    setDstPosition(atlas, FISH_HUNTER, -1664, 625);
 
     SDL_EnableKeyRepeat(10, 10);
 
@@ -175,7 +163,7 @@ int main(int argc,char** argv){
         bool_fog = 1;
         xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
         yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
-        setDstPosition(getPicture(atlas, HERO), SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+        setDstPosition(atlas, HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         bool_tp_cave = 0;
         bool_waterfall = 0;
       }
@@ -190,21 +178,21 @@ int main(int argc,char** argv){
       SDL_FillRect(stamina, NULL, SDL_MapRGB(screen->format, 1, 215, 88));
       SDL_FillRect(lifePoint, NULL, SDL_MapRGB(screen->format, 200, 7, 7));
 
-      setSrcPosition(getPicture(atlas, HERO), CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
+      setSrcPosition(atlas, HERO, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
 
-      setSrcPosition(getPicture(atlas, WATERFALL), 32*animation, 0);
+      setSrcPosition(atlas, WATERFALL, 32*animation, 0);
       getPicture(atlas, WATERFALL)->src.h = 192;
       getPicture(atlas, WATERFALL)->src.w = 64;
 
-      setSrcPosition(getPicture(atlas, OLD_MAN), CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
-      setSrcPosition(getPicture(atlas, OLD_WOMAN), CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
-      setSrcPosition(getPicture(atlas, INNKEEPER), CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
-      setSrcPosition(getPicture(atlas, COUNTRY_GUARD), CHAR_WIDTH * 1, CHAR_HEIGHT * 3);
-      setSrcPosition(getPicture(atlas, KIDM), CHAR_WIDTH * 1, CHAR_HEIGHT * 2);
-      setSrcPosition(getPicture(atlas, KIDF), CHAR_WIDTH * 1, CHAR_HEIGHT * 1);
-      setSrcPosition(getPicture(atlas, WOOD_HUNTER), CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
-      setSrcPosition(getPicture(atlas, VILLAGER), CHAR_WIDTH * 1, CHAR_HEIGHT * 1);
-      setSrcPosition(getPicture(atlas, FISH_HUNTER), CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(atlas, OLD_MAN, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(atlas, OLD_WOMAN, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(atlas, INNKEEPER, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(atlas, COUNTRY_GUARD, CHAR_WIDTH * 1, CHAR_HEIGHT * 3);
+      setSrcPosition(atlas, KIDM, CHAR_WIDTH * 1, CHAR_HEIGHT * 2);
+      setSrcPosition(atlas, KIDF, CHAR_WIDTH * 1, CHAR_HEIGHT * 1);
+      setSrcPosition(atlas, WOOD_HUNTER, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
+      setSrcPosition(atlas, VILLAGER, CHAR_WIDTH * 1, CHAR_HEIGHT * 1);
+      setSrcPosition(atlas, FISH_HUNTER, CHAR_WIDTH * 1, CHAR_HEIGHT * 0);
 
       cpt += 1;
 
@@ -216,35 +204,35 @@ int main(int argc,char** argv){
         }
       }
 
-      setPictureNegX(getPicture(atlas, WATERFALL), getPictureX(getPicture(atlas, WATERFALL)));
-      setPictureNegY(getPicture(atlas, WATERFALL), getPictureY(getPicture(atlas, WATERFALL)));
+      setPictureNegX(getPicture(atlas, WATERFALL), getPictureX(atlas, WATERFALL));
+      setPictureNegY(getPicture(atlas, WATERFALL), getPictureY(atlas, WATERFALL));
 
-      setPictureNegX(getPicture(atlas, OLD_MAN), getPictureX(getPicture(atlas, OLD_MAN)));
-      setPictureNegY(getPicture(atlas, OLD_MAN), getPictureY(getPicture(atlas, OLD_MAN)));
+      setPictureNegX(getPicture(atlas, OLD_MAN), getPictureX(atlas, OLD_MAN));
+      setPictureNegY(getPicture(atlas, OLD_MAN), getPictureY(atlas, OLD_MAN));
 
-      setPictureNegX(getPicture(atlas, OLD_WOMAN), getPictureX(getPicture(atlas, OLD_WOMAN)));
-      setPictureNegY(getPicture(atlas, OLD_WOMAN), getPictureY(getPicture(atlas, OLD_WOMAN)));
+      setPictureNegX(getPicture(atlas, OLD_WOMAN), getPictureX(atlas, OLD_WOMAN));
+      setPictureNegY(getPicture(atlas, OLD_WOMAN), getPictureY(atlas, OLD_WOMAN));
 
-      setPictureNegX(getPicture(atlas, INNKEEPER), getPictureX(getPicture(atlas, INNKEEPER)));
-      setPictureNegY(getPicture(atlas, INNKEEPER), getPictureY(getPicture(atlas, INNKEEPER)));
+      setPictureNegX(getPicture(atlas, INNKEEPER), getPictureX(atlas, INNKEEPER));
+      setPictureNegY(getPicture(atlas, INNKEEPER), getPictureY(atlas, INNKEEPER));
 
-      setPictureNegX(getPicture(atlas, COUNTRY_GUARD), getPictureX(getPicture(atlas, COUNTRY_GUARD)));
-      setPictureNegY(getPicture(atlas, COUNTRY_GUARD), getPictureY(getPicture(atlas, COUNTRY_GUARD)));
+      setPictureNegX(getPicture(atlas, COUNTRY_GUARD), getPictureX(atlas, COUNTRY_GUARD));
+      setPictureNegY(getPicture(atlas, COUNTRY_GUARD), getPictureY(atlas, COUNTRY_GUARD));
 
-      setPictureNegX(getPicture(atlas, KIDM), getPictureX(getPicture(atlas, KIDM)));
-      setPictureNegY(getPicture(atlas, KIDM), getPictureY(getPicture(atlas, KIDM)));
+      setPictureNegX(getPicture(atlas, KIDM), getPictureX(atlas, KIDM));
+      setPictureNegY(getPicture(atlas, KIDM), getPictureY(atlas, KIDM));
 
-      setPictureNegX(getPicture(atlas, KIDF), getPictureX(getPicture(atlas, KIDF)));
-      setPictureNegY(getPicture(atlas, KIDF), getPictureY(getPicture(atlas, KIDF)));
+      setPictureNegX(getPicture(atlas, KIDF), getPictureX(atlas, KIDF));
+      setPictureNegY(getPicture(atlas, KIDF), getPictureY(atlas, KIDF));
 
-      setPictureNegX(getPicture(atlas, WOOD_HUNTER), getPictureX(getPicture(atlas, WOOD_HUNTER)));
-      setPictureNegY(getPicture(atlas, WOOD_HUNTER), getPictureY(getPicture(atlas, WOOD_HUNTER)));
+      setPictureNegX(getPicture(atlas, WOOD_HUNTER), getPictureX(atlas, WOOD_HUNTER));
+      setPictureNegY(getPicture(atlas, WOOD_HUNTER), getPictureY(atlas, WOOD_HUNTER));
 
-      setPictureNegX(getPicture(atlas, VILLAGER), getPictureX(getPicture(atlas, VILLAGER)));
-      setPictureNegY(getPicture(atlas, VILLAGER), getPictureY(getPicture(atlas, VILLAGER)));
+      setPictureNegX(getPicture(atlas, VILLAGER), getPictureX(atlas, VILLAGER));
+      setPictureNegY(getPicture(atlas, VILLAGER), getPictureY(atlas, VILLAGER));
 
-      setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(getPicture(atlas, FISH_HUNTER)));
-      setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(getPicture(atlas, FISH_HUNTER)));
+      setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER));
+      setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER));
 
       if (bool_waterfall){
         SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, screen, &getPicture(atlas, WATERFALL)->neg);
@@ -277,6 +265,7 @@ int main(int argc,char** argv){
 
     }
 
+    // memory restitutions
     destroyAtlas(atlas);
     destroyTab(map_builder);
     destroyTab(map_boolean);
