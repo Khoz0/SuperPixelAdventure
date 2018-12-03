@@ -1,6 +1,6 @@
 #include "mapBuilder.h"
 #include "mapBoolean.h"
-#include "display.h"
+#include "displayMap.h"
 #include "atlas.h"
 #include "destroyTab.h"
 #include "keyboardEvent.h"
@@ -204,35 +204,35 @@ int main(int argc,char** argv){
         }
       }
 
-      setPictureNegX(getPicture(atlas, WATERFALL), getPictureX(atlas, WATERFALL));
-      setPictureNegY(getPicture(atlas, WATERFALL), getPictureY(atlas, WATERFALL));
+      setPictureNegX(getPicture(atlas, WATERFALL), getPictureX(atlas, WATERFALL), NEG);
+      setPictureNegY(getPicture(atlas, WATERFALL), getPictureY(atlas, WATERFALL), NEG);
 
-      setPictureNegX(getPicture(atlas, OLD_MAN), getPictureX(atlas, OLD_MAN));
-      setPictureNegY(getPicture(atlas, OLD_MAN), getPictureY(atlas, OLD_MAN));
+      setPictureNegX(getPicture(atlas, OLD_MAN), getPictureX(atlas, OLD_MAN), NEG);
+      setPictureNegY(getPicture(atlas, OLD_MAN), getPictureY(atlas, OLD_MAN), NEG);
 
-      setPictureNegX(getPicture(atlas, OLD_WOMAN), getPictureX(atlas, OLD_WOMAN));
-      setPictureNegY(getPicture(atlas, OLD_WOMAN), getPictureY(atlas, OLD_WOMAN));
+      setPictureNegX(getPicture(atlas, OLD_WOMAN), getPictureX(atlas, OLD_WOMAN), NEG);
+      setPictureNegY(getPicture(atlas, OLD_WOMAN), getPictureY(atlas, OLD_WOMAN), NEG);
 
-      setPictureNegX(getPicture(atlas, INNKEEPER), getPictureX(atlas, INNKEEPER));
-      setPictureNegY(getPicture(atlas, INNKEEPER), getPictureY(atlas, INNKEEPER));
+      setPictureNegX(getPicture(atlas, INNKEEPER), getPictureX(atlas, INNKEEPER), NEG);
+      setPictureNegY(getPicture(atlas, INNKEEPER), getPictureY(atlas, INNKEEPER), NEG);
 
-      setPictureNegX(getPicture(atlas, COUNTRY_GUARD), getPictureX(atlas, COUNTRY_GUARD));
-      setPictureNegY(getPicture(atlas, COUNTRY_GUARD), getPictureY(atlas, COUNTRY_GUARD));
+      setPictureNegX(getPicture(atlas, COUNTRY_GUARD), getPictureX(atlas, COUNTRY_GUARD), NEG);
+      setPictureNegY(getPicture(atlas, COUNTRY_GUARD), getPictureY(atlas, COUNTRY_GUARD), NEG);
 
-      setPictureNegX(getPicture(atlas, KIDM), getPictureX(atlas, KIDM));
-      setPictureNegY(getPicture(atlas, KIDM), getPictureY(atlas, KIDM));
+      setPictureNegX(getPicture(atlas, KIDM), getPictureX(atlas, KIDM), NEG);
+      setPictureNegY(getPicture(atlas, KIDM), getPictureY(atlas, KIDM), NEG);
 
-      setPictureNegX(getPicture(atlas, KIDF), getPictureX(atlas, KIDF));
-      setPictureNegY(getPicture(atlas, KIDF), getPictureY(atlas, KIDF));
+      setPictureNegX(getPicture(atlas, KIDF), getPictureX(atlas, KIDF), NEG);
+      setPictureNegY(getPicture(atlas, KIDF), getPictureY(atlas, KIDF), NEG);
 
-      setPictureNegX(getPicture(atlas, WOOD_HUNTER), getPictureX(atlas, WOOD_HUNTER));
-      setPictureNegY(getPicture(atlas, WOOD_HUNTER), getPictureY(atlas, WOOD_HUNTER));
+      setPictureNegX(getPicture(atlas, WOOD_HUNTER), getPictureX(atlas, WOOD_HUNTER), NEG);
+      setPictureNegY(getPicture(atlas, WOOD_HUNTER), getPictureY(atlas, WOOD_HUNTER), NEG);
 
-      setPictureNegX(getPicture(atlas, VILLAGER), getPictureX(atlas, VILLAGER));
-      setPictureNegY(getPicture(atlas, VILLAGER), getPictureY(atlas, VILLAGER));
+      setPictureNegX(getPicture(atlas, VILLAGER), getPictureX(atlas, VILLAGER), NEG);
+      setPictureNegY(getPicture(atlas, VILLAGER), getPictureY(atlas, VILLAGER), NEG);
 
-      setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER));
-      setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER));
+      setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER), NEG);
+      setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER), NEG);
 
       if (bool_waterfall){
         SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, screen, &getPicture(atlas, WATERFALL)->neg);
@@ -261,7 +261,7 @@ int main(int argc,char** argv){
       SDL_FreeSurface(lifePoint);
 
       // print of the map
-      display(map_builder, screen, xscroll, yscroll, atlas);
+      displayMap(map_builder, screen, xscroll, yscroll, atlas);
 
     }
 

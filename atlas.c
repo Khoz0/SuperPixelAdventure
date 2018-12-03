@@ -1,7 +1,5 @@
 #include "atlas.h"
 
-#define SIZE_ATLAS 11
-
 Atlas* createAtlas() {
 
   Atlas* atlas = malloc(sizeof(Atlas));

@@ -59,3 +59,7 @@
 #define WOOD_HUNTER 8
 #define VILLAGER 9
 #define FISH_HUNTER 10
+
+#define NEG 1
+
+#define SIZE_ATLAS 11

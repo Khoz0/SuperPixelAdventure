@@ -7,8 +7,6 @@ Picture* createPicture(char* name, int width, int height) {
 
   picture->surface = SDL_LoadBMP(name);
 
-  picture->isPrinted = 1;
-
   picture->src.x = 0;
   picture->src.y = 0;
   picture->src.w = width;
@@ -23,6 +21,9 @@ Picture* createPicture(char* name, int width, int height) {
   picture->neg.y = 0;
   picture->neg.w = 0;
   picture->neg.h = 0;
+  
+  picture->isPrinted = 0;
+  picture->isNeg = 0;
 
   return picture;
 
@@ -66,10 +67,20 @@ void setPictureY(Picture* picture, int y){
   picture->dst.y = y;
 }
 
-void setPictureNegX(Picture* picture, int x){
+void setPictureNegX(Picture* picture, int x, int isNeg){
   picture->neg.x = x;
+  picture->isNeg = isNeg;
 }
 
-void setPictureNegY(Picture* picture, int y){
+void setPictureNegY(Picture* picture, int y, int isNeg){
   picture->neg.y = y;
+  picture->isNeg = isNeg;
+}
+
+int getIsPrinted(Atlas* atlas, int index) {
+  return atlas->pictures[index]->isPrinted;
+}
+
+int getIsNeg(Atlas* atlas, int index) {
+  return atlas->pictures[index]->isNeg;
 }

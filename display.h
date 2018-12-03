@@ -1,5 +1,7 @@
 #pragma once
 #include "constants.h"
-#include "tileset.h"
+#include "picture.h"
+#include "atlas.h"
+#include "displayMap.h"
 
-void display(Uint16** map_builder, SDL_Surface *screen, int xscroll, int yscroll, Atlas* atlas);
+void display(Atlas* atlas, SDL_Surface *screen, Uint16** map_builder, int xscroll, int yscroll);
