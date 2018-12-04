@@ -1,4 +1,6 @@
 #include "menu.h"
+#include "button.h"
+#include "buttonCollision.h"
 
 void mainMenu(int* gameOver){
 
@@ -12,11 +14,12 @@ void mainMenu(int* gameOver){
   SDL_Surface *texte1, *texte2, *texte3, *texte4, *texte5, *texte6;
   SDL_Rect posTexte1, posTexte2, posTexte3, posTexte4, posTexte5, posTexte6;
 
-  boutons button_play, button_quit, button_goal, tab_button[3];
+  //boutons button_play, button_quit, button_goal, tab_button[3];
+  Button* tab_button[3];
 
-  int **tabCollide = malloc(SCREEN_WIDTH*sizeof(int*));
+  int **tab_collide = malloc(SCREEN_WIDTH*sizeof(int*));
   for(int j = 0 ; j < SCREEN_WIDTH; j++){
-    tabCollide[j] = malloc(SCREEN_HEIGHT*sizeof(int));
+    tab_collide[j] = malloc(SCREEN_HEIGHT*sizeof(int));
   }
 
   screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
@@ -35,24 +38,17 @@ void mainMenu(int* gameOver){
   Mix_Volume(0, 4);
   Mix_PlayChannel(0, themeMenu, VOLUME_THEME);
 
-  button_play.xGauche = 600;
-  button_play.xDroite = 800;
-  button_play.yHaut = 200;
-  button_play.yBas = 250;
+  Button* button_play = createButton();
+  Button* button_goal = createButton();
+  Button* button_quit = createButton();
 
-  button_quit.xGauche = 600;
-  button_quit.xDroite = 800;
-  button_quit.yHaut = 600;
-  button_quit.yBas = 650;
-
-  button_goal.xGauche = 600;
-  button_goal.xDroite = 800;
-  button_goal.yHaut = 400;
-  button_goal.yBas = 450;
+  setButtonPosition(button_play, 600, 800, 200, 250);
+  setButtonPosition(button_goal, 600, 800, 400, 450);
+  setButtonPosition(button_quit, 600, 800, 600, 650);
 
   tab_button[0] = button_play;
-  tab_button[1] = button_quit;
-  tab_button[2] = button_goal;
+  tab_button[1] = button_goal;
+  tab_button[2] = button_quit;
 
   playCasePos.x = 600;
   playCasePos.y = 200;
@@ -121,34 +117,13 @@ void mainMenu(int* gameOver){
   scroll = SDL_LoadBMP("./pictures/menu/parch1.bmp");
   SDL_SetColorKey(scroll, SDL_SRCCOLORKEY, SDL_MapRGB(scroll->format, 0, 0, 0));
 
-  for (i = 0; i < SCREEN_WIDTH-1; i++){
-    for (j = 0; j < SCREEN_HEIGHT-1; j++){
-       tabCollide[i][j] = 0;					// il n'y a pas de collision
-    }
-  }
-
-  for (i = button_play.xGauche; i <= button_play.xDroite; i++){
-    for (j = button_play.yHaut - 32; j <= button_play.yBas; j++){
-       tabCollide[i][j] = 2;					// il y a une collision
-    }
-  }
-
-  for (i = button_goal.xGauche; i <= button_goal.xDroite; i++){
-    for (j = button_goal.yHaut - 32; j <= button_goal.yBas; j++){
-       tabCollide[i][j] = 2;					// il y a une collision
-    }
-  }
-
-  for (i = button_quit.xGauche; i <= button_quit.xDroite; i++){
-    for (j = button_quit.yHaut - 32; j <= button_quit.yBas; j++){
-       tabCollide[i][j] = 2;					// il y a une collision
-    }
-  }
-
-//  Collide(&i, &j, button_play, button_goal, button_quit, tabCollide);
+  tab_collide = buttonCollision(button_play, button_goal, button_quit);
 
   while(endMenu){
   SDL_PollEvent(&event);
+
+  // envoyer mainCharGo, positionChar, goalPurpose, tab_collide, speed, movement, orientation, les boutons
+
   mainCharGo.x = CHAR_WIDTH * movement;
   mainCharGo.y = CHAR_HEIGHT * orientation;
   mainCharGo.h = CHAR_WIDTH;
@@ -159,7 +134,7 @@ void mainMenu(int* gameOver){
     goalPurpose = 0;
     if (event.button.button == SDL_BUTTON_LEFT){
        if ((positionChar.x != event.button.x) && authorizedX){
-         if (tabCollide[positionChar.x + 1][positionChar.y] == 0 ){
+         if (tab_collide[positionChar.x + 1][positionChar.y] == 0 ){
            if (abs(event.button.x - (positionChar.x + 1)) < abs(event.button.x - (positionChar.x - 1))){
              orientation = 2;
              if (movement < 2){
@@ -172,7 +147,7 @@ void mainMenu(int* gameOver){
 
            }
          }
-         if (tabCollide[positionChar.x - 1][positionChar.y] == 0 ){
+         if (tab_collide[positionChar.x - 1][positionChar.y] == 0 ){
            if (abs(event.button.x - (positionChar.x - 1)) < abs(event.button.x - (positionChar.x + 1))){
              orientation = 1;
              if (movement < 2){
@@ -184,28 +159,47 @@ void mainMenu(int* gameOver){
              positionChar.x -= speed;
            }
          }
-         if ((tabCollide[positionChar.x + 1][positionChar.y] != 0 ) || (tabCollide[positionChar.x - 1][positionChar.y] != 0)){
+         if ((tab_collide[positionChar.x + 1][positionChar.y] != 0 ) || (tab_collide[positionChar.x - 1][positionChar.y] != 0)){
            speed = 0;
          }
          if (speed < 1){
           authorizedY = 0;
           speed = 1;
-          if (event.button.y < (tab_button[2].yHaut + (tab_button[2].yHaut - tab_button[2].yBas)/2)){
-            if (positionChar.y < event.button.y){
-              speed = 1;
-              orientation = 0;
+          if (event.button.y < (getButtonYUp(tab_button[1]) + (getButtonYDown(tab_button[1]) - getButtonYUp(tab_button[1]))/2)){
+            if (event.button.y > (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+              if (positionChar.x <= (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                speed = 1;
+                orientation = 0;
+              }else{
+                speed = -1;
+                orientation = 3;
+              }
             }else{
-              speed = -1;
-              orientation = 3;
+              if (positionChar.x > (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                speed = -1;
+                orientation = 3;
+              }else{
+                speed = 1;
+                orientation = 0;
+              }
             }
-          }
-          if (event.button.y >= (tab_button[2].yHaut + (tab_button[2].yBas - tab_button[2].yHaut)/2)){
-            if (positionChar.y < event.button.y){
-              speed = 1;
-              orientation = 0;
+          }else{
+            if (event.button.y < (getButtonYUp(tab_button[2]) + (getButtonYDown(tab_button[2]) - getButtonYUp(tab_button[2]))/2)){
+              if (positionChar.x >= (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                speed = -1;
+                orientation = 3;
+              }else{
+                speed = 1;
+                orientation = 0;
+              }
             }else{
-              speed = -1;
-              orientation = 3;
+              if (positionChar.x > (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                speed = 1;
+                orientation = 0;
+              }else{
+                speed = -1;
+                orientation = 3;
+              }
             }
           }
           if (movement < 2){
@@ -220,7 +214,7 @@ void mainMenu(int* gameOver){
 
 
        if ((positionChar.y != event.button.y) && (authorizedY)){
-         if (tabCollide[positionChar.x][positionChar.y + 1] == 0 ){
+         if (tab_collide[positionChar.x][positionChar.y + 1] == 0 ){
            if (abs(event.button.y - (positionChar.y + 1)) < abs(event.button.y - (positionChar.y - 1))){
              orientation = 0;
              if (movement < 2){
@@ -232,7 +226,7 @@ void mainMenu(int* gameOver){
              positionChar.y += speed;
            }
          }
-         if (tabCollide[positionChar.x][positionChar.y - 1] == 0 ){
+         if (tab_collide[positionChar.x][positionChar.y - 1] == 0 ){
            if (abs(event.button.y - (positionChar.y - 1)) < abs(event.button.y - (positionChar.y + 1))){
              orientation = 3;
              if (movement < 2){
@@ -244,32 +238,22 @@ void mainMenu(int* gameOver){
              positionChar.y -= speed;
            }
          }
-         if (tabCollide[positionChar.x][positionChar.y + 1] != 0 ){
+         if (tab_collide[positionChar.x][positionChar.y + 1] != 0 ){
            speed = 0;
          }
-         if (tabCollide[positionChar.x][positionChar.y - 1] != 0 ){
+         if (tab_collide[positionChar.x][positionChar.y - 1] != 0 ){
            speed = 0;
          }
          if (speed < 1){
           authorizedX = 0;
           speed = 1;
-          if (event.button.x < (tab_button[2].xGauche + (tab_button[2].xDroite - tab_button[2].xGauche)/2)){
-            if (positionChar.x > event.button.x){
-              speed = -1;
-              orientation = 1;
-            }else{
-              speed = 1;
-              orientation = 2;
-            }
+          if (event.button.x < (getButtonXLeft(tab_button[1]) + (getButtonXRight(tab_button[1]) - getButtonXLeft(tab_button[1]))/2)){
+            speed = -1;
+            orientation = 1;
           }
-          if (event.button.x >= (tab_button[2].xGauche + (tab_button[2].xDroite - tab_button[2].xGauche)/2)){
-            if (positionChar.x < event.button.x){
-              speed = -1;
-              orientation = 1;
-            }else{
-              speed = 1;
-              orientation = 2;
-            }
+          if (event.button.x >= (getButtonXLeft(tab_button[1]) + (getButtonXRight(tab_button[1]) - getButtonXLeft(tab_button[1]))/2)){
+            speed = 1;
+            orientation = 2;
           }
           if (movement < 2){
             movement += 1;
@@ -280,18 +264,18 @@ void mainMenu(int* gameOver){
         }
        }
        authorizedY = 1;
-       if (event.button.x > button_play.xGauche && event.button.x < button_play.xDroite + 32 &&
-           event.button.y > button_play.yHaut - 32 && event.button.y < button_play.yBas){
-         if (positionChar.x >= button_play.xGauche - 32 && positionChar.x <= button_play.xDroite + 32 &&
-           positionChar.y >= button_play.yHaut && positionChar.y <= button_play.yBas){
+       if (event.button.x > getButtonXLeft(button_play) && event.button.x < getButtonXRight(button_play) &&
+           event.button.y > getButtonYUp(button_play) - 32 && event.button.y < getButtonYDown(button_play)){
+         if (positionChar.x >= getButtonXLeft(button_play) - 32 && positionChar.x <= getButtonXRight(button_play) + 1 &&
+           positionChar.y >= getButtonYUp(button_play) - 32 && positionChar.y <= getButtonYDown(button_play) + 1){
              endMenu = 0;
              }
          }
 
-      if (event.button.x > button_goal.xGauche && event.button.x < button_goal.xDroite + 32 &&
-          event.button.y > button_goal.yHaut - 32 && event.button.y < button_goal.yBas){
-        if (positionChar.x >= button_goal.xGauche - 32 && positionChar.x <= button_goal.xDroite + 32 &&
-          positionChar.y >= button_goal.yHaut && positionChar.y <= button_goal.yBas){
+      if (event.button.x > getButtonXLeft(button_goal) && event.button.x < getButtonXRight(button_goal) &&
+          event.button.y > getButtonYUp(button_goal) - 32 && event.button.y < getButtonYDown(button_goal)){
+        if (positionChar.x >= getButtonXLeft(button_goal) - 32 && positionChar.x <= getButtonXRight(button_goal) + 1 &&
+          positionChar.y >= getButtonYUp(button_goal) - 32 && positionChar.y <= getButtonYDown(button_goal) + 1){
             texte1 = TTF_RenderText_Solid(font, "bienvenue dans 'Le mythe de Zoldo.'", couleurNoire);
             texte2 = TTF_RenderText_Solid(font, "Vous incarnerez Lien, le hero et detective sans peur. Vous devrez", couleurNoire);
             texte3 = TTF_RenderText_Solid(font, "aider les habitants de Joliland a comprendre pourquoi l'eau ne", couleurNoire);
@@ -303,10 +287,10 @@ void mainMenu(int* gameOver){
             authorizedY = 0;
         }
       }
-      if (event.button.x > button_quit.xGauche && event.button.x < button_quit.xDroite + 32 &&
-          event.button.y > button_quit.yHaut - 32 && event.button.y < button_quit.yBas){
-        if (positionChar.x >= button_quit.xGauche - 32 && positionChar.x <= button_quit.xDroite + 32 &&
-          positionChar.y >= button_quit.yHaut && positionChar.y <= button_quit.yBas){
+      if (event.button.x > getButtonXLeft(button_quit) && event.button.x < getButtonXRight(button_quit) &&
+          event.button.y > getButtonYUp(button_quit) - 32 && event.button.y < getButtonYDown(button_quit)){
+        if (positionChar.x >= getButtonXLeft(button_quit) - 32 && positionChar.x <= getButtonXRight(button_quit) + 1 &&
+          positionChar.y >= getButtonYUp(button_quit) - 32 && positionChar.y <= getButtonYDown(button_quit) + 1){
             *gameOver = 1;
             endMenu = 0;
         }
@@ -340,6 +324,10 @@ void mainMenu(int* gameOver){
   Mix_CloseAudio();
   TTF_CloseFont(font);
 
+  destroyButton(button_play);
+  destroyButton(button_goal);
+  destroyButton(button_quit);
+
   Mix_FreeChunk(themeMenu);
   SDL_FreeSurface(menuChar);
   SDL_FreeSurface(playCase);
@@ -350,8 +338,8 @@ void mainMenu(int* gameOver){
   SDL_FreeSurface(goalButton);
   SDL_FreeSurface(scroll);
   for(int j = 0 ; j < SCREEN_WIDTH ; j++){
-     free(tabCollide[j]);
+     free(tab_collide[j]);
   }
-  free(tabCollide);
+  free(tab_collide);
   SDL_FreeSurface(screenMenu);
 }
