@@ -7,6 +7,10 @@
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
 
+// define of the booleans values
+#define TRUE 1
+#define FALSE 0
+
 // height and width of the tiles
 #define WIDTH_TILE 32
 #define HEIGHT_TILE 32
@@ -60,6 +64,17 @@
 #define VILLAGER 9
 #define FISH_HUNTER 10
 
+// define of the index of each boolean in the booleanTab
+#define BOOL_WATERFALL 0
+#define BOOL_TP_CAVE 1
+#define BOOL_FOG 2
+#define BOOL_PANNEL 3
+#define BOOL_PANNEL_CAVE 4
+#define BOOL_PANNEL_START 5
+
+// define of a boolean value
 #define NEG 1
 
+// define of the sizes of tables
 #define SIZE_ATLAS 11
+#define SIZE_TAB_BOOLEAN 6

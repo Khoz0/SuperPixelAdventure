@@ -1,7 +1,8 @@
 #include "mapBuilder.h"
 #include "mapBoolean.h"
-#include "displayMap.h"
+#include "display.h"
 #include "atlas.h"
+#include "booleans.h"
 #include "destroyTab.h"
 #include "keyboardEvent.h"
 #include "constants.h"
@@ -14,12 +15,16 @@ int main(int argc,char** argv){
     SDL_Rect positionChatBox, positionPannel, fogPos;
 
     Atlas* atlas = createAtlas();
+    Booleans* booleans = createBooleans();
 
     int cpt = 0, animation = 0;
-    int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver,  bool_fog = 0, bool_tp_cave = 0, bool_waterfall = 1;
+    int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver;
     sprint = 1;
+    setBoolean(booleans, BOOL_PANNEL_START, FALSE);
     bool_pannel_start = 0;
+    setBoolean(booleans, BOOL_PANNEL_CAVE, FALSE);
     bool_pannel_cave = 0;
+    setBoolean(booleans, BOOL_PANNEL, FALSE);
     bool_pannel = 0;
     width = 0;
     dir = 1;
@@ -154,18 +159,18 @@ int main(int argc,char** argv){
                     &yscroll, &xscroll, &dir, &staminaLength, &gameOver, atlas);
 
       if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
-        bool_tp_cave = 1;
+        setBoolean(booleans, BOOL_TP_CAVE, TRUE);
         map_builder = mapBuilder(MAP_NO_WATER);
         map_boolean = mapBoolean(map_builder);
       }
 
-      if (bool_tp_cave){
-        bool_fog = 1;
+      if (getBoolean(booleans, BOOL_TP_CAVE)){
+        setBoolean(booleans, BOOL_FOG, TRUE);
         xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
         yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
         setDstPosition(atlas, HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-        bool_tp_cave = 0;
-        bool_waterfall = 0;
+        setBoolean(booleans, BOOL_TP_CAVE, FALSE);
+        setBoolean(booleans, BOOL_WATERFALL, TRUE);
       }
 
       if (staminaLength > -2 && staminaLength  <= 194 && sprint == 1){
@@ -234,23 +239,15 @@ int main(int argc,char** argv){
       setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER), NEG);
       setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER), NEG);
 
-      if (bool_waterfall){
+      display(atlas, screen, map_builder, xscroll, yscroll);
+      if (getBoolean(booleans, BOOL_WATERFALL)){
         SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, screen, &getPicture(atlas, WATERFALL)->neg);
       }
-      SDL_BlitSurface(getPicture(atlas, OLD_MAN)->surface, &getPicture(atlas, OLD_MAN)->src, screen, &getPicture(atlas, OLD_MAN)->neg);
-      SDL_BlitSurface(getPicture(atlas, OLD_WOMAN)->surface, &getPicture(atlas, OLD_WOMAN)->src, screen, &getPicture(atlas, OLD_WOMAN)->neg);
-      SDL_BlitSurface(getPicture(atlas, INNKEEPER)->surface, &getPicture(atlas, INNKEEPER)->src, screen, &getPicture(atlas, INNKEEPER)->neg);
-      SDL_BlitSurface(getPicture(atlas, COUNTRY_GUARD)->surface, &getPicture(atlas, COUNTRY_GUARD)->src, screen, &getPicture(atlas, COUNTRY_GUARD)->neg);
-      SDL_BlitSurface(getPicture(atlas, KIDM)->surface, &getPicture(atlas, KIDM)->src, screen, &getPicture(atlas, KIDM)->neg);
-      SDL_BlitSurface(getPicture(atlas, KIDF)->surface, &getPicture(atlas, KIDF)->src, screen, &getPicture(atlas, KIDF)->neg);
-      SDL_BlitSurface(getPicture(atlas, WOOD_HUNTER)->surface, &getPicture(atlas, WOOD_HUNTER)->src, screen, &getPicture(atlas, WOOD_HUNTER)->neg);
-      SDL_BlitSurface(getPicture(atlas, VILLAGER)->surface, &getPicture(atlas, VILLAGER)->src, screen, &getPicture(atlas, VILLAGER)->neg);
-      SDL_BlitSurface(getPicture(atlas, FISH_HUNTER)->surface, &getPicture(atlas, FISH_HUNTER)->src, screen, &getPicture(atlas, FISH_HUNTER)->neg);
-      SDL_BlitSurface(getPicture(atlas, HERO)->surface, &getPicture(atlas, HERO)->src, screen, &getPicture(atlas, HERO)->dst);
-      if(bool_pannel == 1) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
-      if(bool_pannel_start == 1) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
+
+      if(bool_pannel) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
+      if(bool_pannel_start) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
       if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
-      if(bool_fog){
+      if(getBoolean(booleans, BOOL_FOG)){
         SDL_BlitSurface(fog, NULL, screen, &fogPos);
       }
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
@@ -259,9 +256,6 @@ int main(int argc,char** argv){
       SDL_Flip(screen);
       SDL_FreeSurface(stamina);
       SDL_FreeSurface(lifePoint);
-
-      // print of the map
-      displayMap(map_builder, screen, xscroll, yscroll, atlas);
 
     }
 
