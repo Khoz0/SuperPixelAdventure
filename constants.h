@@ -63,6 +63,9 @@
 #define WOOD_HUNTER 8
 #define VILLAGER 9
 #define FISH_HUNTER 10
+#define CHAT_BOX 11
+#define PANNEL 12
+#define FOG 13
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
@@ -76,5 +79,5 @@
 #define NEG 1
 
 // define of the sizes of tables
-#define SIZE_ATLAS 11
+#define SIZE_ATLAS 14
 #define SIZE_TAB_BOOLEAN 6

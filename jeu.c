@@ -1,18 +1,9 @@
-#include "mapBuilder.h"
-#include "mapBoolean.h"
-#include "display.h"
-#include "atlas.h"
-#include "booleans.h"
-#include "destroyTab.h"
-#include "keyboardEvent.h"
-#include "constants.h"
-#include "menu.h"
+#include "jeu.h"
 
-int main(int argc,char** argv){
+void createGame(){
 
-    SDL_Surface *stamina = NULL, *lifePoint = NULL, *chatBox = NULL, *pannel = NULL, *fog = NULL;
+    SDL_Surface *stamina = NULL, *lifePoint = NULL;
     SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
-    SDL_Rect positionChatBox, positionPannel, fogPos;
 
     Atlas* atlas = createAtlas();
     Booleans* booleans = createBooleans();
@@ -63,20 +54,9 @@ int main(int argc,char** argv){
     Uint16** map_boolean = mapBoolean(map_builder);
 
     setDstPosition(atlas, HERO, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
+    setDstPosition(atlas, CHAT_BOX, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
+    setDstPosition(atlas, PANNEL, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
 
-    positionChatBox.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
-    positionChatBox.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
-
-    positionPannel.y = (SCREEN_HEIGHT - PANNEL_HEIGHT)/2;
-    positionPannel.x = (SCREEN_WIDTH - PANNEL_WIDTH)/2;
-
-    fogPos.x = 0;
-    fogPos.y = 0;
-
-    // loading pictures
-    chatBox = SDL_LoadBMP("./pictures/chat/chatBox.bmp");
-    pannel = SDL_LoadBMP("./pictures/chat/pannel.bmp");
-    fog = SDL_LoadBMP("./pictures/tileset/fog.bmp");
     SDL_SetColorKey(getPicture(atlas, HERO)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, HERO)->surface->format, 255, 255, 255));
     SDL_SetColorKey(getPicture(atlas, OLD_MAN)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, OLD_MAN)->surface->format, 255, 255, 255));
     SDL_SetColorKey(getPicture(atlas, OLD_WOMAN)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, OLD_WOMAN)->surface->format, 255, 255, 255));
@@ -87,9 +67,9 @@ int main(int argc,char** argv){
     SDL_SetColorKey(getPicture(atlas, WOOD_HUNTER)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, WOOD_HUNTER)->surface->format, 255, 255, 255));
     SDL_SetColorKey(getPicture(atlas, VILLAGER)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, VILLAGER)->surface->format, 255, 255, 255));
     SDL_SetColorKey(getPicture(atlas, FISH_HUNTER)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, FISH_HUNTER)->surface->format, 255, 255, 255));
-    SDL_SetColorKey(pannel, SDL_SRCCOLORKEY, SDL_MapRGB(pannel->format, 255, 255, 255));
-    SDL_SetColorKey(chatBox, SDL_SRCCOLORKEY, SDL_MapRGB(chatBox->format, 255, 255, 255));
-    SDL_SetColorKey(fog, SDL_SRCCOLORKEY, SDL_MapRGB(fog->format, 255, 255, 255));
+    SDL_SetColorKey(getPicture(atlas, PANNEL)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, PANNEL)->surface->format, 255, 255, 255));
+    SDL_SetColorKey(getPicture(atlas, CHAT_BOX)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX)->surface->format, 255, 255, 255));
+    SDL_SetColorKey(getPicture(atlas, FOG)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, FOG)->surface->format, 255, 255, 255));
 
     staminaPos.x = 10;
     staminaPos.y = 45;
@@ -239,16 +219,16 @@ int main(int argc,char** argv){
       setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER), NEG);
       setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER), NEG);
 
-      display(atlas, screen, map_builder, xscroll, yscroll);
+      display(atlas, booleans, screen, map_builder, xscroll, yscroll);
       if (getBoolean(booleans, BOOL_WATERFALL)){
         SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, screen, &getPicture(atlas, WATERFALL)->neg);
       }
 
-      if(bool_pannel) SDL_BlitSurface(pannel, NULL, screen, &positionPannel);
+      if(bool_pannel) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, screen, &getPicture(atlas, PANNEL)->dst);
       if(bool_pannel_start) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
       if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
       if(getBoolean(booleans, BOOL_FOG)){
-        SDL_BlitSurface(fog, NULL, screen, &fogPos);
+        SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, screen, &getPicture(atlas, FOG)->dst);
       }
       SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
@@ -263,23 +243,20 @@ int main(int argc,char** argv){
     destroyAtlas(atlas);
     destroyTab(map_builder);
     destroyTab(map_boolean);
+    destroyBooleans(booleans);
 
     // closing SDL libs
     TTF_CloseFont(font);
     Mix_CloseAudio();
 
     // SDL memory restitution
-    SDL_FreeSurface(chatBox);
-    SDL_FreeSurface(pannel);
     SDL_FreeSurface(text_pannel_start);
     SDL_FreeSurface(text_pannel_cave);
-    SDL_FreeSurface(fog);
     SDL_FreeSurface(screen);
     Mix_FreeChunk(music_theme);
     Mix_FreeChunk(music_event);
     TTF_Quit();
     Mix_Quit();
     SDL_Quit();
-    return 0;
 
 }
