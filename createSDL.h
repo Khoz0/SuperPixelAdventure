@@ -7,4 +7,5 @@ typedef struct SDL{
 
 } SDL;
 
-void createSDL();
+SDL* createSDL(Atlas* atlas);
+void destroySDL(SDL* sdl);

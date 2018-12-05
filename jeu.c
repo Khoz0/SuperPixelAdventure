@@ -7,7 +7,7 @@ void createGame(){
 
     Atlas* atlas = createAtlas();
     Booleans* booleans = createBooleans();
-    createSDL(atlas);
+    SDL* sdl = createSDL(atlas);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver;
@@ -242,6 +242,7 @@ void createGame(){
     destroyTab(map_builder);
     destroyTab(map_boolean);
     destroyBooleans(booleans);
+    destroySDL(sdl);
 
     // closing SDL libs
     TTF_CloseFont(font);
@@ -250,11 +251,9 @@ void createGame(){
     // SDL memory restitution
     SDL_FreeSurface(text_pannel_start);
     SDL_FreeSurface(text_pannel_cave);
-    SDL_FreeSurface(screen);
     Mix_FreeChunk(music_theme);
     Mix_FreeChunk(music_event);
     TTF_Quit();
     Mix_Quit();
-    SDL_Quit();
 
 }

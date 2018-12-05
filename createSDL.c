@@ -1,6 +1,6 @@
 #include "createSDL.h"
 
-void createSDL(Atlas* atlas) {
+SDL* createSDL(Atlas* atlas) {
 
   SDL* sdl = malloc(sizeof(SDL));
   sdl->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
@@ -25,4 +25,12 @@ void createSDL(Atlas* atlas) {
   Mix_Init(MIX_INIT_MP3);
   SDL_EnableKeyRepeat(10, 10);
 
+  return sdl;
+
+}
+
+void destroySDL(SDL* sdl) {
+  SDL_FreeSurface(sdl->screen);
+  SDL_Quit();
+  free(sdl);
 }

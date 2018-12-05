@@ -24,6 +24,7 @@ void setBoolean(Booleans* booleans, int index, int value) {
 }
 
 void destroyBooleans(Booleans* booleans) {
+  free(booleans->tabBooleans);
   free(booleans);
   booleans = NULL;
 }
