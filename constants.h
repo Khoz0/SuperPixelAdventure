@@ -81,3 +81,6 @@
 // define of the sizes of tables
 #define SIZE_ATLAS 14
 #define SIZE_TAB_BOOLEAN 6
+
+#define MAP_BUILDER 0
+#define MAP_BOOLEAN 0

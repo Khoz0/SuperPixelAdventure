@@ -40,6 +40,7 @@ void createGame(){
 
     Uint16** map_builder = mapBuilder(MAP_WATER);
     Uint16** map_boolean = mapBoolean(map_builder);
+    Tables* tables = createTables();
 
     setDstPosition(atlas, HERO, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
     setDstPosition(atlas, CHAT_BOX, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
@@ -130,6 +131,7 @@ void createGame(){
         setBoolean(variables, BOOL_TP_CAVE, TRUE);
         map_builder = mapBuilder(MAP_NO_WATER);
         map_boolean = mapBoolean(map_builder);
+        updateTables(tables, MAP_NO_WATER);
       }
 
       if (getBoolean(variables, BOOL_TP_CAVE)){
