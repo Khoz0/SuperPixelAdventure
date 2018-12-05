@@ -26,7 +26,7 @@ Uint16** mapBoolean(Uint16** map_builder){
           map_boolean[j][i] = 3;
 	      }else if(map_builder[j][i]==78) {
           map_boolean[j][i] = 4;
-        }else if(map_builder[j[i]==53]){
+        }else if(map_builder[j][i]==53){
           map_boolean[j][i] = 5;
         }else{
           map_boolean[j][i] = isEmpty(map_builder[j][i]);
