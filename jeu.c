@@ -7,16 +7,19 @@ void createGame(){
 
     Atlas* atlas = createAtlas();
     Booleans* booleans = createBooleans();
+    createSDL(atlas);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver;
     sprint = 1;
+
     setBoolean(booleans, BOOL_PANNEL_START, FALSE);
     bool_pannel_start = 0;
     setBoolean(booleans, BOOL_PANNEL_CAVE, FALSE);
     bool_pannel_cave = 0;
     setBoolean(booleans, BOOL_PANNEL, FALSE);
     bool_pannel = 0;
+
     width = 0;
     dir = 1;
     staminaLength = 195;
@@ -28,11 +31,6 @@ void createGame(){
     SDL_Event event;
 
     //mainMenu(&gameOver);
-
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_Init(SDL_INIT_AUDIO);
-    TTF_Init();
-    Mix_Init(MIX_INIT_MP3);
 
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 

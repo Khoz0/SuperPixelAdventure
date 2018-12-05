@@ -8,5 +8,6 @@
 #include "keyboardEvent.h"
 #include "constants.h"
 #include "menu.h"
+#include "createSDL.h"
 
 void createGame();
