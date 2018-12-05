@@ -5,14 +5,14 @@
 
 typedef struct Atlas {
 
+  Picture** pictures;
+  TileSet* tileset;
   int staminaLength;
   int lifePointLength;
   SDL_Rect staminaDst;
   SDL_Rect lifePointDst;
   SDL_Surface* stamina;
   SDL_Surface* life_point;
-  Picture** pictures;
-  TileSet* tileset;
 
 } Atlas;
 

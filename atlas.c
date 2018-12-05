@@ -5,11 +5,6 @@ Atlas* createAtlas() {
   Atlas* atlas = malloc(sizeof(Atlas));
   atlas->pictures = malloc(sizeof(Picture*) * SIZE_ATLAS);
 
-  setStaminaLength(atlas, 195);
-  setLifePointLength(atlas, 200);
-  setStaminaDst(atlas, 10, 45);
-  setLifePointDst(atlas, 10, 20);
-
   atlas->pictures[HERO] = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
   atlas->pictures[OLD_MAN] = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[OLD_WOMAN] = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
@@ -25,10 +20,14 @@ Atlas* createAtlas() {
   atlas->pictures[PANNEL] = createPicture("./pictures/chat/pannel.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[FOG] = createPicture("./pictures/tileset/fog.bmp", CHAR_WIDTH, CHAR_HEIGHT);
 
+  atlas->tileset = createTileset();
+
+  setStaminaLength(atlas, 195);
+  setLifePointLength(atlas, 200);
+  setStaminaDst(atlas, 10, 45);
+  setLifePointDst(atlas, 10, 20);
   atlas->stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength(atlas) + 5, 15, 32, 0, 0 ,0 ,0);
   atlas->life_point = SDL_CreateRGBSurface(SDL_HWSURFACE, getLifePointLength(atlas), 15, 32, 0, 0 ,0 ,0);
-
-  atlas->tileset = createTileset();
 
   return atlas;
 
