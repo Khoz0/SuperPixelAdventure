@@ -27,12 +27,9 @@ void createGame(){
     int xchar, ychar, xscroll, yscroll;
     int actualTime = 0, lastTimes = 0;
 
-    SDL_Surface *screen;
     SDL_Event event;
 
     //mainMenu(&gameOver);
-
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
 
     // initialisation of SDL_mixer
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
@@ -158,8 +155,8 @@ void createGame(){
       stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, staminaLength  + 5, 15, 32, 0, 0 ,0 ,0);
       lifePoint = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 15, 32, 0, 0 ,0 ,0);
 
-      SDL_FillRect(stamina, NULL, SDL_MapRGB(screen->format, 1, 215, 88));
-      SDL_FillRect(lifePoint, NULL, SDL_MapRGB(screen->format, 200, 7, 7));
+      SDL_FillRect(stamina, NULL, SDL_MapRGB(getScreen(sdl)->format, 1, 215, 88));
+      SDL_FillRect(lifePoint, NULL, SDL_MapRGB(getScreen(sdl)->format, 200, 7, 7));
 
       setSrcPosition(atlas, HERO, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
 
@@ -217,21 +214,21 @@ void createGame(){
       setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER), NEG);
       setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER), NEG);
 
-      display(atlas, booleans, screen, map_builder, xscroll, yscroll);
+      display(atlas, booleans, sdl, map_builder, xscroll, yscroll);
       if (getBoolean(booleans, BOOL_WATERFALL)){
-        SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, screen, &getPicture(atlas, WATERFALL)->neg);
+        SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, getScreen(sdl), &getPicture(atlas, WATERFALL)->neg);
       }
 
-      if(bool_pannel) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, screen, &getPicture(atlas, PANNEL)->dst);
-      if(bool_pannel_start) SDL_BlitSurface(text_pannel_start, NULL, screen, &posTexte);
-      if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, screen, &posTexte);
+      if(bool_pannel) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, getScreen(sdl), &getPicture(atlas, PANNEL)->dst);
+      if(bool_pannel_start) SDL_BlitSurface(text_pannel_start, NULL, getScreen(sdl), &posTexte);
+      if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, getScreen(sdl), &posTexte);
       if(getBoolean(booleans, BOOL_FOG)){
-        SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, screen, &getPicture(atlas, FOG)->dst);
+        SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, getScreen(sdl), &getPicture(atlas, FOG)->dst);
       }
-      SDL_BlitSurface(stamina, NULL, screen, &staminaPos);
-      SDL_BlitSurface(lifePoint, NULL, screen, &lifePointPos);
-      SDL_UpdateRect(screen, 0, 0, 0, 0);
-      SDL_Flip(screen);
+      SDL_BlitSurface(stamina, NULL, getScreen(sdl), &staminaPos);
+      SDL_BlitSurface(lifePoint, NULL, getScreen(sdl), &lifePointPos);
+      SDL_UpdateRect(getScreen(sdl), 0, 0, 0, 0);
+      SDL_Flip(getScreen(sdl));
       SDL_FreeSurface(stamina);
       SDL_FreeSurface(lifePoint);
 

@@ -34,3 +34,7 @@ void destroySDL(SDL* sdl) {
   SDL_Quit();
   free(sdl);
 }
+
+SDL_Surface* getScreen(SDL* sdl) {
+  return sdl->screen;
+}

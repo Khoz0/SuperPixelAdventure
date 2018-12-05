@@ -9,3 +9,4 @@ typedef struct SDL{
 
 SDL* createSDL(Atlas* atlas);
 void destroySDL(SDL* sdl);
+SDL_Surface* getScreen(SDL* sdl);

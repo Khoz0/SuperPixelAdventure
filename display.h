@@ -5,5 +5,6 @@
 #include "displayMap.h"
 
 typedef struct Booleans Booleans;
+typedef struct SDL SDL;
 
-void display(Atlas* atlas, Booleans* booleans, SDL_Surface* screen, Uint16** map_builder, int xscroll, int yscroll);
+void display(Atlas* atlas, Booleans* booleans, SDL* sdl, Uint16** map_builder, int xscroll, int yscroll);
