@@ -5,6 +5,8 @@ void createGame() {
     Atlas* atlas = createAtlas();
     Variables* variables = createVariables();
     SDL* sdl = createSDL(atlas);
+    Text* text = createText();
+    Tables* tables = createTables();
 
     int cpt = 0, animation = 0;
     int sprint, width, dir, gameOver;
@@ -34,8 +36,6 @@ void createGame() {
     music_event = Mix_LoadWAV("./music/music_event.wav");
     Mix_Volume(1, VOLUME_EVENT);
 
-    Tables* tables = createTables();
-
     setDstPosition(atlas, HERO, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
     setDstPosition(atlas, CHAT_BOX, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
     setDstPosition(atlas, PANNEL, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
@@ -62,21 +62,6 @@ void createGame() {
 
     xscroll = MAP_PIXELS_X - SCREEN_WIDTH;
     yscroll = MAP_PIXELS_Y - SCREEN_HEIGHT;
-
-    // SDL_ttf initialisation
-    TTF_Font *font = NULL;
-    font = TTF_OpenFont("./font/font.ttf", 50);
-    SDL_Color couleurNoire = {0, 0, 0};
-    SDL_Surface *text_pannel_start, *text_pannel_cave;
-    SDL_Rect posTexte;
-    posTexte.x = 470;
-    posTexte.y = 415;
-
-    // ttf texts
-    text_pannel_start = TTF_RenderText_Solid(font, "* bienvenue a joliland *", couleurNoire);
-    text_pannel_cave = TTF_RenderText_Solid(font, "*DANGER* entrée de la grote *DANGER*", couleurNoire);
-
-
 
     while (!gameOver){
 
@@ -179,8 +164,8 @@ void createGame() {
       }
 
       if(getBoolean(variables, BOOL_PANNEL)) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, getScreen(sdl), &getPicture(atlas, PANNEL)->dst);
-      if(getBoolean(variables, BOOL_PANNEL_START)) SDL_BlitSurface(text_pannel_start, NULL, getScreen(sdl), &posTexte);
-      if(getBoolean(variables, BOOL_PANNEL_CAVE)) SDL_BlitSurface(text_pannel_cave, NULL, getScreen(sdl), &posTexte);
+      if(getBoolean(variables, BOOL_PANNEL_START)) SDL_BlitSurface(getText(text, TEXT_PANNEL_START), NULL, getScreen(sdl), getTextDst(text));
+      if(getBoolean(variables, BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(text, TEXT_PANNEL_CAVE), NULL, getScreen(sdl), getTextDst(text));
       if(getBoolean(variables, BOOL_FOG))  SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, getScreen(sdl), &getPicture(atlas, FOG)->dst);
 
       SDL_BlitSurface(getStamina(atlas), NULL, getScreen(sdl), getStaminaDst(atlas));
@@ -195,17 +180,14 @@ void createGame() {
     destroyTables(tables);
     destroyVariables(variables);
     destroySDL(sdl);
+    destroyText(text);
 
     // closing SDL libs
-    TTF_CloseFont(font);
     Mix_CloseAudio();
 
     // SDL memory restitution
-    SDL_FreeSurface(text_pannel_start);
-    SDL_FreeSurface(text_pannel_cave);
     Mix_FreeChunk(music_theme);
     Mix_FreeChunk(music_event);
-    TTF_Quit();
     Mix_Quit();
 
 }

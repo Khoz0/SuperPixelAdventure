@@ -75,12 +75,16 @@
 #define BOOL_PANNEL_CAVE 4
 #define BOOL_PANNEL_START 5
 
+#define TEXT_PANNEL_START 0
+#define TEXT_PANNEL_CAVE 1
+
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
 // define of the sizes of tables
 #define SIZE_ATLAS 14
 #define SIZE_TAB_BOOLEAN 6
+#define SIZE_TAB_TEXT 2
 
 #define MAP_BUILDER 0
 #define MAP_BOOLEAN 1

@@ -88,6 +88,8 @@ void destroyAtlas(Atlas* atlas) {
   }
   free(atlas->pictures);
   destroyTileset(atlas->tileset);
+  SDL_FreeSurface(atlas->stamina);
+  SDL_FreeSurface(atlas->life_point);
   free(atlas);
   atlas = NULL;
 

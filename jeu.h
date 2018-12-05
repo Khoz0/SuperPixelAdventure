@@ -11,6 +11,6 @@
 #include "menu.h"
 #include "createSDL.h"
 #include "tables.h"
-
+#include "createText.h"
 
 void createGame();
