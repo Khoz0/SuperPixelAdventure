@@ -21,7 +21,7 @@ void updateTables(Tables* tables, int index_map) {
 Uint16** getTable(Tables* tables, int index) {
 
   if(!index) return tables->map_builder;
-  if (index) return tables->map_boolean;
+  if(index) return tables->map_boolean;
 
 }
 

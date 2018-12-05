@@ -1,7 +1,7 @@
 #include "keyboardEvent.h"
 #include "variables.h"
 
-void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** map_boolean, int xchar, int ychar,
+void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* tables, int xchar, int ychar,
 	 								 int *width, int *yscroll, int *xscroll, int *dir, int *staminaLength, int *gameOver, Atlas* atlas){
 
   switch(event.type){
@@ -15,17 +15,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 		  if(!getBoolean(variables, BOOL_PANNEL_START)){
 		    printf("ACTION : LECTURE PANNEAU\n");
 		    setBoolean(variables, BOOL_PANNEL_START, TRUE);
-		    if((map_boolean[xchar/32][(ychar-5)/32]==2) || (map_boolean[xchar/32+1][(ychar-5)/32]==2)) setBoolean(variables, BOOL_PANNEL_START, TRUE);
-		    if((map_boolean[xchar/32][(ychar-5)/32]==4) || (map_boolean[xchar/32+1][(ychar-5)/32]==4)) setBoolean(variables, BOOL_PANNEL_CAVE, TRUE);
+		    if((getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==2) || (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==2)) setBoolean(variables, BOOL_PANNEL_START, TRUE);
+		    if((getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==4) || (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==4)) setBoolean(variables, BOOL_PANNEL_CAVE, TRUE);
 		    setBoolean(variables, BOOL_PANNEL, TRUE);
-		    //map_builder = mapBuilder(MAP_NO_WATER);
-		    //map_boolean = mapBoolean(map_builder);
-		    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
-			    for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-			      printf("%d", map_boolean[j][i]);
-			    }
-			  printf("\n");
-		    }
 		  }
 	      break;
 
@@ -34,18 +26,18 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 			      setBoolean(variables, BOOL_PANNEL_START, FALSE);
 			      setBoolean(variables, BOOL_PANNEL, FALSE);
 			      setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
-			      if(map_boolean[xchar/32][(ychar-15)/32]==3 && map_boolean[xchar/32+1][(ychar-15)/32]==3){
+			      if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-15)/32]==3 && getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-15)/32]==3){
 						setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) - 4 * *sprint);
 			      }
 			      if (*yscroll > 0){
-				  if((getPictureY(atlas, HERO) > 448) && (map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)) {
+				  if((getPictureY(atlas, HERO) > 448) && (getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-1)/32]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)) {
 							setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) - 4 * *sprint);
 				      if (*dir < 20){
 						  *dir += (1 * *sprint);
 				      }else{
 						  *dir = 0;
 				      }
-				  }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
+				  }else if((getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-1)/32]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)){
 				    *yscroll -= 8 * *sprint;
 						setPictureY(getPicture(atlas, WATERFALL), getPictureY(atlas, WATERFALL) + 8 * *sprint);
 						setPictureY(getPicture(atlas, OLD_MAN), getPictureY(atlas, OLD_MAN) + 8 * *sprint);
@@ -68,7 +60,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 					  *sprint = 1;
 				    }
 				  }
-			      }else if((map_boolean[xchar/32][(ychar-1)/32]==0) && (map_boolean[xchar/32+1][(ychar-1)/32]==0)){
+			      }else if((getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-1)/32]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)){
 					setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) - 4 * *sprint);
 				  if (*dir < 20){
 				      *dir += (1 * *sprint);
@@ -88,14 +80,14 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 			  setBoolean(variables, BOOL_PANNEL, FALSE);
 			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			  if (*yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
-			      if((getPictureY(atlas, HERO) < 448) && (map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
+			      if((getPictureY(atlas, HERO) < 448) && (getTable(tables, MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32]==0)) {
 					setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
 					      *dir = 0;
 				  }
-			      }else if ((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
+			      }else if ((getTable(tables, MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32+1]==0)){
 				  *yscroll += 8 * *sprint;
 					setPictureY(getPicture(atlas, WATERFALL), getPictureY(atlas, WATERFALL) - 8 * *sprint);
 					setPictureY(getPicture(atlas, OLD_MAN), getPictureY(atlas, OLD_MAN) - 8 * *sprint);
@@ -120,7 +112,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 			      }
 			  }else if((*yscroll < MAP_PIXELS_Y) && (getPictureY(atlas, HERO) < SCREEN_HEIGHT - CHAR_HEIGHT)){
 			    if(xchar/32 < 133){
-			      if((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32+1]==0)){
+			      if((getTable(tables, MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32+1]==0)){
 				setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
@@ -129,7 +121,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 				}
 			      }
 			    }else{
-			      if((map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32][(ychar+8)/32+1]==0)){
+			      if((getTable(tables, MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar+8)/32+1]==0)){
 				setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
@@ -146,14 +138,14 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 			  setBoolean(variables, BOOL_PANNEL, FALSE);
 			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			  if (*xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
-			      if((getPictureX(atlas, HERO) < 720) && (map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)) {
+			      if((getPictureX(atlas, HERO) < 720) && (getTable(tables, MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)) {
 					setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) + 4 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
 					      *dir = 0;
 				  }
-			      }else if ((map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)){
+			      }else if ((getTable(tables, MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)){
 				  *xscroll += 8 * *sprint;
 					setPictureX(getPicture(atlas, WATERFALL), getPictureX(atlas, WATERFALL) - 8 * *sprint);
 					setPictureX(getPicture(atlas, OLD_MAN), getPictureX(atlas, OLD_MAN) - 8 * *sprint);
@@ -178,7 +170,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 			      }
 			  }else if((*xscroll < MAP_PIXELS_X) && (getPictureX(atlas, HERO) < SCREEN_WIDTH - CHAR_WIDTH)){
 			    if((xchar)/32 < 133){
-			      if((map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)){
+			      if((getTable(tables, MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)){
 				setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
@@ -187,7 +179,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 				}
 			      }
 			    }else{
-			      if((map_boolean[(xchar+7)/32][ychar/32]==0) && (map_boolean[(xchar+7)/32][ychar/32+1]==0) && (xchar < 4281)){
+			      if((getTable(tables, MAP_BOOLEAN)[(xchar+7)/32][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar+7)/32][ychar/32+1]==0) && (xchar < 4281)){
 				setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) + 4 * *sprint);
 				if (*dir < 20){
 				  *dir += (1 * *sprint);
@@ -204,14 +196,14 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 			  setBoolean(variables, BOOL_PANNEL, FALSE);
 			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			  if (*xscroll > 0){
-			      if((getPictureX(atlas, HERO) > 720) && (map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)) {
+			      if((getPictureX(atlas, HERO) > 720) && (getTable(tables, MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)) {
 				  setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) - 4 * *sprint);
 				  if (*dir < 20){
 					      *dir += (1 * *sprint);
 				  }else{
 					      *dir = 0;
 				  }
-			      }else if ((map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)){
+			      }else if ((getTable(tables, MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)){
 				  *xscroll -= 8 * *sprint;
 					setPictureX(getPicture(atlas, WATERFALL), getPictureX(atlas, WATERFALL) + 8 * *sprint);
 					setPictureX(getPicture(atlas, OLD_MAN), getPictureX(atlas, OLD_MAN) + 8 * *sprint);
@@ -234,7 +226,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** 
 					      *sprint = 1;
 				  }
 			      }
-			  }else if ((map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)){
+			  }else if ((getTable(tables, MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(tables, MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)){
 			      setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) - 4 * *sprint);
 			      if (*dir < 20){
 				  *dir += (1 * *sprint);

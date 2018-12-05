@@ -19,6 +19,8 @@ Atlas* createAtlas() {
   atlas->pictures[CHAT_BOX] = createPicture("./pictures/chat/chatBox.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[PANNEL] = createPicture("./pictures/chat/pannel.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[FOG] = createPicture("./pictures/tileset/fog.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[STAMINA] = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength + 5, 15, 32, 0, 0 ,0 ,0);
+  atlas->pictures[LIFE_POINT] = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 15, 32, 0, 0 ,0 ,0);
 
   atlas->tileset = createTileset();
 

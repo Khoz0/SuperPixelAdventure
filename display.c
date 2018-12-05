@@ -2,9 +2,9 @@
 #include "createSDL.h"
 #include "variables.h"
 
-void display(Atlas* atlas, Variables* variables, SDL* sdl, Uint16** map_builder, int xscroll, int yscroll) {
+void display(Atlas* atlas, Variables* variables, SDL* sdl, Tables* tables, int xscroll, int yscroll) {
 
-  displayMap(map_builder, getScreen(sdl), xscroll, yscroll, atlas);
+  displayMap(tables, getScreen(sdl), xscroll, yscroll, atlas);
 
   for(int i = 0 ; i < SIZE_ATLAS ; i++) {
     if(getIsPrinted(atlas, i)) {

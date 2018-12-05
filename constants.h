@@ -66,6 +66,8 @@
 #define CHAT_BOX 11
 #define PANNEL 12
 #define FOG 13
+#define STAMINA 14
+#define LIFE_POINT 15
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
@@ -75,7 +77,7 @@
 #define BOOL_PANNEL_CAVE 4
 #define BOOL_PANNEL_START 5
 
-// define of a boolean value
+// define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
 // define of the sizes of tables
@@ -83,4 +85,4 @@
 #define SIZE_TAB_BOOLEAN 6
 
 #define MAP_BUILDER 0
-#define MAP_BOOLEAN 0
+#define MAP_BOOLEAN 1
