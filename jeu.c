@@ -6,19 +6,12 @@ void createGame(){
     SDL_Rect staminaPos, lifePointPos, posSpriteWizardPNJ;
 
     Atlas* atlas = createAtlas();
-    Booleans* booleans = createBooleans();
+    Variables* variables = createVariables();
     SDL* sdl = createSDL(atlas);
 
     int cpt = 0, animation = 0;
     int sprint, bool_pannel_start, bool_pannel_cave, bool_pannel, width, dir, staminaLength, gameOver;
     sprint = 1;
-
-    setBoolean(booleans, BOOL_PANNEL_START, FALSE);
-    bool_pannel_start = 0;
-    setBoolean(booleans, BOOL_PANNEL_CAVE, FALSE);
-    bool_pannel_cave = 0;
-    setBoolean(booleans, BOOL_PANNEL, FALSE);
-    bool_pannel = 0;
 
     width = 0;
     dir = 1;
@@ -130,22 +123,22 @@ void createGame(){
       if(!Mix_Playing(1)) Mix_Resume(0);
 
       SDL_PollEvent(&event);
-      keyboardEvent(event, &sprint, &bool_pannel_start, map_boolean, xchar, ychar, &bool_pannel_cave, &bool_pannel, &width,
+      keyboardEvent(event, &sprint, variables, map_boolean, xchar, ychar, &width,
                     &yscroll, &xscroll, &dir, &staminaLength, &gameOver, atlas);
 
       if(map_boolean[xchar/32][(ychar - 15)/32 + 1]==3){
-        setBoolean(booleans, BOOL_TP_CAVE, TRUE);
+        setBoolean(variables, BOOL_TP_CAVE, TRUE);
         map_builder = mapBuilder(MAP_NO_WATER);
         map_boolean = mapBoolean(map_builder);
       }
 
-      if (getBoolean(booleans, BOOL_TP_CAVE)){
-        setBoolean(booleans, BOOL_FOG, TRUE);
+      if (getBoolean(variables, BOOL_TP_CAVE)){
+        setBoolean(variables, BOOL_FOG, TRUE);
         xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
         yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
         setDstPosition(atlas, HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-        setBoolean(booleans, BOOL_TP_CAVE, FALSE);
-        setBoolean(booleans, BOOL_WATERFALL, TRUE);
+        setBoolean(variables, BOOL_TP_CAVE, FALSE);
+        setBoolean(variables, BOOL_WATERFALL, TRUE);
       }
 
       if (staminaLength > -2 && staminaLength  <= 194 && sprint == 1){
@@ -214,17 +207,16 @@ void createGame(){
       setPictureNegX(getPicture(atlas, FISH_HUNTER), getPictureX(atlas, FISH_HUNTER), NEG);
       setPictureNegY(getPicture(atlas, FISH_HUNTER), getPictureY(atlas, FISH_HUNTER), NEG);
 
-      display(atlas, booleans, sdl, map_builder, xscroll, yscroll);
-      if (getBoolean(booleans, BOOL_WATERFALL)){
+      display(atlas, variables, sdl, map_builder, xscroll, yscroll);
+      if (getBoolean(variables, BOOL_WATERFALL)){
         SDL_BlitSurface(getPicture(atlas, WATERFALL)->surface, &getPicture(atlas, WATERFALL)->src, getScreen(sdl), &getPicture(atlas, WATERFALL)->neg);
       }
 
-      if(bool_pannel) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, getScreen(sdl), &getPicture(atlas, PANNEL)->dst);
-      if(bool_pannel_start) SDL_BlitSurface(text_pannel_start, NULL, getScreen(sdl), &posTexte);
-      if(bool_pannel_cave) SDL_BlitSurface(text_pannel_cave, NULL, getScreen(sdl), &posTexte);
-      if(getBoolean(booleans, BOOL_FOG)){
-        SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, getScreen(sdl), &getPicture(atlas, FOG)->dst);
-      }
+      if(getBoolean(variables, BOOL_PANNEL)) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, getScreen(sdl), &getPicture(atlas, PANNEL)->dst);
+      if(getBoolean(variables, BOOL_PANNEL_START)) SDL_BlitSurface(text_pannel_start, NULL, getScreen(sdl), &posTexte);
+      if(getBoolean(variables, BOOL_PANNEL_CAVE)) SDL_BlitSurface(text_pannel_cave, NULL, getScreen(sdl), &posTexte);
+      if(getBoolean(variables, BOOL_FOG))  SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, getScreen(sdl), &getPicture(atlas, FOG)->dst);
+
       SDL_BlitSurface(stamina, NULL, getScreen(sdl), &staminaPos);
       SDL_BlitSurface(lifePoint, NULL, getScreen(sdl), &lifePointPos);
       SDL_UpdateRect(getScreen(sdl), 0, 0, 0, 0);
@@ -238,7 +230,7 @@ void createGame(){
     destroyAtlas(atlas);
     destroyTab(map_builder);
     destroyTab(map_boolean);
-    destroyBooleans(booleans);
+    destroyVariables(variables);
     destroySDL(sdl);
 
     // closing SDL libs

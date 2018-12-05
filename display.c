@@ -1,8 +1,8 @@
 #include "display.h"
 #include "createSDL.h"
-#include "booleans.h"
+#include "variables.h"
 
-void display(Atlas* atlas, Booleans* booleans, SDL* sdl, Uint16** map_builder, int xscroll, int yscroll) {
+void display(Atlas* atlas, Variables* variables, SDL* sdl, Uint16** map_builder, int xscroll, int yscroll) {
 
   displayMap(map_builder, getScreen(sdl), xscroll, yscroll, atlas);
 
@@ -16,7 +16,7 @@ void display(Atlas* atlas, Booleans* booleans, SDL* sdl, Uint16** map_builder, i
           SDL_BlitSurface(getPicture(atlas, i)->surface, &getPicture(atlas, i)->src, getScreen(sdl), &getPicture(atlas, i)->neg);
         }
       }
-      if(getBoolean(booleans, BOOL_PANNEL)) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, getScreen(sdl), &getPicture(atlas, PANNEL)->dst);
+      if(getBoolean(variables, BOOL_PANNEL)) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, getScreen(sdl), &getPicture(atlas, PANNEL)->dst);
     }
   }
 

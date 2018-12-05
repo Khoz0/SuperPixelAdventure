@@ -13,14 +13,7 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_PANNEL_START] = FALSE;
 
   return booleans;
-}
 
-int getBoolean(Booleans* booleans, int index) {
-  return booleans->tabBooleans[index];
-}
-
-void setBoolean(Booleans* booleans, int index, int value) {
-  booleans->tabBooleans[index] = value;
 }
 
 void destroyBooleans(Booleans* booleans) {

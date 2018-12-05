@@ -1,7 +1,8 @@
 #include "keyboardEvent.h"
+#include "variables.h"
 
-void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16** map_boolean, int xchar, int ychar, int* bool_pannel_cave,
-	 								 int *bool_pannel, int *width, int *yscroll, int *xscroll, int *dir, int *staminaLength, int *gameOver, Atlas* atlas){
+void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Uint16** map_boolean, int xchar, int ychar,
+	 								 int *width, int *yscroll, int *xscroll, int *dir, int *staminaLength, int *gameOver, Atlas* atlas){
 
   switch(event.type){
 	case SDL_KEYDOWN:
@@ -11,12 +12,12 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 		    break;
 
 	case SDLK_e:
-		  if(*bool_pannel_start == 0){
+		  if(!getBoolean(variables, BOOL_PANNEL_START)){
 		    printf("ACTION : LECTURE PANNEAU\n");
-		    *bool_pannel_start = 1;
-		    if((map_boolean[xchar/32][(ychar-5)/32]==2) || (map_boolean[xchar/32+1][(ychar-5)/32]==2)) *bool_pannel_start = 1;
-		    if((map_boolean[xchar/32][(ychar-5)/32]==4) || (map_boolean[xchar/32+1][(ychar-5)/32]==4)) *bool_pannel_cave = 1;
-		    *bool_pannel = 1;
+		    setBoolean(variables, BOOL_PANNEL_START, TRUE);
+		    if((map_boolean[xchar/32][(ychar-5)/32]==2) || (map_boolean[xchar/32+1][(ychar-5)/32]==2)) setBoolean(variables, BOOL_PANNEL_START, TRUE);
+		    if((map_boolean[xchar/32][(ychar-5)/32]==4) || (map_boolean[xchar/32+1][(ychar-5)/32]==4)) setBoolean(variables, BOOL_PANNEL_CAVE, TRUE);
+		    setBoolean(variables, BOOL_PANNEL, TRUE);
 		    //map_builder = mapBuilder(MAP_NO_WATER);
 		    //map_boolean = mapBoolean(map_builder);
 		    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
@@ -30,9 +31,9 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 
 		    case SDLK_z:
 			      *width = 3;
-			      *bool_pannel_start = 0;
-			      *bool_pannel = 0;
-			      *bool_pannel_cave = 0;
+			      setBoolean(variables, BOOL_PANNEL_START, FALSE);
+			      setBoolean(variables, BOOL_PANNEL, FALSE);
+			      setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			      if(map_boolean[xchar/32][(ychar-15)/32]==3 && map_boolean[xchar/32+1][(ychar-15)/32]==3){
 						setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) - 4 * *sprint);
 			      }
@@ -83,9 +84,9 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 			break;
 		    case SDLK_s:
 			  *width = 0;
-			  *bool_pannel_start = 0;
-			  *bool_pannel = 0;
-			  *bool_pannel_cave = 0;
+			  setBoolean(variables, BOOL_PANNEL_START, FALSE);
+			  setBoolean(variables, BOOL_PANNEL, FALSE);
+			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			  if (*yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			      if((getPictureY(atlas, HERO) < 448) && (map_boolean[(xchar+8)/32][(ychar+8)/32+1]==0) && (map_boolean[xchar/32+1][(ychar+8)/32]==0)) {
 					setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
@@ -141,9 +142,9 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 		    break;
 		    case SDLK_d:
 			  *width = 2;
-			  *bool_pannel_start = 0;
-			  *bool_pannel = 0;
-			  *bool_pannel_cave = 0;
+			  setBoolean(variables, BOOL_PANNEL_START, FALSE);
+			  setBoolean(variables, BOOL_PANNEL, FALSE);
+			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			  if (*xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
 			      if((getPictureX(atlas, HERO) < 720) && (map_boolean[(xchar+7)/32+1][ychar/32]==0) && (map_boolean[(xchar+7)/32+1][ychar/32+1]==0)) {
 					setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) + 4 * *sprint);
@@ -199,9 +200,9 @@ void keyboardEvent(SDL_Event event, int *sprint, int *bool_pannel_start, Uint16*
 		    break;
 		    case SDLK_q:
 			  *width = 1;
-			  *bool_pannel_start = 0;
-			  *bool_pannel = 0;
-			  *bool_pannel_cave = 0;
+			  setBoolean(variables, BOOL_PANNEL_START, FALSE);
+			  setBoolean(variables, BOOL_PANNEL, FALSE);
+			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
 			  if (*xscroll > 0){
 			      if((getPictureX(atlas, HERO) > 720) && (map_boolean[(xchar-7)/32][ychar/32]==0) && (map_boolean[(xchar-7)/32][ychar/32+1]==0)) {
 				  setPictureX(getPicture(atlas, HERO), getPictureX(atlas, HERO) - 4 * *sprint);
