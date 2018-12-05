@@ -11,6 +11,7 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_PANNEL] = FALSE;
   booleans->tabBooleans[BOOL_PANNEL_CAVE] = FALSE;
   booleans->tabBooleans[BOOL_PANNEL_START] = FALSE;
+  booleans->tabBooleans[BOOL_TP_OUTSIDE] = FALSE;
 
   return booleans;
 

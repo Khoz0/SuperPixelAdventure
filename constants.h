@@ -74,6 +74,7 @@
 #define BOOL_PANNEL 3
 #define BOOL_PANNEL_CAVE 4
 #define BOOL_PANNEL_START 5
+#define BOOL_TP_OUTSIDE 6
 
 #define TEXT_PANNEL_START 0
 #define TEXT_PANNEL_CAVE 1
@@ -83,7 +84,7 @@
 
 // define of the sizes of tables
 #define SIZE_ATLAS 14
-#define SIZE_TAB_BOOLEAN 6
+#define SIZE_TAB_BOOLEAN 7
 #define SIZE_TAB_TEXT 2
 
 #define MAP_BUILDER 0

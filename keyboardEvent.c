@@ -79,6 +79,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 			  setBoolean(variables, BOOL_PANNEL_START, FALSE);
 			  setBoolean(variables, BOOL_PANNEL, FALSE);
 			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
+				if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar+15)/32]==3 && getTable(tables, MAP_BOOLEAN)[xchar/32-1][(ychar+15)/32]==3){
+					setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
+				}
 			  if (*yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
 			      if((getPictureY(atlas, HERO) < 448) && (getTable(tables, MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32]==0)) {
 					setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
