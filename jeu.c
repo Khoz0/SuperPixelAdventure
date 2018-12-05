@@ -7,6 +7,7 @@ void createGame() {
     SDL* sdl = createSDL(atlas);
     Text* text = createText();
     Tables* tables = createTables();
+    Audio* audio = createAudio();
 
     int cpt = 0, animation = 0;
     int sprint, width, dir, gameOver;
@@ -21,20 +22,6 @@ void createGame() {
     SDL_Event event;
 
     //mainMenu(&gameOver);
-
-    // initialisation of SDL_mixer
-    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
-      printf("Error SDL_mixer : %s\n", Mix_GetError());
-    }
-    Mix_AllocateChannels(2);
-    Mix_Chunk *music_theme, *music_event;;
-
-    music_theme = Mix_LoadWAV("./music/music_theme.wav");
-    Mix_Volume(0, 4);
-    Mix_PlayChannel(0, music_theme, VOLUME_THEME);
-
-    music_event = Mix_LoadWAV("./music/music_event.wav");
-    Mix_Volume(1, VOLUME_EVENT);
 
     setDstPosition(atlas, HERO, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
     setDstPosition(atlas, CHAT_BOX, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
@@ -78,7 +65,7 @@ void createGame() {
       ychar = getPicture(atlas, HERO)->dst.y + yscroll;
 
       // we resume the main channel if it had been paused
-      if(!Mix_Playing(1)) Mix_Resume(0);
+      //if(!Mix_Playing(1)) Mix_Resume(0);
 
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, variables, tables, xchar, ychar, &width,
@@ -181,13 +168,6 @@ void createGame() {
     destroyVariables(variables);
     destroySDL(sdl);
     destroyText(text);
-
-    // closing SDL libs
-    Mix_CloseAudio();
-
-    // SDL memory restitution
-    Mix_FreeChunk(music_theme);
-    Mix_FreeChunk(music_event);
-    Mix_Quit();
+    destroyAudio(audio);
 
 }

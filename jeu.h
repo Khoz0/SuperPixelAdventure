@@ -12,5 +12,6 @@
 #include "createSDL.h"
 #include "tables.h"
 #include "createText.h"
+#include "createAudio.h"
 
 void createGame();
