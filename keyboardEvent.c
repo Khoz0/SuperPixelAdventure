@@ -2,7 +2,7 @@
 #include "variables.h"
 
 void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* tables, int xchar, int ychar,
-	 								 int *width, int *yscroll, int *xscroll, int *dir, int *staminaLength, int *gameOver, Atlas* atlas){
+	 								 int *width, int *yscroll, int *xscroll, int *dir, int *gameOver, Atlas* atlas){
 
   switch(event.type){
 	case SDL_KEYDOWN:
@@ -54,9 +54,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 				    }else{
 					  *dir = 0;
 				    }
-				    if (*sprint == 2 && *staminaLength > 1){
-					  *staminaLength -= (1 * *sprint);
-				    }else if (*staminaLength <= 2){
+				    if (*sprint == 2 && getStaminaLength(atlas) > 1){
+					  	setStaminaLength(atlas, getStaminaLength(atlas) - (1 * *sprint));
+				    }else if (getStaminaLength(atlas) <= 2){
 					  *sprint = 1;
 				    }
 				  }
@@ -67,9 +67,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 				  }else{
 				      *dir = 0;
 				  }
-				  if (*sprint == 2 && *staminaLength > 1){
-				      *staminaLength -= (1 * *sprint);
-				  }else if (*staminaLength <= 2){
+				  if (*sprint == 2 && getStaminaLength(atlas) > 1){
+				      setStaminaLength(atlas, getStaminaLength(atlas) - (1 * *sprint));
+				  }else if (getStaminaLength(atlas) <= 2){
 				      *sprint = 1;
 				  }
 			      }
@@ -104,9 +104,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 				  }else{
 					      *dir = 0;
 				  }
-				  if (*sprint == 2 && *staminaLength > 1){
-					      *staminaLength -= (1 * *sprint);
-				  }else if (*staminaLength <= 2){
+				  if (*sprint == 2 && getStaminaLength(atlas) > 1){
+					      setStaminaLength(atlas, getStaminaLength(atlas) - (1 * *sprint));
+				  }else if (getStaminaLength(atlas) <= 2){
 					      *sprint = 1;
 				  }
 			      }
@@ -162,9 +162,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 				  }else{
 					      *dir = 0;
 				  }
-				  if (*sprint == 2 && *staminaLength > 1){
-					      *staminaLength -= (1 * *sprint);
-				  }else if (*staminaLength <= 2){
+				  if (*sprint == 2 && getStaminaLength(atlas) > 1){
+					      setStaminaLength(atlas, getStaminaLength(atlas) - (1 * *sprint));
+				  }else if (getStaminaLength(atlas) <= 2){
 					      *sprint = 1;
 				  }
 			      }
@@ -220,9 +220,9 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 				  }else{
 					      *dir = 0;
 				  }
-				  if (*sprint == 2 && *staminaLength > 1){
-					      *staminaLength -= (1 * *sprint);
-				  }else if (*staminaLength <= 2){
+				  if (*sprint == 2 && getStaminaLength(atlas) > 1){
+					      setStaminaLength(atlas, getStaminaLength(atlas) - (1 * *sprint));
+				  }else if (getStaminaLength(atlas) <= 2){
 					      *sprint = 1;
 				  }
 			      }

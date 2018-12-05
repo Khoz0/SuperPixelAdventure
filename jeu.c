@@ -7,12 +7,11 @@ void createGame() {
     SDL* sdl = createSDL(atlas);
 
     int cpt = 0, animation = 0;
-    int sprint, width, dir, staminaLength, gameOver;
+    int sprint, width, dir, gameOver;
     sprint = 1;
 
     width = 0;
     dir = 1;
-    staminaLength = 195;
     gameOver = 0;
     int xchar, ychar, xscroll, yscroll;
     int actualTime = 0, lastTimes = 0;
@@ -40,8 +39,6 @@ void createGame() {
     setDstPosition(atlas, HERO, SCREEN_WIDTH/1.1, SCREEN_HEIGHT/1.4);
     setDstPosition(atlas, CHAT_BOX, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
     setDstPosition(atlas, PANNEL, (SCREEN_WIDTH - PANNEL_WIDTH)/2, (SCREEN_HEIGHT - PANNEL_HEIGHT)/2);
-    setDstPosition(atlas, STAMINA, 10, 45);
-    setDstPosition(atlas, LIFE_POINT, 10, 20);
 
     // x: 2368 - 2880 = -512 --> -2880 différence fen/map en x
     // y: 380 - 1790 = -1410 --> -1790 différence fen/map en y
@@ -100,7 +97,7 @@ void createGame() {
 
       SDL_PollEvent(&event);
       keyboardEvent(event, &sprint, variables, tables, xchar, ychar, &width,
-                    &yscroll, &xscroll, &dir, &staminaLength, &gameOver, atlas);
+                    &yscroll, &xscroll, &dir, &gameOver, atlas);
 
       if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar - 15)/32 + 1]==3){
         setBoolean(variables, BOOL_TP_CAVE, TRUE);
@@ -116,8 +113,8 @@ void createGame() {
         setBoolean(variables, BOOL_WATERFALL, TRUE);
       }
 
-      if (staminaLength > -2 && staminaLength  <= 194 && sprint == 1){
-        staminaLength  += (2 * sprint);
+      if (getStaminaLength(atlas) > -2 && getStaminaLength(atlas)  <= 194 && sprint == 1){
+        setStaminaLength(atlas, getStaminaLength(atlas) + (2 * sprint));
       }
 
       setSrcPosition(atlas, HERO, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
@@ -186,8 +183,8 @@ void createGame() {
       if(getBoolean(variables, BOOL_PANNEL_CAVE)) SDL_BlitSurface(text_pannel_cave, NULL, getScreen(sdl), &posTexte);
       if(getBoolean(variables, BOOL_FOG))  SDL_BlitSurface(getPicture(atlas, FOG)->surface, NULL, getScreen(sdl), &getPicture(atlas, FOG)->dst);
 
-      SDL_BlitSurface(getPicture(atlas, STAMINA)->surface, NULL, getScreen(sdl), &getPicture(atlas, STAMINA)->dst);
-      SDL_BlitSurface(getPicture(atlas, LIFE_POINT)->surface, NULL, getScreen(sdl), &getPicture(atlas, LIFE_POINT)->dst);
+      SDL_BlitSurface(getStamina(atlas), NULL, getScreen(sdl), getStaminaDst(atlas));
+      SDL_BlitSurface(getLifePoint(atlas), NULL, getScreen(sdl), getLifePointDst(atlas));
       SDL_UpdateRect(getScreen(sdl), 0, 0, 0, 0);
       SDL_Flip(getScreen(sdl));
 

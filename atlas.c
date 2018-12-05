@@ -5,6 +5,11 @@ Atlas* createAtlas() {
   Atlas* atlas = malloc(sizeof(Atlas));
   atlas->pictures = malloc(sizeof(Picture*) * SIZE_ATLAS);
 
+  setStaminaLength(atlas, 195);
+  setLifePointLength(atlas, 200);
+  setStaminaDst(atlas, 10, 45);
+  setLifePointDst(atlas, 10, 20);
+
   atlas->pictures[HERO] = createPicture("./pictures/characters/hero.bmp", 30, CHAR_HEIGHT);
   atlas->pictures[OLD_MAN] = createPicture("./pictures/characters/papi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[OLD_WOMAN] = createPicture("./pictures/characters/mamie.bmp", CHAR_WIDTH, CHAR_HEIGHT);
@@ -19,13 +24,56 @@ Atlas* createAtlas() {
   atlas->pictures[CHAT_BOX] = createPicture("./pictures/chat/chatBox.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[PANNEL] = createPicture("./pictures/chat/pannel.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[FOG] = createPicture("./pictures/tileset/fog.bmp", CHAR_WIDTH, CHAR_HEIGHT);
-  atlas->pictures[STAMINA] = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength + 5, 15, 32, 0, 0 ,0 ,0);
-  atlas->pictures[LIFE_POINT] = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 15, 32, 0, 0 ,0 ,0);
+
+  atlas->stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength(atlas) + 5, 15, 32, 0, 0 ,0 ,0);
+  atlas->life_point = SDL_CreateRGBSurface(SDL_HWSURFACE, getLifePointLength(atlas), 15, 32, 0, 0 ,0 ,0);
 
   atlas->tileset = createTileset();
 
   return atlas;
 
+}
+
+void setStaminaDst(Atlas* atlas, int x, int y) {
+  atlas->staminaDst.x = x;
+  atlas->staminaDst.y = y;
+}
+
+void setLifePointDst(Atlas* atlas, int x, int y) {
+  atlas->lifePointDst.x = x;
+  atlas->lifePointDst.y = y;
+}
+
+SDL_Rect* getStaminaDst(Atlas* atlas) {
+  return &atlas->staminaDst;
+}
+
+SDL_Rect* getLifePointDst(Atlas* atlas) {
+  return &atlas->lifePointDst;
+}
+
+SDL_Surface* getStamina(Atlas* atlas) {
+  return atlas->stamina;
+}
+
+SDL_Surface* getLifePoint(Atlas* atlas) {
+  return atlas->life_point;
+}
+
+int getStaminaLength(Atlas* atlas) {
+  return atlas->staminaLength;
+}
+
+void setStaminaLength(Atlas* atlas, int value) {
+  atlas->staminaLength = value;
+}
+
+int getLifePointLength(Atlas* atlas) {
+  return atlas->lifePointLength;
+}
+
+void setLifePointLength(Atlas* atlas, int value) {
+  atlas->lifePointLength = value;
 }
 
 Picture* getPicture(Atlas* atlas, int index) {

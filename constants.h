@@ -66,8 +66,6 @@
 #define CHAT_BOX 11
 #define PANNEL 12
 #define FOG 13
-#define STAMINA 14
-#define LIFE_POINT 15
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
