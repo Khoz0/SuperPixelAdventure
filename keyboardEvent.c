@@ -37,7 +37,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 				      }else{
 						  *dir = 0;
 				      }
-				  }else if((getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-1)/32]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)){
+				  }else if((getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-7)/32]==0) && (getTable(tables, MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)){
 				    *yscroll -= 8 * *sprint;
 						setPictureY(getPicture(atlas, WATERFALL), getPictureY(atlas, WATERFALL) + 8 * *sprint);
 						setPictureY(getPicture(atlas, OLD_MAN), getPictureY(atlas, OLD_MAN) + 8 * *sprint);
@@ -79,7 +79,7 @@ void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* t
 			  setBoolean(variables, BOOL_PANNEL_START, FALSE);
 			  setBoolean(variables, BOOL_PANNEL, FALSE);
 			  setBoolean(variables, BOOL_PANNEL_CAVE, FALSE);
-				if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar+15)/32]==3 && getTable(tables, MAP_BOOLEAN)[xchar/32-1][(ychar+15)/32]==3){
+				if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-10)/32+2]==5 && getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar-10)/32+2]==5){
 					setPictureY(getPicture(atlas, HERO), getPictureY(atlas, HERO) + 4 * *sprint);
 				}
 			  if (*yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){

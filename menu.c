@@ -6,7 +6,7 @@ void mainMenu(int* gameOver){
   SDL_Surface *quitButton = NULL, *playButton = NULL, *goalButton = NULL;
   SDL_Event event;
   SDL_Rect playCasePos, ruleCasePos, quitCasePos, quitButtonPos, playButtonPos, goalButtonPos, positionChar, mainCharGo, scrollPos;
-  int endMenu = 1, i, j, speed, authorizedX = 1, authorizedY = 1, orientation = 2, movement = 1, goalPurpose = 0;
+  int endMenu = 1, i, j, speed, orientation = 2, movement = 1, goalPurpose = 0;
   TTF_Font *font = NULL;
   SDL_Color couleurNoire = {0, 0, 0};
   SDL_Surface *texte1, *texte2, *texte3, *texte4, *texte5, *texte6;
@@ -127,8 +127,8 @@ void mainMenu(int* gameOver){
   while(endMenu){
     SDL_PollEvent(&event);
 
-    menuMove(event, positionChar, &goalPurpose, tab_collide, &speed, &movement, &orientation,
-    button_play, button_goal, button_quit, tab_button, endMenu, gameOver);
+    menuMove(event, &positionChar, &goalPurpose, tab_collide, &speed, &movement, &orientation,
+    button_play, button_goal, button_quit, tab_button, &endMenu, gameOver);
 
     // envoyer mainCharGo, positionChar, goalPurpose, tab_collide, speed, movement, orientation, les boutons
 

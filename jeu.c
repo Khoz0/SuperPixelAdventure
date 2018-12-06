@@ -76,7 +76,7 @@ void createGame() {
         setBoolean(variables, BOOL_TP_OUTSIDE, FALSE);
         updateTables(tables, MAP_NO_WATER);
       }
-      if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar + 15)/32 - 1] == 5){
+      if(getTable(tables, MAP_BOOLEAN)[xchar/32][(ychar - 10)/32 + 2] == 5){
         setBoolean(variables, BOOL_TP_OUTSIDE, TRUE);
           setBoolean(variables, BOOL_TP_CAVE, FALSE);
           updateTables(tables, MAP_WATER);
@@ -85,7 +85,7 @@ void createGame() {
       if (getBoolean(variables, BOOL_TP_CAVE)){
         setBoolean(variables, BOOL_FOG, TRUE);
         xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
-        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
+        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/4.5) ;
         setDstPosition(atlas, HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         setBoolean(variables, BOOL_TP_CAVE, FALSE);
         setBoolean(variables, BOOL_TP_OUTSIDE, FALSE);
@@ -93,8 +93,8 @@ void createGame() {
       }
       if (getBoolean(variables, BOOL_TP_OUTSIDE)){
         setBoolean(variables, BOOL_FOG, FALSE);
-        xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26);
-        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/5.5) ;
+        xscroll = (MAP_PIXELS_X/2) - (SCREEN_WIDTH/0.76);
+        yscroll = (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/0.555) ;
         setDstPosition(atlas, HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         setBoolean(variables, BOOL_TP_CAVE, FALSE);
         setBoolean(variables, BOOL_TP_OUTSIDE, FALSE);
