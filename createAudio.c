@@ -13,18 +13,22 @@ Audio* createAudio(){
   audio->music_event = Mix_LoadWAV("./music/music_event.wav");
 
   Mix_Volume(MUSIC_THEME, VOLUME_THEME);
-  Mix_PlayChannel(0, audio->music_theme, VOLUME_THEME);
+  //Mix_PlayChannel(0, audio->music_theme, VOLUME_THEME);
 
   Mix_Volume(MUSIC_EVENT, VOLUME_EVENT);
 
+  return audio;
 }
 
 void destroyAudio(Audio* audio) {
 
-  Mix_CloseAudio();
   Mix_FreeChunk(audio->music_theme);
   Mix_FreeChunk(audio->music_event);
-  free(audio);
+  audio->music_theme = NULL;
+  audio->music_event = NULL;
+  Mix_CloseAudio();
   Mix_Quit();
+  free(audio);
+  audio = NULL;
 
 }

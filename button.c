@@ -7,6 +7,8 @@ Button* createButton(){
   button->xRight = 0;
   button->yUp = 0;
   button->yDown = 0;
+
+  return button;
 }
 
 void destroyButton(Button* button){

@@ -6,7 +6,7 @@ void mainMenu(int* gameOver){
   SDL_Surface *quitButton = NULL, *playButton = NULL, *goalButton = NULL;
   SDL_Event event;
   SDL_Rect playCasePos, ruleCasePos, quitCasePos, quitButtonPos, playButtonPos, goalButtonPos, positionChar, mainCharGo, scrollPos;
-  int endMenu = 1, i, j, speed, orientation = 2, movement = 1, goalPurpose = 0;
+  int endMenu = 1, speed, orientation = 2, movement = 1, goalPurpose = 0;
   TTF_Font *font = NULL;
   SDL_Color couleurNoire = {0, 0, 0};
   SDL_Surface *texte1, *texte2, *texte3, *texte4, *texte5, *texte6;

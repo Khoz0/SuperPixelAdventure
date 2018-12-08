@@ -3,7 +3,7 @@
 SDL* createSDL(Atlas* atlas) {
 
   SDL* sdl = malloc(sizeof(SDL));
-  sdl->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
+  sdl->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
   SDL_SetColorKey(getPicture(atlas, HERO)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, HERO)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, OLD_MAN)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, OLD_MAN)->surface->format, 255, 255, 255));

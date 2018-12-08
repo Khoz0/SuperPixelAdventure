@@ -59,7 +59,6 @@ void createGame() {
         SDL_Delay((1000.0 / FPS_CAP) - dt); //On limite les images par secondes en faisant des pauses entre chaque image
       }
       lastTimes = SDL_GetTicks();
-      //Compteur d'images par secondes
 
       xchar = getPicture(atlas, HERO)->dst.x + xscroll;
       ychar = getPicture(atlas, HERO)->dst.y + yscroll;
@@ -182,8 +181,8 @@ void createGame() {
     destroyAtlas(atlas);
     destroyTables(tables);
     destroyVariables(variables);
-    destroySDL(sdl);
     destroyText(text);
     destroyAudio(audio);
+    destroySDL(sdl);
 
 }

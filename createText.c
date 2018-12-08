@@ -13,6 +13,8 @@ Text* createText() {
 
   setTextDst(text, 470, 415);
 
+  return text;
+
 }
 
 SDL_Surface* getText(Text* text, int index) {

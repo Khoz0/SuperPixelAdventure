@@ -20,9 +20,12 @@ void updateTables(Tables* tables, int index_map) {
 
 Uint16** getTable(Tables* tables, int index) {
 
-  if(!index) return tables->map_builder;
-  if(index) return tables->map_boolean;
+  Uint16** table;
 
+  if(!index) table = tables->map_builder;
+  if(index) table = tables->map_boolean;
+
+  return table;
 }
 
 void destroyTables(Tables* tables) {

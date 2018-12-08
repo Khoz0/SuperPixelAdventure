@@ -15,10 +15,13 @@ TileSet* createTileset() {
 
 SDL_Surface* getTileset(Atlas* atlas, int index) {
 
-  if(index==1) return atlas->tileset->tileset1;
-  if(index==2) return atlas->tileset->tileset2;
-  if(index==3) return atlas->tileset->tileset3;
+  SDL_Surface* tileset;
 
+  if(index==1) tileset = atlas->tileset->tileset1;
+  if(index==2) tileset = atlas->tileset->tileset2;
+  if(index==3) tileset = atlas->tileset->tileset3;
+
+  return tileset;
 }
 
 void destroyTileset(TileSet* tileset) {

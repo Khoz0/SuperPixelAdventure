@@ -5,9 +5,9 @@ typedef struct Atlas Atlas;
 
 typedef struct TileSet {
 
-  SDL_Surface *tileset1;
-  SDL_Surface *tileset2;
-  SDL_Surface *tileset3;
+  SDL_Surface* tileset1;
+  SDL_Surface* tileset2;
+  SDL_Surface* tileset3;
 
 } TileSet;
 
