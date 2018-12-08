@@ -21,7 +21,7 @@ Picture* createPicture(char* name, int width, int height) {
   picture->neg.y = 0;
   picture->neg.w = 0;
   picture->neg.h = 0;
-  
+
   picture->isPrinted = 1;
   picture->isNeg = 0;
 

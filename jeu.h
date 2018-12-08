@@ -14,4 +14,23 @@
 #include "createText.h"
 #include "createAudio.h"
 
-void createGame();
+typedef struct Game{
+
+  Atlas* atlas;
+  Variables* variables;
+  SDL* sdl;
+  Text* text;
+  Tables* tables;
+  Audio* audio;
+
+} Game;
+
+Game* createGame();
+void runGame(Game* game);
+void destroyGame(Game* game);
+Atlas* getGameAtlas(Game* game);
+Variables* getGameVariables(Game* game);
+SDL* getGameSdl(Game* game);
+Text* getGameText(Game* game);
+Tables* getGameTables(Game* game);
+Audio* getGameAudio(Game* game);

@@ -1,6 +1,21 @@
 #include "jeu.h"
 
-void createGame() {
+Game* createGame(){
+
+  Game* game = malloc(sizeof(Game));
+
+  game->atlas = createAtlas();
+  game->variables = createVariables();
+  game->sdl = createSDL(game->atlas);
+  game->text = createText();
+  game->tables = createTables();
+  game->audio = createAudio();
+
+  return game;
+
+}
+
+void runGame(Game* game) {
 
     Atlas* atlas = createAtlas();
     Variables* variables = createVariables();
@@ -176,13 +191,39 @@ void createGame() {
       SDL_Flip(getScreen(sdl));
 
     }
+}
 
-    // memory restitutions
-    destroyAtlas(atlas);
-    destroyTables(tables);
-    destroyVariables(variables);
-    destroyText(text);
-    destroyAudio(audio);
-    destroySDL(sdl);
+void destroyGame(Game* game) {
+  destroyAtlas(game->atlas);
+  destroyTables(game->tables);
+  destroyVariables(game->variables);
+  destroyText(game->text);
+  destroyAudio(game->audio);
+  destroySDL(game->sdl);
+  free(game);
+  game = NULL;
+}
 
+Atlas* getGameAtlas(Game* game) {
+  return game->atlas;
+}
+
+Variables* getGameVariables(Game* game) {
+  return game->variables;
+}
+
+SDL* getGameSdl(Game* game) {
+  return game->sdl;
+}
+
+Text* getGameText(Game* game) {
+  return game->text;
+}
+
+Tables* getGameTables(Game* game) {
+  return game->tables;
+}
+
+Audio* getGameAudio(Game* game) {
+  return game->audio;
 }

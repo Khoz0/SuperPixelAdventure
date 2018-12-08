@@ -2,7 +2,9 @@
 
 int main(){
 
-  createGame();
+  Game* game = createGame();
+  runGame(game);
+  destroyGame(game);
 
   return 0;
 
