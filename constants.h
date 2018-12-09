@@ -79,6 +79,11 @@
 #define TEXT_PANNEL_START 0
 #define TEXT_PANNEL_CAVE 1
 
+#define XCHAR 0
+#define YCHAR 1
+#define XSCROLL 2
+#define YSCROLL 3
+
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
@@ -86,6 +91,7 @@
 #define SIZE_ATLAS 14
 #define SIZE_TAB_BOOLEAN 7
 #define SIZE_TAB_TEXT 2
+#define SIZE_TAB_VARIABLES 4
 
 #define MAP_BUILDER 0
 #define MAP_BOOLEAN 1

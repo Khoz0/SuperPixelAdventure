@@ -5,6 +5,7 @@
 #include "tables.h"
 
 typedef struct Variables Variables;
+typedef struct Game Game;
 
-void keyboardEvent(SDL_Event event, int *sprint, Variables* variables, Tables* tables, int xchar, int ychar,
-	 								 int *width, int *yscroll, int *xscroll, int *dir, int *gameOver, Atlas* atlas);
+void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
+	 								 int *width, int *yscroll, int *xscroll, int *dir, int *gameOver, Game* game);

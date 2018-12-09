@@ -1,16 +1,17 @@
 #include "display.h"
 #include "createSDL.h"
 #include "variables.h"
+#include "game.h"
 
 /*
 each function used is a specifical print function, one to print the map,
 one to print the character and PNJs, one to print the pannels & chats chatBox
 */
 
-void display(Atlas* atlas, Variables* variables, SDL* sdl, Tables* tables, int xscroll, int yscroll) {
-  displayMap(tables, getScreen(sdl), xscroll, yscroll, atlas);
-  displayPannel(getScreen(sdl), atlas, variables);
-  displayChar(getScreen(sdl), atlas);
+void display(Game* game, int xscroll, int yscroll) {
+  displayMap(getGameTables(game), getScreen(getGameSdl(game)), xscroll, yscroll, getGameAtlas(game));
+  displayPannel(getScreen(getGameSdl(game)), getGameAtlas(game), getGameVariables(game));
+  displayChar(getScreen(getGameSdl(game)), getGameAtlas(game));
 }
 
 void displayMap(Tables* tables, SDL_Surface* screen, int xscroll, int yscroll, Atlas* atlas) {

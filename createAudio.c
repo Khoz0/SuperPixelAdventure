@@ -13,7 +13,7 @@ Audio* createAudio(){
   audio->music_event = Mix_LoadWAV("./music/music_event.wav");
 
   Mix_Volume(MUSIC_THEME, VOLUME_THEME);
-  //Mix_PlayChannel(0, audio->music_theme, VOLUME_THEME);
+  Mix_PlayChannel(0, audio->music_theme, VOLUME_THEME);
 
   Mix_Volume(MUSIC_EVENT, VOLUME_EVENT);
 
