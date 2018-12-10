@@ -142,7 +142,7 @@ void pressS(Game* game, int xchar, int ychar, int *sprint, int *dir, int *width)
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
-	if(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-10)/32+3]==5 && getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar+10)/32+3]==5){
+	if(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-20)/32+2]==5 && getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-20)/32+2]==5){
 		setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) + 4 * *sprint);
 	}
 	if (getVariable(getGameVariables(game), YSCROLL) < MAP_PIXELS_Y - SCREEN_HEIGHT){

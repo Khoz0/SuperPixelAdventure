@@ -56,7 +56,7 @@ void runGame(Game* game) {
         updateTables(getGameTables(game), MAP_NO_WATER);
       }
 
-      if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR) - 10)/32 + 2] == 5) {
+      if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR) - 10)/32 + 1] == 5) {
         setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, TRUE);
         setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
         updateTables(getGameTables(game), MAP_WATER);
@@ -91,7 +91,7 @@ void runGame(Game* game) {
         posinnerkeeper_prec_x = getPictureX(getGameAtlas(game), INNKEEPER);
         posinnerkeeper_prec_y = getPictureY(getGameAtlas(game), INNKEEPER);
         setVariable(getGameVariables(game), XSCROLL, (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26));
-        setVariable(getGameVariables(game), YSCROLL, (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/4.5));
+        setVariable(getGameVariables(game), YSCROLL, (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/4.9));
         setDstPosition(getGameAtlas(game), HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
         setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
@@ -123,7 +123,8 @@ void runGame(Game* game) {
         setStaminaLength(getGameAtlas(game), getStaminaLength(getGameAtlas(game)) + (2 * sprint));
       }
 
-      if ((getTable(getGameTables(game), MAP_BUILDER)[(XCHAR)/32][YCHAR/32+1]==3) || (getTable(getGameTables(game), MAP_BUILDER)[(XCHAR)/32+1][YCHAR/32+1]==3)){
+      if (((getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32][YCHAR/32]==3) && (getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32][YCHAR/32+1]==3)) ||
+         ((getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32+1][YCHAR/32]==3) && (getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32+1][YCHAR/32+1]==3))){
         setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 5);
         printf("\nTest condition perte pv\n");
       }
