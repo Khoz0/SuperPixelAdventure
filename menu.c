@@ -23,9 +23,6 @@ void mainMenu(int* gameOver){
   screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
   SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
 
-  Mix_Init(MIX_INIT_MP3);
-  TTF_Init();
-
   // initialisation of SDL_mixer
   if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
     printf("Error SDL_mixer : %s\n", Mix_GetError());
