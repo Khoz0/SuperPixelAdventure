@@ -10,8 +10,10 @@ one to print the character and PNJs, one to print the pannels & chats chatBox
 
 void display(Game* game) {
   displayMap(getGameTables(game), getScreen(getGameSdl(game)), getVariable(getGameVariables(game), XSCROLL), getVariable(getGameVariables(game), YSCROLL), getGameAtlas(game));
-  displayPannel(getScreen(getGameSdl(game)), getGameAtlas(game), getGameVariables(game));
+  displayPannel(getScreen(getGameSdl(game)), getGameAtlas(game), getGameVariables(game), game);
   displayChar(getScreen(getGameSdl(game)), getGameAtlas(game));
+  displayWaterfall(game);
+  displayBars(game);
 }
 
 void displayMap(Tables* tables, SDL_Surface* screen, int xscroll, int yscroll, Atlas* atlas) {
@@ -52,8 +54,9 @@ void displayMap(Tables* tables, SDL_Surface* screen, int xscroll, int yscroll, A
   SDL_FreeSurface(screen);
 }
 
-void displayPannel(SDL_Surface* screen, Atlas* atlas, Variables* variables) {
+void displayPannel(SDL_Surface* screen, Atlas* atlas, Variables* variables, Game* game) {
   if(getBoolean(variables, BOOL_PANNEL)) SDL_BlitSurface(getPicture(atlas, PANNEL)->surface, NULL, screen, &getPicture(atlas, PANNEL)->dst);
+  displayTextPannel(game);
 }
 
 void displayChar(SDL_Surface* screen, Atlas* atlas) {
@@ -70,4 +73,23 @@ void displayChar(SDL_Surface* screen, Atlas* atlas) {
     }
   }
 
+}
+
+void displayTextPannel(Game* game) {
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_FOG))  SDL_BlitSurface(getPicture(getGameAtlas(game), FOG)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FOG)->dst);
+}
+
+void displayWaterfall(Game* game) {
+  if (getBoolean(getGameVariables(game), BOOL_WATERFALL)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), WATERFALL)->surface, &getPicture(getGameAtlas(game), WATERFALL)->src, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), WATERFALL)->neg);
+  }
+}
+
+void displayBars(Game* game) {
+  updateBar(getGameAtlas(game), getScreen(getGameSdl(game)));
+  SDL_BlitSurface(getStamina(getGameAtlas(game)), NULL, getScreen(getGameSdl(game)), getStaminaDst(getGameAtlas(game)));
+  SDL_BlitSurface(getLifePoint(getGameAtlas(game)), NULL, getScreen(getGameSdl(game)), getLifePointDst(getGameAtlas(game)));
 }
