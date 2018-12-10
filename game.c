@@ -127,7 +127,8 @@ void runGame(Game* game) {
         setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 5);
       }
 
-      if (getLifePointLength(getGameAtlas(game)) <= 1){
+      if (getLifePointLength(getGameAtlas(game)) <= -1){
+        printf("\n\n               LOSER !!\n\n");
         gameOver = 1;
       }
 
