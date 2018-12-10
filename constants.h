@@ -76,13 +76,19 @@
 #define BOOL_PANNEL_START 5
 #define BOOL_TP_OUTSIDE 6
 
+// define of the number corresponding to a text
 #define TEXT_PANNEL_START 0
 #define TEXT_PANNEL_CAVE 1
 
+// define of the index in tabVariable
 #define XCHAR 0
 #define YCHAR 1
 #define XSCROLL 2
 #define YSCROLL 3
+#define WIDTH 4
+#define SPRINT 5
+#define DIR 6
+#define GAMEOVER 7
 
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
@@ -91,10 +97,12 @@
 #define SIZE_ATLAS 14
 #define SIZE_TAB_BOOLEAN 7
 #define SIZE_TAB_TEXT 2
-#define SIZE_TAB_VARIABLES 4
+#define SIZE_TAB_VARIABLES 8
 
+// define of the number corresponding to the map to use
 #define MAP_BUILDER 0
 #define MAP_BOOLEAN 1
 
+// define of the number corresponding to the music to play
 #define MUSIC_THEME 0
 #define MUSIC_EVENT 1

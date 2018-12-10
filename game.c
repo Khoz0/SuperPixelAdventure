@@ -22,7 +22,7 @@ Game* createGame(){
 
 void runGame(Game* game) {
 
-    int cpt = 0, animation = 0, sprint = 1, width = 0, dir = 1, gameOver = 0;
+    int cpt = 0, animation = 0;
     SDL_Event event;
 
     int prec_xscroll, prec_yscroll, poschar_prec_x, poschar_prec_y, poswater_prec_x, poswater_prec_y;
@@ -39,7 +39,7 @@ void runGame(Game* game) {
         printf("\n");
     }
 
-    while (!gameOver) {
+    while (!getVariable(getGameVariables(game), GAMEOVER)) {
 
       setVariable(getGameVariables(game), XCHAR, getPicture(getGameAtlas(game), HERO)->dst.x + getVariable(getGameVariables(game), XSCROLL));
       setVariable(getGameVariables(game), YCHAR, getPicture(getGameAtlas(game), HERO)->dst.y + getVariable(getGameVariables(game), YSCROLL));
@@ -48,7 +48,7 @@ void runGame(Game* game) {
       //if(!Mix_Playing(1)) Mix_Resume(0);
 
       SDL_PollEvent(&event);
-      keyboardEvent(event, &sprint, getVariable(getGameVariables(game), XCHAR), getVariable(getGameVariables(game), YCHAR), &width, &dir, &gameOver, game);
+      keyboardEvent(event, game);
 
       if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR)-15)/32 + 1]==3) {
         setBoolean(getGameVariables(game), BOOL_TP_CAVE, TRUE);
@@ -119,8 +119,8 @@ void runGame(Game* game) {
         setBoolean(getGameVariables(game), BOOL_WATERFALL, TRUE);
       }
 
-      if (getStaminaLength(getGameAtlas(game)) > -2 && getStaminaLength(getGameAtlas(game))  <= 194 && sprint == 1){
-        setStaminaLength(getGameAtlas(game), getStaminaLength(getGameAtlas(game)) + (2 * sprint));
+      if (getStaminaLength(getGameAtlas(game)) > -2 && getStaminaLength(getGameAtlas(game))  <= 194 && getVariable(getGameVariables(game), SPRINT) == 1){
+        setStaminaLength(getGameAtlas(game), getStaminaLength(getGameAtlas(game)) + (2 * getVariable(getGameVariables(game), SPRINT)));
       }
 
       if (getTable(getGameTables(game), MAP_BUILDER)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR))/32 + 1]==3){
@@ -129,10 +129,10 @@ void runGame(Game* game) {
 
       if (getLifePointLength(getGameAtlas(game)) <= -1){
         printf("\n\n               LOSER !!\n\n");
-        gameOver = 1;
+        setVariable(getGameVariables(game), GAMEOVER, 1);
       }
 
-      setSrcPosition(getGameAtlas(game), HERO, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
+      setSrcPosition(getGameAtlas(game), HERO, CHAR_WIDTH*(getVariable(getGameVariables(game), DIR)/7), CHAR_HEIGHT * getVariable(getGameVariables(game), WIDTH));
       setSrcPosition(getGameAtlas(game), WATERFALL, 32*animation, 0);
 
       getPicture(getGameAtlas(game), WATERFALL)->src.h = 192;
