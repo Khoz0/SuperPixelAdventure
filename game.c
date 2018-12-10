@@ -26,6 +26,10 @@ void runGame(Game* game) {
 
     int xscroll = MAP_PIXELS_X - SCREEN_WIDTH;
     int yscroll = MAP_PIXELS_Y - SCREEN_HEIGHT;
+    int prec_xscroll, prec_yscroll, poschar_prec_x, poschar_prec_y, poswater_prec_x, poswater_prec_y;
+    int posoldman_prec_x, posoldman_prec_y, posoldwoman_prec_x, posoldwoman_prec_y, poskidm_prec_x, poskidm_prec_y;
+    int poskidf_prec_x, poskidf_prec_y, poswoodhunter_prec_x, poswoodhunter_prec_y, posfishhunter_prec_x, posfishhunter_prec_y;
+    int poscountryguard_prec_x, poscountryguard_prec_y, posvillager_prec_x, posvillager_prec_y, posinnerkeeper_prec_x, posinnerkeeper_prec_y;
 
     //mainMenu(&gameOver);
 
@@ -64,6 +68,32 @@ void runGame(Game* game) {
 
       if (getBoolean(getGameVariables(game), BOOL_TP_CAVE)) {
         setBoolean(getGameVariables(game), BOOL_FOG, TRUE);
+
+        // we store the positions of each object blitted
+        prec_xscroll = xscroll;
+        prec_yscroll = yscroll;
+        poschar_prec_x = getPictureX(getGameAtlas(game), HERO);
+        poschar_prec_y = getPictureY(getGameAtlas(game), HERO);
+        poswater_prec_x = getPictureX(getGameAtlas(game), WATERFALL);
+        poswater_prec_y = getPictureY(getGameAtlas(game), WATERFALL);
+        poskidm_prec_x = getPictureX(getGameAtlas(game), KIDM);
+        poskidm_prec_y = getPictureY(getGameAtlas(game), KIDM);
+        poskidf_prec_x = getPictureX(getGameAtlas(game), KIDF);
+        poskidf_prec_y = getPictureY(getGameAtlas(game), KIDF);
+        posoldman_prec_x = getPictureX(getGameAtlas(game), OLD_MAN);
+        posoldman_prec_y = getPictureY(getGameAtlas(game), OLD_MAN);
+        posoldwoman_prec_x = getPictureX(getGameAtlas(game), OLD_WOMAN);
+        posoldwoman_prec_y = getPictureY(getGameAtlas(game), OLD_WOMAN);
+        poswoodhunter_prec_x = getPictureX(getGameAtlas(game), WOOD_HUNTER);
+        poswoodhunter_prec_y = getPictureY(getGameAtlas(game), WOOD_HUNTER);
+        posfishhunter_prec_x = getPictureX(getGameAtlas(game), FISH_HUNTER);
+        posfishhunter_prec_y = getPictureY(getGameAtlas(game), FISH_HUNTER);
+        poscountryguard_prec_x = getPictureX(getGameAtlas(game), COUNTRY_GUARD);
+        poscountryguard_prec_y = getPictureY(getGameAtlas(game), COUNTRY_GUARD);
+        posvillager_prec_x = getPictureX(getGameAtlas(game), VILLAGER);
+        posvillager_prec_y = getPictureY(getGameAtlas(game), VILLAGER);
+        posinnerkeeper_prec_x = getPictureX(getGameAtlas(game), INNKEEPER);
+        posinnerkeeper_prec_y = getPictureY(getGameAtlas(game), INNKEEPER);
         xscroll = ((MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26));
         //setVariable(getGameVariables(game), XSCROLL, (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26));
         yscroll = ((MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/4.5));
@@ -75,11 +105,26 @@ void runGame(Game* game) {
       }
       if (getBoolean(getGameVariables(game), BOOL_TP_OUTSIDE)) {
         setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
-        xscroll = ((MAP_PIXELS_X/2) - (SCREEN_WIDTH/0.76));
+
+        // we load the previous position of each object blitted
+        xscroll = prec_xscroll;
+        yscroll = prec_yscroll;
+        setDstPosition(getGameAtlas(game), HERO, poschar_prec_x, poschar_prec_y+20);
+        setDstPosition(getGameAtlas(game), WATERFALL, poswater_prec_x, poswater_prec_y);
+        setDstPosition(getGameAtlas(game), KIDM, poskidm_prec_x, poskidm_prec_y);
+        setDstPosition(getGameAtlas(game), KIDF, poskidf_prec_x, poskidf_prec_y);
+        setDstPosition(getGameAtlas(game), OLD_MAN, posoldman_prec_x, posoldman_prec_y);
+        setDstPosition(getGameAtlas(game), OLD_WOMAN, posoldwoman_prec_x, posoldwoman_prec_y);
+        setDstPosition(getGameAtlas(game), WOOD_HUNTER, poswoodhunter_prec_x, poswoodhunter_prec_y);
+        setDstPosition(getGameAtlas(game), FISH_HUNTER, posfishhunter_prec_x, posfishhunter_prec_y);
+        setDstPosition(getGameAtlas(game), COUNTRY_GUARD, poscountryguard_prec_x, poscountryguard_prec_y);
+        setDstPosition(getGameAtlas(game), VILLAGER, posvillager_prec_x, posvillager_prec_y);
+        setDstPosition(getGameAtlas(game), INNKEEPER, posinnerkeeper_prec_x, posinnerkeeper_prec_y);
+        //xscroll = ((MAP_PIXELS_X/2) - (SCREEN_WIDTH/0.76));
         //setVariable(getGameVariables(game), XSCROLL, (MAP_PIXELS_X/2) - (SCREEN_WIDTH/0.76));
-        yscroll = ((MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/0.555));
+        //yscroll = ((MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/0.555));
         //setVariable(getGameVariables(game), YSCROLL, (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/0.555));
-        setDstPosition(getGameAtlas(game), HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+        //setDstPosition(getGameAtlas(game), HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
         setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
         setBoolean(getGameVariables(game), BOOL_WATERFALL, TRUE);
