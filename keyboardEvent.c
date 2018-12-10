@@ -3,7 +3,7 @@
 #include "game.h"
 
 void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
-	 								 int *width, int *yscroll, int *xscroll, int *dir, int *gameOver, Game* game){
+	 								 int *width, int *dir, int *gameOver, Game* game){
 
   switch(event.type){
 	  case SDL_KEYDOWN:
@@ -34,7 +34,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 				  if(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-15)/32]==3 && getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-15)/32]==3){
 					  setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) - 4 * *sprint);
 				  }
-				  if (*yscroll > 0){
+				  if (getVariable(getGameVariables(game), YSCROLL) > 0){
 					  if((getPictureY(getGameAtlas(game), HERO) > 448) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-1)/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)) {
 						  setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) - 4 * *sprint);
 					    if (*dir < 20){
@@ -43,7 +43,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 							  *dir = 0;
 					    }
 					  }else if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-7)/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)){
-					    *yscroll -= 8 * *sprint;
+							setVariable(getGameVariables(game), YSCROLL, (getVariable(getGameVariables(game), YSCROLL) - 8 * *sprint));
 							setPictureY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL) + 8 * *sprint);
 							setPictureY(getPicture(getGameAtlas(game), OLD_MAN), getPictureY(getGameAtlas(game), OLD_MAN) + 8 * *sprint);
 							setPictureY(getPicture(getGameAtlas(game), OLD_WOMAN), getPictureY(getGameAtlas(game), OLD_WOMAN) + 8 * *sprint);
@@ -87,7 +87,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 					if(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-10)/32+3]==5 && getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-10)/32+3]==5){
 						setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) + 4 * *sprint);
 					}
-				  if (*yscroll < MAP_PIXELS_Y - SCREEN_HEIGHT){
+				  if (getVariable(getGameVariables(game), YSCROLL) < MAP_PIXELS_Y - SCREEN_HEIGHT){
 				    if((getPictureY(getGameAtlas(game), HERO) < 448) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32]==0)) {
 						  setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) + 4 * *sprint);
 					    if (*dir < 20){
@@ -96,7 +96,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 						    *dir = 0;
 					    }
 				    }else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32+1]==0)){
-					    *yscroll += 8 * *sprint;
+							setVariable(getGameVariables(game), YSCROLL, getVariable(getGameVariables(game), YSCROLL) + 8 * *sprint);
 						  setPictureY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL) - 8 * *sprint);
 						  setPictureY(getPicture(getGameAtlas(game), OLD_MAN), getPictureY(getGameAtlas(game), OLD_MAN) - 8 * *sprint);
   						setPictureY(getPicture(getGameAtlas(game), OLD_WOMAN), getPictureY(getGameAtlas(game), OLD_WOMAN) - 8 * *sprint);
@@ -118,7 +118,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 						    *sprint = 1;
 					    }
 				    }
-				  }else if((*yscroll < MAP_PIXELS_Y) && (getPictureY(getGameAtlas(game), HERO) < SCREEN_HEIGHT - CHAR_HEIGHT)){
+				  }else if((getVariable(getGameVariables(game), YSCROLL) < MAP_PIXELS_Y) && (getPictureY(getGameAtlas(game), HERO) < SCREEN_HEIGHT - CHAR_HEIGHT)){
 				    if(xchar/32 < 133){
 				      if((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32+1]==0)){
 					      setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) + 4 * *sprint);
@@ -145,7 +145,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 				  setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 				  setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
 				  setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
-				  if (*xscroll < MAP_PIXELS_X - SCREEN_WIDTH){
+				  if (getVariable(getGameVariables(game), XSCROLL) < MAP_PIXELS_X - SCREEN_WIDTH){
 				    if((getPictureX(getGameAtlas(game), HERO) < 720) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)) {
 						  setPictureX(getPicture(getGameAtlas(game), HERO), getPictureX(getGameAtlas(game), HERO) + 4 * *sprint);
 					    if (*dir < 20){
@@ -154,7 +154,8 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 						    *dir = 0;
 					    }
 				    }else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)){
-  					  *xscroll += 8 * *sprint;
+							setVariable(getGameVariables(game), XSCROLL, getVariable(getGameVariables(game), XSCROLL) + 8 * *sprint);
+							//*xscroll += 8 * *sprint;
   						setPictureX(getPicture(getGameAtlas(game), WATERFALL), getPictureX(getGameAtlas(game), WATERFALL) - 8 * *sprint);
 	  					setPictureX(getPicture(getGameAtlas(game), OLD_MAN), getPictureX(getGameAtlas(game), OLD_MAN) - 8 * *sprint);
 		  				setPictureX(getPicture(getGameAtlas(game), OLD_WOMAN), getPictureX(getGameAtlas(game), OLD_WOMAN) - 8 * *sprint);
@@ -176,7 +177,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 						    *sprint = 1;
 					  	}
 				    }
-				  }else if((*xscroll < MAP_PIXELS_X) && (getPictureX(getGameAtlas(game), HERO) < SCREEN_WIDTH - CHAR_WIDTH)){
+				  }else if((getVariable(getGameVariables(game), XSCROLL) < MAP_PIXELS_X) && (getPictureX(getGameAtlas(game), HERO) < SCREEN_WIDTH - CHAR_WIDTH)){
 				    if((xchar)/32 < 133){
 				      if((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)){
 								setPictureX(getPicture(getGameAtlas(game), HERO), getPictureX(getGameAtlas(game), HERO) + 4 * *sprint);
@@ -203,7 +204,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 				  setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 				  setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
 				  setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
-				  if (*xscroll > 0){
+				  if (getVariable(getGameVariables(game), XSCROLL) > 0){
 				    if((getPictureX(getGameAtlas(game), HERO) > 720) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)) {
 					    setPictureX(getPicture(getGameAtlas(game), HERO), getPictureX(getGameAtlas(game), HERO) - 4 * *sprint);
 					    if (*dir < 20){
@@ -212,7 +213,7 @@ void keyboardEvent(SDL_Event event, int *sprint, int xchar, int ychar,
 						    *dir = 0;
 					    }
 				    }else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)){
-						  *xscroll -= 8 * *sprint;
+						  setVariable(getGameVariables(game), XSCROLL, (getVariable(getGameVariables(game), XSCROLL) - 8 * *sprint));
 							setPictureX(getPicture(getGameAtlas(game), WATERFALL), getPictureX(getGameAtlas(game), WATERFALL) + 8 * *sprint);
 							setPictureX(getPicture(getGameAtlas(game), OLD_MAN), getPictureX(getGameAtlas(game), OLD_MAN) + 8 * *sprint);
 							setPictureX(getPicture(getGameAtlas(game), OLD_WOMAN), getPictureX(getGameAtlas(game), OLD_WOMAN) + 8 * *sprint);

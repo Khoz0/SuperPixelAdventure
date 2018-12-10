@@ -8,8 +8,8 @@ each function used is a specifical print function, one to print the map,
 one to print the character and PNJs, one to print the pannels & chats chatBox
 */
 
-void display(Game* game, int xscroll, int yscroll) {
-  displayMap(getGameTables(game), getScreen(getGameSdl(game)), xscroll, yscroll, getGameAtlas(game));
+void display(Game* game) {
+  displayMap(getGameTables(game), getScreen(getGameSdl(game)), getVariable(getGameVariables(game), XSCROLL), getVariable(getGameVariables(game), YSCROLL), getGameAtlas(game));
   displayPannel(getScreen(getGameSdl(game)), getGameAtlas(game), getGameVariables(game));
   displayChar(getScreen(getGameSdl(game)), getGameAtlas(game));
 }
