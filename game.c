@@ -123,9 +123,14 @@ void runGame(Game* game) {
         setStaminaLength(getGameAtlas(game), getStaminaLength(getGameAtlas(game)) + (2 * sprint));
       }
 
-  /*    if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar)/32][ychar/32+1]==5) || (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar)/32+1][ychar/32+1]==5)){
+      if ((getTable(getGameTables(game), MAP_BUILDER)[(XCHAR)/32][YCHAR/32+1]==3) || (getTable(getGameTables(game), MAP_BUILDER)[(XCHAR)/32+1][YCHAR/32+1]==3)){
         setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 5);
-      }*/
+        printf("\nTest condition perte pv\n");
+      }
+
+      if (getLifePointLength(getGameAtlas(game)) <= 1){
+        gameOver = 1;
+      }
 
       setSrcPosition(getGameAtlas(game), HERO, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
       setSrcPosition(getGameAtlas(game), WATERFALL, 32*animation, 0);
@@ -194,9 +199,13 @@ void runGame(Game* game) {
       if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
       if(getBoolean(getGameVariables(game), BOOL_FOG))  SDL_BlitSurface(getPicture(getGameAtlas(game), FOG)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FOG)->dst);
 
+      SDL_FreeSurface(getStamina(getGameAtlas(game)));
+      SDL_FreeSurface(getLifePoint(getGameAtlas(game)));
       updateBar(getGameAtlas(game), getScreen(getGameSdl(game)));
+
       SDL_BlitSurface(getStamina(getGameAtlas(game)), NULL, getScreen(getGameSdl(game)), getStaminaDst(getGameAtlas(game)));
       SDL_BlitSurface(getLifePoint(getGameAtlas(game)), NULL, getScreen(getGameSdl(game)), getLifePointDst(getGameAtlas(game)));
+
       SDL_UpdateRect(getScreen(getGameSdl(game)), 0, 0, 0, 0);
       SDL_Flip(getScreen(getGameSdl(game)));
 
