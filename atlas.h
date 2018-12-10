@@ -3,6 +3,8 @@
 #include "picture.h"
 #include "tileset.h"
 
+typedef struct SDL SDL;
+
 typedef struct Atlas {
 
   Picture** pictures;
@@ -17,6 +19,7 @@ typedef struct Atlas {
 } Atlas;
 
 Atlas* createAtlas();
+void updateBar(Atlas* atlas, SDL_Surface* screen);
 void setStaminaDst(Atlas* atlas, int x, int y);
 void setLifePointDst(Atlas* atlas, int x, int y);
 SDL_Surface* getStamina(Atlas* atlas);

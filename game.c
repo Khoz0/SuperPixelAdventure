@@ -14,6 +14,7 @@ Game* createGame(){
   game->audio = createAudio();
 
   initDstPosition(game);
+  updateBar(getGameAtlas(game), getScreen(getGameSdl(game)));
 
   return game;
 
@@ -120,11 +121,6 @@ void runGame(Game* game) {
         setDstPosition(getGameAtlas(game), COUNTRY_GUARD, poscountryguard_prec_x, poscountryguard_prec_y);
         setDstPosition(getGameAtlas(game), VILLAGER, posvillager_prec_x, posvillager_prec_y);
         setDstPosition(getGameAtlas(game), INNKEEPER, posinnerkeeper_prec_x, posinnerkeeper_prec_y);
-        //xscroll = ((MAP_PIXELS_X/2) - (SCREEN_WIDTH/0.76));
-        //setVariable(getGameVariables(game), XSCROLL, (MAP_PIXELS_X/2) - (SCREEN_WIDTH/0.76));
-        //yscroll = ((MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/0.555));
-        //setVariable(getGameVariables(game), YSCROLL, (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/0.555));
-        //setDstPosition(getGameAtlas(game), HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
         setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
         setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
         setBoolean(getGameVariables(game), BOOL_WATERFALL, TRUE);
@@ -133,6 +129,10 @@ void runGame(Game* game) {
       if (getStaminaLength(getGameAtlas(game)) > -2 && getStaminaLength(getGameAtlas(game))  <= 194 && sprint == 1){
         setStaminaLength(getGameAtlas(game), getStaminaLength(getGameAtlas(game)) + (2 * sprint));
       }
+
+  /*    if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar)/32][ychar/32+1]==5) || (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar)/32+1][ychar/32+1]==5)){
+        setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 5);
+      }*/
 
       setSrcPosition(getGameAtlas(game), HERO, CHAR_WIDTH*(dir/7), CHAR_HEIGHT * width);
       setSrcPosition(getGameAtlas(game), WATERFALL, 32*animation, 0);
@@ -201,8 +201,11 @@ void runGame(Game* game) {
       if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
       if(getBoolean(getGameVariables(game), BOOL_FOG))  SDL_BlitSurface(getPicture(getGameAtlas(game), FOG)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FOG)->dst);
 
+      printf("\nsataminalength avant affichage : %d\n", getStaminaLength(getGameAtlas(game)));
+      updateBar(getGameAtlas(game), getScreen(getGameSdl(game)));
       SDL_BlitSurface(getStamina(getGameAtlas(game)), NULL, getScreen(getGameSdl(game)), getStaminaDst(getGameAtlas(game)));
       SDL_BlitSurface(getLifePoint(getGameAtlas(game)), NULL, getScreen(getGameSdl(game)), getLifePointDst(getGameAtlas(game)));
+      printf("\nsataminalength après affichage : %d\n", getStaminaLength(getGameAtlas(game)));
       SDL_UpdateRect(getScreen(getGameSdl(game)), 0, 0, 0, 0);
       SDL_Flip(getScreen(getGameSdl(game)));
 

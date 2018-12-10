@@ -19,9 +19,6 @@ SDL* createSDL(Atlas* atlas) {
   SDL_SetColorKey(getPicture(atlas, CHAT_BOX)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, FOG)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, FOG)->surface->format, 255, 255, 255));
 
-  SDL_FillRect(getStamina(atlas), NULL, SDL_MapRGB(getScreen(sdl)->format, 1, 215, 88));
-  SDL_FillRect(getLifePoint(atlas), NULL, SDL_MapRGB(getScreen(sdl)->format, 200, 7, 7));
-
   SDL_Init(SDL_INIT_VIDEO);
   SDL_Init(SDL_INIT_AUDIO);
   TTF_Init();

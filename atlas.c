@@ -1,4 +1,5 @@
 #include "atlas.h"
+#include "createSDL.h"
 
 Atlas* createAtlas() {
 
@@ -26,11 +27,16 @@ Atlas* createAtlas() {
   setLifePointLength(atlas, 200);
   setStaminaDst(atlas, 10, 45);
   setLifePointDst(atlas, 10, 20);
-  atlas->stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength(atlas) + 5, 15, 32, 0, 0 ,0 ,0);
-  atlas->life_point = SDL_CreateRGBSurface(SDL_HWSURFACE, getLifePointLength(atlas), 15, 32, 0, 0 ,0 ,0);
 
   return atlas;
 
+}
+
+void updateBar(Atlas* atlas, SDL_Surface* screen){
+  atlas->stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength(atlas) + 5, 15, 32, 0, 0 ,0 ,0);
+  atlas->life_point = SDL_CreateRGBSurface(SDL_HWSURFACE, getLifePointLength(atlas), 15, 32, 0, 0 ,0 ,0);
+  SDL_FillRect(getStamina(atlas), NULL, SDL_MapRGB(screen->format, 1, 215, 88));
+  SDL_FillRect(getLifePoint(atlas), NULL, SDL_MapRGB(screen->format, 200, 7, 7));
 }
 
 void setStaminaDst(Atlas* atlas, int x, int y) {
