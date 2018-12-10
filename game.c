@@ -123,10 +123,8 @@ void runGame(Game* game) {
         setStaminaLength(getGameAtlas(game), getStaminaLength(getGameAtlas(game)) + (2 * sprint));
       }
 
-      if (((getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32][YCHAR/32]==3) && (getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32][YCHAR/32+1]==3)) ||
-         ((getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32+1][YCHAR/32]==3) && (getTable(getGameTables(game), MAP_BUILDER)[XCHAR/32+1][YCHAR/32+1]==3))){
+      if (getTable(getGameTables(game), MAP_BUILDER)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR))/32 + 1]==3){
         setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 5);
-        printf("\nTest condition perte pv\n");
       }
 
       if (getLifePointLength(getGameAtlas(game)) <= 1){
