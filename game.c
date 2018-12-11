@@ -200,7 +200,12 @@ void hitBars(Game* game) {
   }
 
   if (getTable(getGameTables(game), MAP_BUILDER)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR))/32 + 1]==3){
-    setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 5);
+    setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) - 1);
+  }
+
+  if (getTable(getGameTables(game), MAP_BUILDER)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR))/32 + 1]==118 &&
+      getLifePointLength(getGameAtlas(game)) < 195){
+    setLifePointLength(getGameAtlas(game), getLifePointLength(getGameAtlas(game)) + 1);
   }
 
   if (getLifePointLength(getGameAtlas(game)) <= -1){

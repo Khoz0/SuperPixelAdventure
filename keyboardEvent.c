@@ -152,7 +152,7 @@ void pressS(Game* game) {
 			}else{
 				setVariable(getGameVariables(game), DIR, 0);
 			}
-		}else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(getVariable(getGameVariables(game), XCHAR)+8)/32][(getVariable(getGameVariables(game), YCHAR)+8)/32+1]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32+1][(getVariable(getGameVariables(game), YCHAR)+8)/32+1]==0)){
+		}else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(getVariable(getGameVariables(game), XCHAR))/32][(getVariable(getGameVariables(game), YCHAR)+8)/32+1]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32+1][(getVariable(getGameVariables(game), YCHAR)+8)/32+1]==0)){
 			setVariable(getGameVariables(game), YSCROLL, getVariable(getGameVariables(game), YSCROLL) + 8 * getVariable(getGameVariables(game), SPRINT));
 			setPictureY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL) - 8 * getVariable(getGameVariables(game), SPRINT));
 			setPictureY(getPicture(getGameAtlas(game), OLD_MAN), getPictureY(getGameAtlas(game), OLD_MAN) - 8 * getVariable(getGameVariables(game), SPRINT));
