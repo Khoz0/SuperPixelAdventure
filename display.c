@@ -58,7 +58,7 @@ void displayPannel(SDL_Surface* screen, Atlas* atlas, Variables* variables) {
 
 void displayChar(SDL_Surface* screen, Atlas* atlas) {
 
-  for(int i = 0 ; i < SIZE_ATLAS ; i++) {
+  for(int i = 0 ; i < 1 ; i++) {
     if(getIsPrinted(atlas, i) && i!=3 && i!=12) {
       // we ignore i=3 and i=12 because it's the index of waterfall & pannel, special printings
       // theses conditions are used to make a difference between the last parameter of fonction SDL_BlitzSurface
