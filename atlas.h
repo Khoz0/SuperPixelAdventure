@@ -19,7 +19,6 @@ typedef struct Atlas {
 } Atlas;
 
 Atlas* createAtlas();
-void createBar(Atlas* atlas, SDL_Surface* screen);
 void updateBar(Atlas* atlas, SDL_Surface* screen);
 void setStaminaDst(Atlas* atlas, int x, int y);
 void setLifePointDst(Atlas* atlas, int x, int y);

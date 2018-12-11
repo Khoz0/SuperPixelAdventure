@@ -11,10 +11,10 @@ Variables* createVariables() {
   variables->tabVariables[YCHAR] = 0;
   variables->tabVariables[XSCROLL] = MAP_PIXELS_X - SCREEN_WIDTH;
   variables->tabVariables[YSCROLL] = MAP_PIXELS_Y - SCREEN_HEIGHT;
-  variables->tabVariables[WIDTH] = 0;
   variables->tabVariables[SPRINT] = 1;
-  variables->tabVariables[DIR] = 1;
   variables->tabVariables[GAMEOVER] = 0;
+  variables->tabVariables[WIDTH] = 0;
+  variables->tabVariables[DIR] = 1;
 
   return variables;
 
