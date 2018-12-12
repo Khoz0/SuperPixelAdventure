@@ -1,5 +1,6 @@
 #include "atlas.h"
 #include "createSDL.h"
+#include "game.h"
 
 Atlas* createAtlas() {
 
@@ -23,11 +24,20 @@ Atlas* createAtlas() {
 
 }
 
-void updateBar(Atlas* atlas, SDL_Surface* screen){
+void createBars(Atlas* atlas, SDL_Surface* screen) {
   atlas->stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength(atlas) + 5, 15, 32, 0, 0 ,0 ,0);
   atlas->life_point = SDL_CreateRGBSurface(SDL_HWSURFACE, getLifePointLength(atlas) + 5, 15, 32, 0, 0 ,0 ,0);
   SDL_FillRect(getStamina(atlas), NULL, SDL_MapRGB(screen->format, 1, 215, 88));
   SDL_FillRect(getLifePoint(atlas), NULL, SDL_MapRGB(screen->format, 200, 7, 7));
+}
+
+void updateBars(Game* game) {
+  SDL_FreeSurface(getStamina(getGameAtlas(game)));
+  SDL_FreeSurface(getLifePoint(getGameAtlas(game)));
+  getGameAtlas(game)->stamina = SDL_CreateRGBSurface(SDL_HWSURFACE, getStaminaLength(getGameAtlas(game)) + 5, 15, 32, 0, 0 ,0 ,0);
+  getGameAtlas(game)->life_point = SDL_CreateRGBSurface(SDL_HWSURFACE, getLifePointLength(getGameAtlas(game)) + 5, 15, 32, 0, 0 ,0 ,0);
+  SDL_FillRect(getStamina(getGameAtlas(game)), NULL, SDL_MapRGB(getScreen(getGameSdl(game))->format, 1, 215, 88));
+  SDL_FillRect(getLifePoint(getGameAtlas(game)), NULL, SDL_MapRGB(getScreen(getGameSdl(game))->format, 200, 7, 7));
 }
 
 void setStaminaDst(Atlas* atlas, int x, int y) {
@@ -73,9 +83,7 @@ void setLifePointLength(Atlas* atlas, int value) {
 }
 
 Picture* getPicture(Atlas* atlas, int index) {
-
   return atlas->pictures[index];
-
 }
 
 void destroyAtlas(Atlas* atlas) {

@@ -9,6 +9,11 @@ typedef struct SDL SDL;
 typedef struct Game Game;
 
 void display(Game* game);
-void displayMap(Tables* tables, SDL_Surface *screen, int xscroll, int yscroll, Atlas* atlas);
-void displayPannel(SDL_Surface* screen, Atlas* atlas, Variables* variables);
-void displayChar(SDL_Surface* screen, Atlas* atlas);
+void displayMap(Game* game);
+void displayPannel(Game* game);
+void displayTextPannel(Game* game);
+void displayHero(Game* game);
+void displayWaterfall(Game* game);
+void displayFog(Game* game);
+void displayBars(Game* game);
+void updateScreen(Game* game);

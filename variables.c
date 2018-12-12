@@ -14,7 +14,15 @@ Variables* createVariables() {
   variables->tabVariables[SPRINT] = 1;
   variables->tabVariables[GAMEOVER] = 0;
   variables->tabVariables[WIDTH] = 0;
-  variables->tabVariables[DIR] = 1;
+  variables->tabVariables[DIR] = 0;
+  variables->tabVariables[PREC_XSCROLL] = 0;
+  variables->tabVariables[PREC_YSCROLL] = 0;
+  variables->tabVariables[PREC_POSCHAR_X] = 0;
+  variables->tabVariables[PREC_POSCHAR_Y] = 0;
+  variables->tabVariables[PREC_POSWATERFALL_X] = 0;
+  variables->tabVariables[PREC_POSWATERFALL_Y] = 0;
+  variables->tabVariables[CPT] = 0;
+  variables->tabVariables[ANIMATION] = 0;
 
   return variables;
 
