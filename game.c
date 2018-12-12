@@ -2,11 +2,13 @@
 #include "variables.h"
 #include "createSDL.h"
 
-/*****************************************************************
-this function execute all events of the game (musics, quests, ...)
-*****************************************************************/
+/**************************************************************************
+this function execute all events of the game (musics, quests, displays ...)
+**************************************************************************/
 
 Game* createGame(){
+
+  printf("-> Loading game\n");
 
   Game* game = malloc(sizeof(Game));
 
@@ -16,9 +18,11 @@ Game* createGame(){
   game->text = createText();
   game->tables = createTables();
   game->audio = createAudio();
+  game->error = createError();
 
   initDstPosition(game);
   createBars(getGameAtlas(game), getScreen(getGameSdl(game)));
+  threatErrors(game);
 
   return game;
 
@@ -27,23 +31,13 @@ Game* createGame(){
 void runGame(Game* game) {
 
     SDL_Event event;
-
     //mainMenu(&gameOver);
-
-    for(int i = 0 ; i < MAP_BLOCKS_HEIGHT ; i++){
-        for(int j = 0 ; j < MAP_BLOCKS_WIDTH ; j++){
-            printf("%d", getTable(getGameTables(game), MAP_BOOLEAN)[j][i]);
-        }
-        printf("\n");
-    }
 
     while (!getVariable(getGameVariables(game), GAMEOVER)) {
 
       updateHeroPos(game);
-
       // we resume the main channel if it had been paused
       //if(!Mix_Playing(1)) Mix_Resume(0);
-
       SDL_PollEvent(&event);
       keyboardEvent(event, game);
       teleports(game);

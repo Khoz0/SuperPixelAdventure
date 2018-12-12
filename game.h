@@ -11,9 +11,11 @@
 #include "tables.h"
 #include "createText.h"
 #include "createAudio.h"
+#include "error.h"
 
 typedef struct Variables Variables;
 typedef struct SDL SDL;
+typedef struct Error Error;
 
 typedef struct Game {
 
@@ -23,6 +25,7 @@ typedef struct Game {
   Text* text;
   Tables* tables;
   Audio* audio;
+  Error* error;
 
 } Game;
 
