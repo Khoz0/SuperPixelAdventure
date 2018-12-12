@@ -73,6 +73,10 @@
 #define BOOL_PANNEL_CAVE_TWO 8
 #define BOOL_PANNEL_CAVE_THREE 9
 #define BOOL_PANNEL_CAVE_FOUR 10
+#define BOOL_LEVIER_UN 11
+#define BOOL_LEVIER_DEUX 12
+#define BOOL_LEVIER_TROIS 13
+#define BOOL_LEVIER_QUATRE 14
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -91,15 +95,23 @@
 #define GAMEOVER 5
 #define WIDTH 6
 #define DIR 7
+#define PREC_XSCROLL 8
+#define PREC_YSCROLL 9
+#define PREC_POSCHAR_X 10
+#define PREC_POSCHAR_Y 11
+#define PREC_POSWATERFALL_X 12
+#define PREC_POSWATERFALL_Y 13
+#define CPT 14
+#define ANIMATION 15
 
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
 // define of the sizes of the tables
 #define SIZE_ATLAS 5
-#define SIZE_TAB_BOOLEAN 11
+#define SIZE_TAB_BOOLEAN 15
 #define SIZE_TAB_TEXT 6
-#define SIZE_TAB_VARIABLES 8
+#define SIZE_TAB_VARIABLES 16
 
 // define of boolean to fill the table map_builder & map_boolean
 #define MAP_BUILDER 0

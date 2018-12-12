@@ -87,7 +87,42 @@ void pressE(Game* game, int xchar, int ychar) {
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==9) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==6)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, TRUE);
 	}
-	setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==12) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
+	    !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
+		  !getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
+		setBoolean(getGameVariables(game), BOOL_LEVIER_TROIS, TRUE);
+		printf("levier 3\n");
+	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==13) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
+	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
+		  getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS)) {
+		setBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE, TRUE);
+		printf("levier 4\n");
+	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==11) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
+	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
+		setBoolean(getGameVariables(game), BOOL_LEVIER_DEUX, TRUE);
+		printf("levier 2\n");
+	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==10) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
+					getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
+		setBoolean(getGameVariables(game), BOOL_LEVIER_UN, TRUE);
+		printf("levier 1\n");
+	}else{
+		setBoolean(getGameVariables(game), BOOL_LEVIER_UN, FALSE);
+		setBoolean(getGameVariables(game), BOOL_LEVIER_DEUX, FALSE);
+		setBoolean(getGameVariables(game), BOOL_LEVIER_TROIS, FALSE);
+		setBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE, FALSE);
+	}
+	if(getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
+	   getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
+		printf("fin jeu\n");
+		setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
+	}
+
+	printf("etat levier 4 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE));
+	printf("etat levier 3 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS));
+	printf("etat levier 2 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX));
+	printf("etat levier 1 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_UN));
+	printf("==================\n");
 }
 
 void pressZ(Game* game, int xchar, int ychar) {

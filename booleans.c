@@ -16,6 +16,10 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_PANNEL_CAVE_TWO] = FALSE;
   booleans->tabBooleans[BOOL_PANNEL_CAVE_THREE] = FALSE;
   booleans->tabBooleans[BOOL_PANNEL_CAVE_FOUR] = FALSE;
+  booleans->tabBooleans[BOOL_LEVIER_UN] = FALSE;
+  booleans->tabBooleans[BOOL_LEVIER_DEUX] = FALSE;
+  booleans->tabBooleans[BOOL_LEVIER_TROIS] = FALSE;
+  booleans->tabBooleans[BOOL_LEVIER_QUATRE] = FALSE;
 
   return booleans;
 
