@@ -46,3 +46,4 @@ void updateHeroPos(Game* game);
 void updatePos(Game* game);
 void updateInsideCave(Game* game);
 void capFps();
+void closeGame();

@@ -1,17 +1,14 @@
 #include "error.h"
 #include "variables.h"
 
-typedef struct Error {
-  int isError;
-  char* message;
-} Error;
-
 Error* createError() {
 
   Error* error = malloc(sizeof(Error));
 
   error->isError = FALSE;
-  error->message = "-> Game has launch without any error\n";
+  error->loadGame = "-> Game has launch without error\n";
+  error->loadAtlas = "";
+  error->loadSdl = "";
 
   return error;
 }
@@ -21,17 +18,23 @@ void destroyError(Error* error) {
   error = NULL;
 }
 
-void setErrorMessage(Error* error, char* message) {
-  error->message = message;
+void setErrorMessage(Error* error, int index, char* message) {
+  if(index == LOAD_ATLAS) error->loadAtlas = message;
+  if(index == LOAD_SDL) error->loadSdl = message;
 }
 
 void setErrorIsError(Error* error, int bool) {
   error->isError = bool;
 }
 
-void threatErrors(Game* game) {
-  if(game->error->isError) {
+void threatErrors(Error* error, Game* game) {
+  if(error->isError) {
     setVariable(getGameVariables(game), GAMEOVER, TRUE);
+    printf("-> Game did not load\n");
+    printf("-> list of errors\n");
+    printf("  %s", error->loadAtlas);
+    printf("  %s", error->loadSdl);
+  }else{
+    printf("%s", error->loadGame);
   }
-  printf("%s", game->error->message);
 }

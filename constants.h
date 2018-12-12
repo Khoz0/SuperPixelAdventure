@@ -122,3 +122,7 @@
 // define of the number corresponding to the musics
 #define MUSIC_THEME 0
 #define MUSIC_EVENT 1
+
+// define of the index to threat threatErrors  if(index == LOAD_ATLAS) game->error->loadAtlas = message;
+#define LOAD_ATLAS 1
+#define LOAD_SDL 2

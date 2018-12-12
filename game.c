@@ -1,6 +1,7 @@
 #include "game.h"
 #include "variables.h"
 #include "createSDL.h"
+#include "error.h"
 
 /**************************************************************************
 this function execute all events of the game (musics, quests, displays ...)
@@ -12,17 +13,18 @@ Game* createGame(){
 
   Game* game = malloc(sizeof(Game));
 
-  game->atlas = createAtlas();
+  Error* error = createError();
+
+  game->atlas = createAtlas(error);
   game->variables = createVariables();
-  game->sdl = createSDL(getGameAtlas(game));
+  game->sdl = createSDL(getGameAtlas(game), error);
   game->text = createText();
-  game->tables = createTables();
+  game->tables = createTables(error);
   game->audio = createAudio();
-  game->error = createError();
 
   initDstPosition(game);
   createBars(getGameAtlas(game), getScreen(getGameSdl(game)));
-  threatErrors(game);
+  threatErrors(error, game);
 
   return game;
 
@@ -44,6 +46,7 @@ void runGame(Game* game) {
       display(game);
 
     }
+    closeGame();
 }
 
 void destroyGame(Game* game) {
@@ -218,4 +221,8 @@ void capFps() {
     SDL_Delay((1000.0 / FPS_CAP) - dt); //On limite les images par secondes en faisant des pauses entre chaque image
   }
   lastTimes = SDL_GetTicks();
+}
+
+void closeGame() {
+  printf("-> Game has quit\n");
 }

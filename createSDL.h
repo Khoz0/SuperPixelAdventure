@@ -1,5 +1,6 @@
 #include "constants.h"
 #include "atlas.h"
+#include "error.h"
 
 typedef struct SDL{
 
@@ -7,6 +8,6 @@ typedef struct SDL{
 
 } SDL;
 
-SDL* createSDL(Atlas* atlas);
+SDL* createSDL(Atlas* atlas, Error* error);
 void destroySDL(SDL* sdl);
 SDL_Surface* getScreen(SDL* sdl);
