@@ -9,6 +9,7 @@ SDL* createSDL(Atlas* atlas) {
   SDL_SetColorKey(getPicture(atlas, PANNEL)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, PANNEL)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, CHAT_BOX)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, FOG)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, FOG)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHEST)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHEST)->surface->format, 255, 255, 255));
 
   SDL_Init(SDL_INIT_VIDEO);
   SDL_Init(SDL_INIT_AUDIO);

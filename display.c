@@ -11,6 +11,7 @@ one to print the character and PNJs, one to print the pannels & chats chatBox
 void display(Game* game) {
   displayMap(game);
   displayWaterfall(game);
+  displayChest(game);
   displayFog(game);
   displayHero(game);
   displayPannel(game);
@@ -80,6 +81,10 @@ void displayWaterfall(Game* game) {
   if (getBoolean(getGameVariables(game), BOOL_WATERFALL)){
     SDL_BlitSurface(getPicture(getGameAtlas(game), WATERFALL)->surface, &getPicture(getGameAtlas(game), WATERFALL)->src, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), WATERFALL)->neg);
   }
+}
+
+void displayChest(Game* game){
+  SDL_BlitSurface(getPicture(getGameAtlas(game), CHEST)->surface, &getPicture(getGameAtlas(game), CHEST)->src, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHEST)->neg);
 }
 
 void displayFog(Game* game) {

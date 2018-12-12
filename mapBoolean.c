@@ -42,6 +42,8 @@ Uint16** mapBoolean(Uint16** map_builder){
           map_boolean[j][i] = 12;
         }else if(map_builder[j][i]==262){
           map_boolean[j][i] = 13;
+        }else if(map_builder[j][i]==116){
+          map_boolean[j][i] = 14;
         }else{
           map_boolean[j][i] = isEmpty(map_builder[j][i]);
         }

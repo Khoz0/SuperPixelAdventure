@@ -41,6 +41,7 @@ Audio* getGameAudio(Game* game);
 void initDstPosition(Game* game);
 void teleports(Game* game);
 void updateNegPos(Game* game);
+void updateAnimationChest(Game* game);
 void updateHeroPos(Game* game);
 void updatePos(Game* game);
 void updateInsideCave(Game* game);

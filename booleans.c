@@ -20,6 +20,7 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_LEVIER_DEUX] = FALSE;
   booleans->tabBooleans[BOOL_LEVIER_TROIS] = FALSE;
   booleans->tabBooleans[BOOL_LEVIER_QUATRE] = FALSE;
+  booleans->tabBooleans[BOOL_CHEST] = FALSE;
 
   return booleans;
 

@@ -12,6 +12,7 @@ Atlas* createAtlas() {
   atlas->pictures[CHAT_BOX] = createPicture("./pictures/chat/chatBox.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[PANNEL] = createPicture("./pictures/chat/pannel.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[FOG] = createPicture("./pictures/tileset/fog.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHEST] = createPicture("./pictures/chest/chest.bmp", CHAR_WIDTH, CHAR_HEIGHT);
 
   atlas->tileset = createTileset();
 

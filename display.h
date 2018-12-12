@@ -14,6 +14,7 @@ void displayPannel(Game* game);
 void displayTextPannel(Game* game);
 void displayHero(Game* game);
 void displayWaterfall(Game* game);
+void displayChest(Game* game);
 void displayFog(Game* game);
 void displayBars(Game* game);
 void updateScreen(Game* game);

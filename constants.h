@@ -60,6 +60,7 @@
 #define CHAT_BOX 2
 #define PANNEL 3
 #define FOG 4
+#define CHEST 5
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
@@ -77,6 +78,7 @@
 #define BOOL_LEVIER_DEUX 12
 #define BOOL_LEVIER_TROIS 13
 #define BOOL_LEVIER_QUATRE 14
+#define BOOL_CHEST 15
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -108,8 +110,8 @@
 #define NEG 1
 
 // define of the sizes of the tables
-#define SIZE_ATLAS 5
-#define SIZE_TAB_BOOLEAN 15
+#define SIZE_ATLAS 6
+#define SIZE_TAB_BOOLEAN 16
 #define SIZE_TAB_TEXT 6
 #define SIZE_TAB_VARIABLES 16
 

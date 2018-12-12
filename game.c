@@ -91,6 +91,7 @@ void initDstPosition(Game* game) {
   // x: 2368 - 2880 = -512 --> -2880 x difference fen/map
   // y: 380 - 1790 = -1410 --> -1790 y difference fen/map
   setDstPosition(getGameAtlas(game), WATERFALL, -2208, -1728);
+  setDstPosition(getGameAtlas(game), CHEST, -2306, -1122);
 }
 
 void teleports(Game* game) {
@@ -108,6 +109,7 @@ void teleports(Game* game) {
     setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
     updateTables(getGameTables(game), MAP_WATER);
   }
+  updateAnimationChest(game);
   updateInsideCave(game);
   updateNegPos(game);
 }
@@ -115,6 +117,21 @@ void teleports(Game* game) {
 void updateNegPos(Game* game) {
   setPictureNegX(getPicture(getGameAtlas(game), WATERFALL), getPictureX(getGameAtlas(game), WATERFALL), NEG);
   setPictureNegY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL), NEG);
+
+  setPictureNegX(getPicture(getGameAtlas(game), CHEST), getPictureX(getGameAtlas(game), CHEST), NEG);
+  setPictureNegY(getPicture(getGameAtlas(game), CHEST), getPictureY(getGameAtlas(game), CHEST), NEG);
+}
+
+void updateAnimationChest(Game* game){
+  if (getBoolean(getGameVariables(game), BOOL_CHEST)){
+    if (getVariable(getGameVariables(game), CPT) < 3){
+      setSrcPosition(getGameAtlas(game), CHEST, 0, 32*getVariable(getGameVariables(game), CPT));
+    }else{
+      setSrcPosition(getGameAtlas(game), CHEST, 0, 32*getVariable(getGameVariables(game), CPT));
+    }
+    getPicture(getGameAtlas(game), CHEST)->src.h = 32;
+    getPicture(getGameAtlas(game), CHEST)->src.w = 32;
+  }
 }
 
 void updateHeroPos(Game* game) {

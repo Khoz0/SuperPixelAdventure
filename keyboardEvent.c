@@ -78,13 +78,13 @@ void pressE(Game* game, int xchar, int ychar) {
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==6) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==6)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE, TRUE);
 	}
-	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==7) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==6)) {
+	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==7) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==7)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, TRUE);
 	}
-	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==8) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==6)) {
+	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==8) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==8)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE, TRUE);
 	}
-	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==9) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==6)) {
+	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==9) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==9)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, TRUE);
 	}
 
@@ -123,6 +123,10 @@ void pressE(Game* game, int xchar, int ychar) {
 	printf("etat levier 2 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX));
 	printf("etat levier 1 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_UN));
 	printf("==================\n");
+
+	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) {
+		setBoolean(getGameVariables(game), BOOL_CHEST, TRUE);
+	}
 }
 
 void pressZ(Game* game, int xchar, int ychar) {
@@ -149,6 +153,7 @@ void pressZ(Game* game, int xchar, int ychar) {
 		}else if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-7)/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-1)/32]==0)){
 			setVariable(getGameVariables(game), YSCROLL, (getVariable(getGameVariables(game), YSCROLL) - 8 * getVariable(getGameVariables(game), SPRINT)));
 			setPictureY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL) + 8 * getVariable(getGameVariables(game), SPRINT));
+			setPictureY(getPicture(getGameAtlas(game), CHEST), getPictureY(getGameAtlas(game), CHEST) + 8 * getVariable(getGameVariables(game), SPRINT));
 			if (getVariable(getGameVariables(game), DIR) < 20){
 				setVariable(getGameVariables(game), DIR, getVariable(getGameVariables(game), DIR) + (1 * getVariable(getGameVariables(game), SPRINT)));
 			}else{
@@ -199,6 +204,7 @@ void pressS(Game* game, int xchar, int ychar) {
 		}else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+8)/32][(ychar+8)/32+1]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar+8)/32+1]==0)){
 			setVariable(getGameVariables(game), YSCROLL, getVariable(getGameVariables(game), YSCROLL) + 8 * getVariable(getGameVariables(game), SPRINT));
 			setPictureY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL) - 8 * getVariable(getGameVariables(game), SPRINT));
+			setPictureY(getPicture(getGameAtlas(game), CHEST), getPictureY(getGameAtlas(game), CHEST) - 8 * getVariable(getGameVariables(game), SPRINT));
 			if (getVariable(getGameVariables(game), DIR) < 20){
 			setVariable(getGameVariables(game), DIR, getVariable(getGameVariables(game), DIR) + (1 * getVariable(getGameVariables(game), SPRINT)));
 			}else{
@@ -253,6 +259,7 @@ void pressD(Game* game, int xchar, int ychar) {
 		}else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)){
 			setVariable(getGameVariables(game), XSCROLL, getVariable(getGameVariables(game), XSCROLL) + 8 * getVariable(getGameVariables(game), SPRINT));
 			setPictureX(getPicture(getGameAtlas(game), WATERFALL), getPictureX(getGameAtlas(game), WATERFALL) - 8 * getVariable(getGameVariables(game), SPRINT));
+			setPictureX(getPicture(getGameAtlas(game), CHEST), getPictureX(getGameAtlas(game), CHEST) - 8 * getVariable(getGameVariables(game), SPRINT));
 			if (getVariable(getGameVariables(game), DIR) < 20){
 				setVariable(getGameVariables(game), DIR, getVariable(getGameVariables(game), DIR) + (1 * getVariable(getGameVariables(game), SPRINT)));
 			}else{
@@ -307,6 +314,7 @@ void pressQ(Game* game, int xchar, int ychar) {
 		}else if ((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)){
 			setVariable(getGameVariables(game), XSCROLL, (getVariable(getGameVariables(game), XSCROLL) - 8 * getVariable(getGameVariables(game), SPRINT)));
 			setPictureX(getPicture(getGameAtlas(game), WATERFALL), getPictureX(getGameAtlas(game), WATERFALL) + 8 * getVariable(getGameVariables(game), SPRINT));
+			setPictureX(getPicture(getGameAtlas(game), CHEST), getPictureX(getGameAtlas(game), CHEST) + 8 * getVariable(getGameVariables(game), SPRINT));
 			if (getVariable(getGameVariables(game), DIR) < 20){
 				setVariable(getGameVariables(game), DIR, getVariable(getGameVariables(game), DIR) + (1 * getVariable(getGameVariables(game), SPRINT)));
 			}else{
