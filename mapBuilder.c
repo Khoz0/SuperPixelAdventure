@@ -16,11 +16,21 @@ Uint16** mapBuilder(int number){
       map_builder[j] = malloc(MAP_BLOCKS_HEIGHT*sizeof(Uint16));
     }
 
-    if(number==1) file = fopen("level1.txt", "r");
-    if(number==2) file = fopen("level2.txt", "r");
+    // we only load the necessary file
+    if(number==1) {
+      file = fopen("map_water.txt", "r");
+    }else if(number==2) {
+      file = fopen("map_no_water_spawn_old.txt", "r");
+    }else if(number==3) {
+      file = fopen("map_no_water_no_spawn_old.txt", "r");
+    }else if(number==4) {
+      file = fopen("map_no_water_no_spawn_no_old.txt", "r");
+    }else{
+      file = fopen("map_cave.txt", "r");
+    }
 
     if(!file) {
-      printf("Error : level.txt didn't load correctly\n");
+      printf("Error : map didn't load\n");
       return 0;
     }
 

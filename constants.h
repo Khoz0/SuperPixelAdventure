@@ -33,7 +33,10 @@
 
 // number corresponding to the level
 #define MAP_WATER 1
-#define MAP_NO_WATER 2
+#define MAP_NO_WATER_SPAWN_OLD 2
+#define MAP_NO_WATER_NO_SPAWN_OLD 3
+#define MAP_NO_WATER_NO_SPAWN_NO_OLD 4
+#define MAP_CAVE 5
 
 // sizes of pannel
 #define PANNEL_WIDTH 870
@@ -76,9 +79,11 @@
 #define BOOL_PANNEL_START 5
 #define BOOL_TP_OUTSIDE 6
 
+// define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
 #define TEXT_PANNEL_CAVE 1
 
+// define of the index of tabVariables
 #define XCHAR 0
 #define YCHAR 1
 #define XSCROLL 2
@@ -91,14 +96,16 @@
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
-// define of the sizes of tables
+// define of the sizes of the tables
 #define SIZE_ATLAS 14
 #define SIZE_TAB_BOOLEAN 7
 #define SIZE_TAB_TEXT 2
 #define SIZE_TAB_VARIABLES 8
 
+// define of boolean to fill the table map_builder & map_boolean
 #define MAP_BUILDER 0
 #define MAP_BOOLEAN 1
 
+// define of the number corresponding to the musics
 #define MUSIC_THEME 0
 #define MUSIC_EVENT 1

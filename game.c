@@ -53,7 +53,7 @@ void runGame(Game* game) {
       if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR)-15)/32 + 1]==3) {
         setBoolean(getGameVariables(game), BOOL_TP_CAVE, TRUE);
         setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
-        updateTables(getGameTables(game), MAP_NO_WATER);
+        updateTables(getGameTables(game), MAP_CAVE);
       }
 
       if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR) - 10)/32 + 1] == 5) {
