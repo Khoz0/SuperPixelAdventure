@@ -10,6 +10,10 @@ Text* createText() {
 
   text->tab_text[TEXT_PANNEL_START] = TTF_RenderText_Solid(text->font, "* bienvenue a joliland *", couleur_noire);
   text->tab_text[TEXT_PANNEL_CAVE] = TTF_RenderText_Solid(text->font, "*DANGER* entrée de la grote *DANGER*", couleur_noire);
+  text->tab_text[TEXT_PANNEL_CAVE_ONE] = TTF_RenderText_Solid(text->font, "Ma droite est ma moitié, ma gauche me précède", couleur_noire); // 3 4 2 1
+  text->tab_text[TEXT_PANNEL_CAVE_TWO] = TTF_RenderText_Solid(text->font, "3 devient 1", couleur_noire); // 3 - - 1
+  text->tab_text[TEXT_PANNEL_CAVE_THREE] = TTF_RenderText_Solid(text->font, "Les premiers sont les derniers", couleur_noire); // - - - 1
+  text->tab_text[TEXT_PANNEL_CAVE_FOUR] = TTF_RenderText_Solid(text->font, "Je me situe une place après moi", couleur_noire); // 3 - 2 1
 
   setTextDst(text, 470, 415);
 

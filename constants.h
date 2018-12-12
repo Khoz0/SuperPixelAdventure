@@ -56,19 +56,10 @@
 
 // define of the index of each picture in the atlas
 #define HERO 0
-#define OLD_MAN 1
-#define OLD_WOMAN 2
-#define WATERFALL 3
-#define INNKEEPER 4
-#define COUNTRY_GUARD 5
-#define KIDM 6
-#define KIDF 7
-#define WOOD_HUNTER 8
-#define VILLAGER 9
-#define FISH_HUNTER 10
-#define CHAT_BOX 11
-#define PANNEL 12
-#define FOG 13
+#define WATERFALL 1
+#define CHAT_BOX 2
+#define PANNEL 3
+#define FOG 4
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
@@ -78,10 +69,18 @@
 #define BOOL_PANNEL_CAVE 4
 #define BOOL_PANNEL_START 5
 #define BOOL_TP_OUTSIDE 6
+#define BOOL_PANNEL_CAVE_ONE 7
+#define BOOL_PANNEL_CAVE_TWO 8
+#define BOOL_PANNEL_CAVE_THREE 9
+#define BOOL_PANNEL_CAVE_FOUR 10
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
 #define TEXT_PANNEL_CAVE 1
+#define TEXT_PANNEL_CAVE_ONE 2
+#define TEXT_PANNEL_CAVE_TWO 3
+#define TEXT_PANNEL_CAVE_THREE 4
+#define TEXT_PANNEL_CAVE_FOUR 5
 
 // define of the index of tabVariables
 #define XCHAR 0
@@ -97,9 +96,9 @@
 #define NEG 1
 
 // define of the sizes of the tables
-#define SIZE_ATLAS 14
-#define SIZE_TAB_BOOLEAN 7
-#define SIZE_TAB_TEXT 2
+#define SIZE_ATLAS 5
+#define SIZE_TAB_BOOLEAN 11
+#define SIZE_TAB_TEXT 6
 #define SIZE_TAB_VARIABLES 8
 
 // define of boolean to fill the table map_builder & map_boolean
