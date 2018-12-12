@@ -2,6 +2,10 @@
 #include "variables.h"
 #include "createSDL.h"
 
+/*****************************************************************
+this function execute all events of the game (musics, quests, ...)
+*****************************************************************/
+
 Game* createGame(){
 
   Game* game = malloc(sizeof(Game));
@@ -42,11 +46,7 @@ void runGame(Game* game) {
 
       SDL_PollEvent(&event);
       keyboardEvent(event, game);
-
       teleports(game);
-
-      updateNegPos(game);
-
       display(game);
 
     }
@@ -62,6 +62,9 @@ void destroyGame(Game* game) {
   free(game);
   game = NULL;
 }
+
+/* all the functions after this comment are used to set
+or get in game struct, or to execute parts of th game*/
 
 Atlas* getGameAtlas(Game* game) {
   return game->atlas;
@@ -97,6 +100,9 @@ void initDstPosition(Game* game) {
 }
 
 void teleports(Game* game) {
+  /**********************************************
+  this function is used when we enter in the cave
+  **********************************************/
   if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR)-15)/32 + 1]==3) {
     setBoolean(getGameVariables(game), BOOL_TP_CAVE, TRUE);
     setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
@@ -109,6 +115,7 @@ void teleports(Game* game) {
     updateTables(getGameTables(game), MAP_WATER);
   }
   updateInsideCave(game);
+  updateNegPos(game);
 }
 
 void updateNegPos(Game* game) {
