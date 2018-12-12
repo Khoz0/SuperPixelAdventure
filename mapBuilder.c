@@ -18,15 +18,15 @@ Uint16** mapBuilder(int number){
 
     // we only load the necessary file
     if(number==1) {
-      file = fopen("map_water.txt", "r");
+      file = fopen("./maps/map_water.txt", "r");
     }else if(number==2) {
-      file = fopen("map_no_water_spawn_old.txt", "r");
+      file = fopen("./maps/map_no_water_spawn_old.txt", "r");
     }else if(number==3) {
-      file = fopen("map_no_water_no_spawn_old.txt", "r");
+      file = fopen("./maps/map_no_water_no_spawn_old.txt", "r");
     }else if(number==4) {
-      file = fopen("map_no_water_no_spawn_no_old.txt", "r");
+      file = fopen("./maps/map_no_water_no_spawn_no_old.txt", "r");
     }else{
-      file = fopen("map_cave.txt", "r");
+      file = fopen("./maps/map_cave.txt", "r");
     }
 
     if(!file) {
