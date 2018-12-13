@@ -35,7 +35,8 @@ Text* createText() {
   text->tab_text[TEXT_WOODMAN_3] = TTF_RenderText_Solid(text->font, "Elle est sur une souche plus bas", couleur_noire);
   text->tab_text[TEXT_OLD_MAN] = TTF_RenderText_Solid(text->font, "Homme : 'On ne peut pas te laisser passer'", couleur_noire);
   text->tab_text[TEXT_OLD_WOMAN] = TTF_RenderText_Solid(text->font, "Femme : 'Il nous faut les preuves de tes actes'", couleur_noire);
-
+  text->tab_text[TEXT_END_GAME] = TTF_RenderText_Solid(text->font, "Vous avez reussis ! Les citoyens sont heureux !", couleur_noire);
+  
   setTextDst(text, 470, 415);
 
   return text;

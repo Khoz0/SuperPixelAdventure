@@ -42,6 +42,9 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_PANNEL_FISH_MAN] = FALSE;
   booleans->tabBooleans[BOOL_PANNEL_WOOD_MAN] = FALSE;
   booleans->tabBooleans[BOOL_GUARDIANS] = FALSE;
+  booleans->tabBooleans[BOOL_END_SPAWN] = FALSE;
+  booleans->tabBooleans[BOOL_OUTSIDE] = FALSE;
+  booleans->tabBooleans[BOOL_END_GAME] = FALSE;
 
   return booleans;
 

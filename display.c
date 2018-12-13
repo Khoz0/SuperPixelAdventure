@@ -143,6 +143,8 @@ void displayTextPannel(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_TWO), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_THREE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_FOUR), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+
+  if(getBoolean(getGameVariables(game), BOOL_END_GAME)) SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
 }
 
 void displayHero(Game* game) {
