@@ -112,7 +112,7 @@ void mainMenu(Game* game){
   scroll = SDL_LoadBMP("./pictures/menu/parch1.bmp");
   SDL_SetColorKey(scroll, SDL_SRCCOLORKEY, SDL_MapRGB(scroll->format, 0, 0, 0));
 
-  texte1 = TTF_RenderText_Solid(font, "bienvenue dans 'Le mythe de Zoldo.'", couleurNoire);
+  texte1 = TTF_RenderText_Solid(font, "bienvenue dans 'SuperPixelAdventure'.", couleurNoire);
   texte2 = TTF_RenderText_Solid(font, "Vous incarnerez Lien, le hero et detective sans peur. Vous devrez", couleurNoire);
   texte3 = TTF_RenderText_Solid(font, "aider les habitants de Joliland a comprendre pourquoi l'eau ne", couleurNoire);
   texte4 = TTF_RenderText_Solid(font, "coule plus dans leur jolie ville, et resoudre ce probleme", couleurNoire);
