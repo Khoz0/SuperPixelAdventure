@@ -34,7 +34,7 @@ void runGame(Game* game) {
 
     SDL_Event event;
     //mainMenu(&gameOver);
-
+    int chest_cpt = 0;
     while (!getVariable(getGameVariables(game), GAMEOVER)) {
 
       updateHeroPos(game);
@@ -43,6 +43,7 @@ void runGame(Game* game) {
       SDL_PollEvent(&event);
       keyboardEvent(event, game);
       teleports(game);
+      updateAnimationChest(game, &chest_cpt);
       display(game);
 
     }
@@ -112,7 +113,6 @@ void teleports(Game* game) {
     setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
     updateTables(getGameTables(game), MAP_WATER);
   }
-  updateAnimationChest(game);
   updateInsideCave(game);
   updateNegPos(game);
 }
@@ -125,13 +125,13 @@ void updateNegPos(Game* game) {
   setPictureNegY(getPicture(getGameAtlas(game), CHEST), getPictureY(getGameAtlas(game), CHEST), NEG);
 }
 
-void updateAnimationChest(Game* game){
+void updateAnimationChest(Game* game, int* chest_cpt){
+
   if (getBoolean(getGameVariables(game), BOOL_CHEST)){
-    if (getVariable(getGameVariables(game), CPT) < 3){
-      setSrcPosition(getGameAtlas(game), CHEST, 0, 32*getVariable(getGameVariables(game), CPT));
-    }else{
-      setSrcPosition(getGameAtlas(game), CHEST, 0, 32*getVariable(getGameVariables(game), CPT));
+    if (*chest_cpt < 3 && getVariable(getGameVariables(game), CPT)%5 == 0){
+      *chest_cpt += 1;
     }
+    setSrcPosition(getGameAtlas(game), CHEST, 0, 32* *chest_cpt);
     getPicture(getGameAtlas(game), CHEST)->src.h = 32;
     getPicture(getGameAtlas(game), CHEST)->src.w = 32;
   }
