@@ -4,6 +4,11 @@
 #include "atlas.h"
 #include "tables.h"
 
+/****************************************************************************
+each function used is a specifical print function, one to print the map,
+one to print the character and PNJs, one to print the pannels & chats chatBox
+/***************************************************************************/
+
 typedef struct Variables Variables;
 typedef struct SDL SDL;
 typedef struct Game Game;

@@ -3,11 +3,6 @@
 #include "variables.h"
 #include "game.h"
 
-/*
-each function used is a specifical print function, one to print the map,
-one to print the character and PNJs, one to print the pannels & chats chatBox
-*/
-
 void display(Game* game) {
   displayMap(game);
   displayWaterfall(game);

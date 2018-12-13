@@ -6,7 +6,7 @@ Error* createError() {
   Error* error = malloc(sizeof(Error));
 
   error->isError = FALSE;
-  error->loadGame = "-> Game has launch without error\n";
+  error->loadGame = "-> Game has launch without error\n-> Game is running\n";
   error->loadAtlas = "";
   error->loadSdl = "";
 

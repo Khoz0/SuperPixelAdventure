@@ -4,6 +4,11 @@
 
 typedef struct Atlas Atlas;
 
+/********************************************************************************
+this struct is the picture controler, contains the surface of the pictures, their
+positions, and 2 booleans (isPrinted is always used, isNeg only for waterfall)
+********************************************************************************/
+
 typedef struct Picture {
 
   SDL_Surface *surface;
@@ -12,7 +17,7 @@ typedef struct Picture {
   SDL_Rect neg;
   int isPrinted;
   int isNeg;
-  
+
 } Picture;
 
 Picture* createPicture(char* name, int width, int height);

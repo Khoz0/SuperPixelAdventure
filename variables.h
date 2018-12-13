@@ -1,6 +1,11 @@
 #include "constants.h"
 #include "booleans.h"
 
+/************************************************************************
+this file contain Variables struct (with all variables and booleans used)
+and the functions to create, get, set and destroy booleans and variables
+************************************************************************/
+
 typedef struct Variables {
 
   Booleans* booleans;

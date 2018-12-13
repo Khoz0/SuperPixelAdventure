@@ -1,5 +1,9 @@
+/**************************************************************
+this tile contain all #define and SDL includes used on the game
+**************************************************************/
+
 #pragma once
-// includes
+// SDL includes
 #include <SDL/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>

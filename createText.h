@@ -1,5 +1,9 @@
 #include "constants.h"
 
+/********************************************************************************
+this struct contain all texts used on the game, the fonts and the positions of it
+********************************************************************************/
+
 typedef struct Text {
 
   SDL_Surface** tab_text;

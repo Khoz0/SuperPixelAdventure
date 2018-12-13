@@ -1,6 +1,11 @@
 #pragma once
 #include "constants.h"
 
+/********************************************************
+this file contain TileSet struct (with all tilesets used)
+and the functions to create, get and eestroy the tilesets
+********************************************************/
+
 typedef struct Atlas Atlas;
 
 typedef struct TileSet {

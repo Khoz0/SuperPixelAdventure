@@ -3,6 +3,10 @@
 #include "picture.h"
 #include "tileset.h"
 
+/******************************************************************
+this struct contain the hero, the tilesets and the bars of the game
+******************************************************************/
+
 typedef struct SDL SDL;
 typedef struct Game Game;
 

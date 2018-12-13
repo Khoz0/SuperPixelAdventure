@@ -2,6 +2,10 @@
 #include "atlas.h"
 #include "error.h"
 
+/******************************************
+this struct contain the SDL variable screen
+******************************************/
+
 typedef struct SDL{
 
   SDL_Surface* screen;
