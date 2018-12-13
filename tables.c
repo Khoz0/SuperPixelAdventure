@@ -4,7 +4,7 @@ Tables* createTables() {
 
   Tables* tables = malloc(sizeof(Tables));
 
-  tables->map_builder = mapBuilder(MAP_NO_WATER_SPAWN_OLD);
+  tables->map_builder = mapBuilder(MAP_NO_WATER_NO_SPAWN_NO_OLD);
   tables->map_boolean = mapBoolean(tables->map_builder);
 
   return tables;
