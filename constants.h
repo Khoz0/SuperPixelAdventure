@@ -101,6 +101,13 @@ this tile contain all #define and SDL includes used on the game
 #define BOOL_PANNEL_SPAWN 27
 #define BOOL_FOG_ACCESS 28
 #define BOOL_END_CAVE 29
+#define BOOL_GIRL 30
+#define BOOL_BOY 31
+#define BOOL_INNERKEEPER 32
+#define BOOL_VILLAGER 33
+#define BOOL_PANNEL_FISH_MAN 34
+#define BOOL_PANNEL_WOOD_MAN 35
+#define BOOL_GUARDIANS 36
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -117,6 +124,19 @@ this tile contain all #define and SDL includes used on the game
 #define TEXT_PANNEL_SPAWN_1 11
 #define TEXT_PANNEL_SPAWN_2 12
 #define TEXT_PANNEL_SPAWN_3 13
+#define TEXT_GIRL 14
+#define TEXT_BOY 15
+#define TEXT_INNERKEEPER_1 16
+#define TEXT_INNERKEEPER_2 17
+#define TEXT_VILLAGER 18
+#define TEXT_FISHMAN_1 19
+#define TEXT_FISHMAN_2 20
+#define TEXT_FISHMAN_3 21
+#define TEXT_WOODMAN_1 22
+#define TEXT_WOODMAN_2 23
+#define TEXT_WOODMAN_3 24
+#define TEXT_OLD_MAN 25
+#define TEXT_OLD_WOMAN 26
 
 // define of the index of tabVariables
 #define XCHAR 0
@@ -142,8 +162,8 @@ this tile contain all #define and SDL includes used on the game
 
 // define of the sizes of the tables
 #define SIZE_ATLAS 10
-#define SIZE_TAB_BOOLEAN 30
-#define SIZE_TAB_TEXT 14
+#define SIZE_TAB_BOOLEAN 37
+#define SIZE_TAB_TEXT 27
 #define SIZE_TAB_VARIABLES 17
 
 // define of boolean to fill the table map_builder & map_boolean

@@ -22,6 +22,19 @@ Text* createText() {
   text->tab_text[TEXT_PANNEL_SPAWN_1] = TTF_RenderText_Solid(text->font, "L'eau a disparu a Joliville", couleur_noire);
   text->tab_text[TEXT_PANNEL_SPAWN_2] = TTF_RenderText_Solid(text->font, "va parler aux habitants et resous le mystere", couleur_noire);
   text->tab_text[TEXT_PANNEL_SPAWN_3] = TTF_RenderText_Solid(text->font, "Le maire", couleur_noire);
+  text->tab_text[TEXT_GIRL] = TTF_RenderText_Solid(text->font, "Tu n'aurais pas vu mon frere ?", couleur_noire);
+  text->tab_text[TEXT_BOY] = TTF_RenderText_Solid(text->font, "chhht ne dis pas a ma soeur que je suis ici !", couleur_noire);
+  text->tab_text[TEXT_INNERKEEPER_1] = TTF_RenderText_Solid(text->font, "Le bucheron et le pecheur ont besoin ", couleur_noire);
+  text->tab_text[TEXT_INNERKEEPER_2] = TTF_RenderText_Solid(text->font, "de ton aide, tu devrais aller les voir", couleur_noire);
+  text->tab_text[TEXT_VILLAGER] = TTF_RenderText_Solid(text->font, ". . .", couleur_noire);
+  text->tab_text[TEXT_FISHMAN_1] = TTF_RenderText_Solid(text->font, "Mon ami Kappa m'a rapporte des poissons", couleur_noire);
+  text->tab_text[TEXT_FISHMAN_2] = TTF_RenderText_Solid(text->font, "peux-tu aller me les chercher?", couleur_noire);
+  text->tab_text[TEXT_FISHMAN_3] = TTF_RenderText_Solid(text->font, "Ils sont plus haut, pres de la plage", couleur_noire);
+  text->tab_text[TEXT_WOODMAN_1] = TTF_RenderText_Solid(text->font, "Zut ! J'ai perdu ma hache... ", couleur_noire);
+  text->tab_text[TEXT_WOODMAN_2] = TTF_RenderText_Solid(text->font, "Tu pourrais aller me la chercher ?", couleur_noire);
+  text->tab_text[TEXT_WOODMAN_3] = TTF_RenderText_Solid(text->font, "Elle est sur une souche plus bas", couleur_noire);
+  text->tab_text[TEXT_OLD_MAN] = TTF_RenderText_Solid(text->font, "Homme : 'On ne peut pas te laisser passer'", couleur_noire);
+  text->tab_text[TEXT_OLD_WOMAN] = TTF_RenderText_Solid(text->font, "Femme : 'Il nous faut les preuves de tes actes'", couleur_noire);
 
   setTextDst(text, 470, 415);
 

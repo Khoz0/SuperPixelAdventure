@@ -71,6 +71,13 @@ void pressE(Game* game, int xchar, int ychar) {
 
 	talkToCountryGuard(game);
 	talkToPannelSpawn(game);
+	talkToGirl(game);
+	talkToBoy(game);
+	talkToInnerkeeper(game);
+	talkToVillager(game);
+	talkToFishMan(game);
+	talkToWoodMan(game);
+	talkToGuardians(game);
 
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==4) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==4)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, TRUE);
@@ -164,6 +171,13 @@ void pressZ(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GIRL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_BOY, FALSE);
+	setBoolean(getGameVariables(game), BOOL_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 3);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -220,6 +234,13 @@ void pressS(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GIRL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_BOY, FALSE);
+	setBoolean(getGameVariables(game), BOOL_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 0);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -283,6 +304,13 @@ void pressD(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GIRL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_BOY, FALSE);
+	setBoolean(getGameVariables(game), BOOL_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 2);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -343,6 +371,13 @@ void pressQ(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GIRL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_BOY, FALSE);
+	setBoolean(getGameVariables(game), BOOL_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 1);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);

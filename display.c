@@ -88,6 +88,53 @@ void displayTextPannel(Game* game) {
     setTextDst(getGameText(game), 950, 450);
     SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_SPAWN_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
+  // print of the text when we talk to the girl
+  if(getBoolean(getGameVariables(game), BOOL_GIRL)) {
+    setTextDst(getGameText(game), 450, 450);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_GIRL), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text when we talk to the boy
+  if(getBoolean(getGameVariables(game), BOOL_BOY)) {
+    setTextDst(getGameText(game), 330, 450);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_BOY), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text when we talk to the innerkeeper
+  if(getBoolean(getGameVariables(game), BOOL_INNERKEEPER)) {
+    setTextDst(getGameText(game), 370, 410);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_INNERKEEPER_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 365, 480);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_INNERKEEPER_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text when we talk to the villager
+  if(getBoolean(getGameVariables(game), BOOL_VILLAGER)) {
+    setTextDst(getGameText(game), 700, 470);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_VILLAGER), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text when we talk to the fish man
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN)) {
+    setTextDst(getGameText(game), 350, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 440, 450);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 400, 490);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text when we talk to the fish man
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN)) {
+    setTextDst(getGameText(game), 470, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 400, 445);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 430, 490);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text when we talk to the fish man
+  if(getBoolean(getGameVariables(game), BOOL_GUARDIANS)) {
+    setTextDst(getGameText(game), 300, 420);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_MAN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 300, 470);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_WOMAN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
 
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
