@@ -38,7 +38,7 @@ Tables* getGameTables(Game* game);
 Audio* getGameAudio(Game* game);
 void initDstPosition(Game* game);
 void teleports(Game* game);
-void updateMapOld(Game* game);
+void updateMap(Game* game);
 void updateNegPos(Game* game);
 void spawn(Game* game);
 void updateAnimationChest(Game* game);
