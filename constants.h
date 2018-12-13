@@ -40,7 +40,7 @@ this tile contain all #define and SDL includes used on the game
 #define MAP_NO_WATER_SPAWN_OLD 2
 #define MAP_NO_WATER_NO_SPAWN_OLD 3
 #define MAP_NO_WATER_NO_SPAWN_NO_OLD 4
-#define MAP_CAVE 5
+#define MAP_CAVE 6
 
 // sizes of pannel
 #define PANNEL_WIDTH 870
@@ -99,6 +99,8 @@ this tile contain all #define and SDL includes used on the game
 #define BOOL_OLDMAN_CAVE 25
 #define BOOL_OLDWOMAN_CAVE 26
 #define BOOL_PANNEL_SPAWN 27
+#define BOOL_FOG_ACCESS 28
+#define BOOL_END_CAVE 29
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -140,7 +142,7 @@ this tile contain all #define and SDL includes used on the game
 
 // define of the sizes of the tables
 #define SIZE_ATLAS 10
-#define SIZE_TAB_BOOLEAN 28
+#define SIZE_TAB_BOOLEAN 30
 #define SIZE_TAB_TEXT 14
 #define SIZE_TAB_VARIABLES 17
 

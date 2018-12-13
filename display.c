@@ -103,17 +103,17 @@ void displayHero(Game* game) {
 }
 
 void displayWaterfall(Game* game) {
-  if (getBoolean(getGameVariables(game), BOOL_WATERFALL)){
+  if (getBoolean(getGameVariables(game), BOOL_END_CAVE) && getBoolean(getGameVariables(game), BOOL_WATERFALL)){
     SDL_BlitSurface(getPicture(getGameAtlas(game), WATERFALL)->surface, &getPicture(getGameAtlas(game), WATERFALL)->src, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), WATERFALL)->neg);
   }
 }
 
 void displayChest(Game* game){
-  SDL_BlitSurface(getPicture(getGameAtlas(game), CHEST)->surface, &getPicture(getGameAtlas(game), CHEST)->src, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHEST)->neg);
+  if(getBoolean(getGameVariables(game), BOOL_WATERFALL)) SDL_BlitSurface(getPicture(getGameAtlas(game), CHEST)->surface, &getPicture(getGameAtlas(game), CHEST)->src, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHEST)->neg);
 }
 
 void displayFog(Game* game) {
-  if(getBoolean(getGameVariables(game), BOOL_FOG))  SDL_BlitSurface(getPicture(getGameAtlas(game), FOG)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FOG)->dst);
+  if(getBoolean(getGameVariables(game), BOOL_FOG) && getBoolean(getGameVariables(game), BOOL_FOG_ACCESS))  SDL_BlitSurface(getPicture(getGameAtlas(game), FOG)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FOG)->dst);
 }
 
 void displayFish(Game* game){

@@ -90,7 +90,7 @@ void pressE(Game* game, int xchar, int ychar) {
 
 	if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==12) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 	    !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
-		  !getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
+		  !getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE) && !getBoolean(getGameVariables(game), BOOL_END_CAVE)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_TROIS, TRUE);
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==13) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
@@ -111,6 +111,9 @@ void pressE(Game* game, int xchar, int ychar) {
 	if(getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 	   getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
 		setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
+		setBoolean(getGameVariables(game), BOOL_FOG_ACCESS, FALSE);
+		setBoolean(getGameVariables(game), BOOL_END_CAVE, TRUE);
+		setBoolean(getGameVariables(game), BOOL_FOG_ACCESS, FALSE);
 	}
 
 	if ((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==15) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==15)){
@@ -146,12 +149,12 @@ void pressE(Game* game, int xchar, int ychar) {
 	}
 
 	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==18) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==18)) &&
-	 	getBoolean(getGameVariables(game), BOOL_FISH_QUEST)){
+	 	getBoolean(getGameVariables(game), BOOL_FISH_QUEST) && !getBoolean(getGameVariables(game), BOOL_CHEST)){
 		setBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE, TRUE);
 	}
 
 	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==19) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==19)) &&
-	 	getBoolean(getGameVariables(game), BOOL_AXE_QUEST)){
+	 	getBoolean(getGameVariables(game), BOOL_AXE_QUEST) && !getBoolean(getGameVariables(game), BOOL_STUMP)){
 		setBoolean(getGameVariables(game), BOOL_OLDWOMAN_CAVE, TRUE);
 	}
 }

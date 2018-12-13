@@ -46,7 +46,7 @@ void runGame(Game* game) {
       SDL_PollEvent(&event);
       keyboardEvent(event, game);
       teleports(game);
-      updateMapOld(game);
+      updateMap(game);
       updateAnimationChest(game);
       display(game);
 
@@ -119,13 +119,17 @@ void teleports(Game* game) {
   if(getTable(getGameTables(game), MAP_BOOLEAN)[getVariable(getGameVariables(game), XCHAR)/32][(getVariable(getGameVariables(game), YCHAR) - 10)/32 + 1] == 5) {
     setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, TRUE);
     setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
-    updateTables(getGameTables(game), MAP_WATER);
+    if(getBoolean(getGameVariables(game), BOOL_END_CAVE)){
+      updateTables(getGameTables(game), MAP_WATER);
+    }else{
+      updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_NO_OLD);
+    }
   }
   updateInsideCave(game);
   updateNegPos(game);
 }
 
-void updateMapOld(Game* game){
+void updateMap(Game* game){
   if(getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE) && getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE)){
     updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_NO_OLD);
   }
