@@ -45,6 +45,9 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_END_SPAWN] = FALSE;
   booleans->tabBooleans[BOOL_OUTSIDE] = FALSE;
   booleans->tabBooleans[BOOL_END_GAME] = FALSE;
+  booleans->tabBooleans[BOOL_GUARDIAN_WOMAN] = FALSE;
+  booleans->tabBooleans[BOOL_GUARDIAN_MAN] = FALSE;
+  booleans->tabBooleans[BOOL_GUARDIANS_MAP] = FALSE;
 
   return booleans;
 

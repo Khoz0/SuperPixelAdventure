@@ -40,7 +40,7 @@ this tile contain all #define and SDL includes used on the game
 #define MAP_NO_WATER_SPAWN_OLD 2
 #define MAP_NO_WATER_NO_SPAWN_OLD 3
 #define MAP_NO_WATER_NO_SPAWN_NO_OLD 4
-#define MAP_CAVE 6
+#define MAP_CAVE 5
 
 // sizes of pannel
 #define PANNEL_WIDTH 870
@@ -111,6 +111,9 @@ this tile contain all #define and SDL includes used on the game
 #define BOOL_END_SPAWN 37
 #define BOOL_OUTSIDE 38
 #define BOOL_END_GAME 39
+#define BOOL_GUARDIAN_WOMAN 40
+#define BOOL_GUARDIAN_MAN 41
+#define BOOL_GUARDIANS_MAP 42
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -140,7 +143,17 @@ this tile contain all #define and SDL includes used on the game
 #define TEXT_WOODMAN_3 24
 #define TEXT_OLD_MAN 25
 #define TEXT_OLD_WOMAN 26
-#define TEXT_END_GAME 27
+#define TEXT_END_GAME_1 27
+#define TEXT_END_GAME_2 28
+#define TEXT_END_GAME_3 29
+#define TEXT_FISHMAN_AFTER_1 30
+#define TEXT_FISHMAN_AFTER_2 31
+#define TEXT_FISHMAN_AFTER_3 32
+#define TEXT_WOODMAN_AFTER_1 33
+#define TEXT_WOODMAN_AFTER_2 34
+#define TEXT_WOODMAN_AFTER_3 35
+#define TEXT_OLD_WOMAN_TURN 36
+#define TEXT_OLD_MAN_TURN 37
 
 // define of the index of tabVariables
 #define XCHAR 0
@@ -160,15 +173,17 @@ this tile contain all #define and SDL includes used on the game
 #define CPT 14
 #define ANIMATION 15
 #define CPT_CHEST 16
+#define PREC_POSCHEST_X 17
+#define PREC_POSCHEST_Y 18
 
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
 // define of the sizes of the tables
 #define SIZE_ATLAS 10
-#define SIZE_TAB_BOOLEAN 39
-#define SIZE_TAB_TEXT 28
-#define SIZE_TAB_VARIABLES 17
+#define SIZE_TAB_BOOLEAN 43
+#define SIZE_TAB_TEXT 38
+#define SIZE_TAB_VARIABLES 19
 
 // define of boolean to fill the table map_builder & map_boolean
 #define MAP_BUILDER 0

@@ -130,8 +130,10 @@ void teleports(Game* game) {
 }
 
 void updateMap(Game* game){
-  if(getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE) && getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE)){
+  if(getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE) && getBoolean(getGameVariables(game), BOOL_OLDWOMAN_CAVE)){
     updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_NO_OLD);
+    setBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE, FALSE);
+    setBoolean(getGameVariables(game), BOOL_OLDWOMAN_CAVE, FALSE);
   }
   if(getBoolean(getGameVariables(game), BOOL_END_SPAWN)){
     updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_OLD);
@@ -189,6 +191,8 @@ void updateInsideCave(Game* game) {
     setVariable(getGameVariables(game), PREC_POSCHAR_Y, getPictureY(getGameAtlas(game), HERO));
     setVariable(getGameVariables(game), PREC_POSWATERFALL_X, getPictureX(getGameAtlas(game), WATERFALL));
     setVariable(getGameVariables(game), PREC_POSWATERFALL_Y, getPictureY(getGameAtlas(game), WATERFALL));
+    setVariable(getGameVariables(game), PREC_POSCHEST_X, getPictureX(getGameAtlas(game), CHEST));
+    setVariable(getGameVariables(game), PREC_POSCHEST_Y, getPictureY(getGameAtlas(game), CHEST));
     setVariable(getGameVariables(game), XSCROLL, (MAP_PIXELS_X/2) - (SCREEN_WIDTH/1.26));
     setVariable(getGameVariables(game), YSCROLL, (MAP_PIXELS_Y/2) - (SCREEN_HEIGHT/4.9));
     setDstPosition(getGameAtlas(game), HERO, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
@@ -204,6 +208,7 @@ void updateInsideCave(Game* game) {
     setVariable(getGameVariables(game), YSCROLL, getVariable(getGameVariables(game), PREC_YSCROLL));
     setDstPosition(getGameAtlas(game), HERO, getVariable(getGameVariables(game), PREC_POSCHAR_X), getVariable(getGameVariables(game), PREC_POSCHAR_Y) + 20);
     setDstPosition(getGameAtlas(game), WATERFALL, getVariable(getGameVariables(game), PREC_POSWATERFALL_X), getVariable(getGameVariables(game), PREC_POSWATERFALL_Y));
+    setDstPosition(getGameAtlas(game), CHEST, getVariable(getGameVariables(game), PREC_POSCHEST_X), getVariable(getGameVariables(game), PREC_POSCHEST_Y));
     setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
     setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
     setBoolean(getGameVariables(game), BOOL_WATERFALL, TRUE);
@@ -355,9 +360,26 @@ void talkToGuardians(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-10)/32]==386 || getTable(getGameTables(game), MAP_BUILDER)[xchar/32+1][(ychar-10)/32]==386 ||
       getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-10)/32]==390 || getTable(getGameTables(game), MAP_BUILDER)[xchar/32+1][(ychar-10)/32]==390){
-    setBoolean(getGameVariables(game), BOOL_GUARDIANS, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    if(getBoolean(getGameVariables(game), BOOL_AXE_QUEST) && getBoolean(getGameVariables(game), BOOL_FISH_QUEST)){
+      setBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP, TRUE);
+      setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    }else{
+      setBoolean(getGameVariables(game), BOOL_GUARDIANS, TRUE);
+      setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    }
   }else{
     setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
+  }
+  if(getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][ychar/32]==391 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][(ychar-15)/32]==391){
+    setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+  }else{
+    setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, FALSE);
+  }
+  if(getTable(getGameTables(game), MAP_BUILDER)[(xchar)/32-1][(ychar)/32]==392 || getTable(getGameTables(game), MAP_BUILDER)[(xchar)/32-1][(ychar-15)/32]==392){
+    setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+  }else{
+    setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, FALSE);
   }
 }

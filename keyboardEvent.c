@@ -11,27 +11,51 @@ void keyboardEvent(SDL_Event event, Game* game){
 	  case SDL_KEYDOWN:
       switch(event.key.keysym.sym){
 			  case SDLK_LSHIFT:
-				  setVariable(getGameVariables(game), SPRINT, 5);
+					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+						setBoolean(getGameVariables(game), GAMEOVER, TRUE);
+					}else{
+				  	setVariable(getGameVariables(game), SPRINT, 5);
+					}
 				  break;
 
 			  case SDLK_e:
-				  pressE(game, xchar, ychar);
+					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+						setBoolean(getGameVariables(game), GAMEOVER, TRUE);
+					}else{
+				  	pressE(game, xchar, ychar);
+					}
 			    break;
 
 				case SDLK_z:
-				  pressZ(game, xchar, ychar);
+					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+						setBoolean(getGameVariables(game), GAMEOVER, TRUE);
+					}else{
+				  	pressZ(game, xchar, ychar);
+					}
 				  break;
 
 				case SDLK_s:
-				  pressS(game, xchar, ychar);
+					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+						setBoolean(getGameVariables(game), GAMEOVER, TRUE);
+					}else{
+				  	pressS(game, xchar, ychar);
+					}
 				  break;
 
 				case SDLK_d:
-				  pressD(game, xchar, ychar);
+					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+						setBoolean(getGameVariables(game), GAMEOVER, TRUE);
+					}else{
+				  	pressD(game, xchar, ychar);
+					}
 				  break;
 
 				case SDLK_q:
-				  pressQ(game, xchar, ychar);
+					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+						setVariable(getGameVariables(game), GAMEOVER, TRUE);
+					}else{
+				  	pressQ(game, xchar, ychar);
+					}
 				  break;
 
 				case SDLK_ESCAPE:
@@ -120,7 +144,6 @@ void pressE(Game* game, int xchar, int ychar) {
 		setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
 		setBoolean(getGameVariables(game), BOOL_FOG_ACCESS, FALSE);
 		setBoolean(getGameVariables(game), BOOL_END_CAVE, TRUE);
-		setBoolean(getGameVariables(game), BOOL_FOG_ACCESS, FALSE);
 	}
 
 	if ((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==15) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==15)){
@@ -155,15 +178,13 @@ void pressE(Game* game, int xchar, int ychar) {
 		}
 	}
 
-	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==18) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==18) ||
-		(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==19) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==19)) &&
-	 	getBoolean(getGameVariables(game), BOOL_FISH_QUEST) && !getBoolean(getGameVariables(game), BOOL_CHEST)){
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==18) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==18)) &&
+	 	getBoolean(getGameVariables(game), BOOL_FISH_QUEST) && getBoolean(getGameVariables(game), BOOL_AXE_QUEST)){
 		setBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE, TRUE);
 	}
 
-	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==19) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==19) ||
-		(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==18) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==18)) &&
-	 	getBoolean(getGameVariables(game), BOOL_AXE_QUEST) && !getBoolean(getGameVariables(game), BOOL_STUMP)){
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==19) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==19)) &&
+	 	getBoolean(getGameVariables(game), BOOL_AXE_QUEST) && getBoolean(getGameVariables(game), BOOL_FISH_QUEST)){
 		setBoolean(getGameVariables(game), BOOL_OLDWOMAN_CAVE, TRUE);
 	}
 }
@@ -180,6 +201,9 @@ void pressZ(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 3);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -228,7 +252,6 @@ void pressZ(Game* game, int xchar, int ychar) {
 			setVariable(getGameVariables(game), SPRINT, 1);
 		}
 	}
-
 }
 
 void pressS(Game* game, int xchar, int ychar) {
@@ -243,6 +266,9 @@ void pressS(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 0);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -313,6 +339,9 @@ void pressD(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 2);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -380,6 +409,9 @@ void pressQ(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 1);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);

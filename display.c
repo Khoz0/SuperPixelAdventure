@@ -59,6 +59,7 @@ void displayMap(Game* game) {
 void displayPannel(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_PANNEL)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
   if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX)) SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX)->dst);
+    if(getBoolean(getGameVariables(game), BOOL_END_GAME)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
   displayTextPannel(game);
 }
 
@@ -111,7 +112,7 @@ void displayTextPannel(Game* game) {
     SDL_BlitSurface(getText(getGameText(game), TEXT_VILLAGER), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
   // print of the text when we talk to the fish man
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN)) {
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN) && !getBoolean(getGameVariables(game), BOOL_FISH_QUEST)) {
     setTextDst(getGameText(game), 350, 400);
     SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
     setTextDst(getGameText(game), 440, 450);
@@ -120,7 +121,7 @@ void displayTextPannel(Game* game) {
     SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
   // print of the text when we talk to the fish man
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN)) {
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN) && !getBoolean(getGameVariables(game), BOOL_AXE_QUEST)) {
     setTextDst(getGameText(game), 470, 400);
     SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
     setTextDst(getGameText(game), 400, 445);
@@ -135,6 +136,50 @@ void displayTextPannel(Game* game) {
     setTextDst(getGameText(game), 300, 470);
     SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_WOMAN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
+  // print of the text when the game is finished
+  if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
+    setTextDst(getGameText(game), 380, 350);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+      setTextDst(getGameText(game), 380, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+      setTextDst(getGameText(game), 380, 450);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN) && getBoolean(getGameVariables(game), BOOL_FISH_QUEST)) {
+    setTextDst(getGameText(game), 430, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_AFTER_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 400, 445);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_AFTER_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 430, 490);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_FISHMAN_AFTER_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN) && getBoolean(getGameVariables(game), BOOL_AXE_QUEST)) {
+    setTextDst(getGameText(game), 430, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_AFTER_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 440, 445);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_AFTER_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 400, 490);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_AFTER_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+
+  if(getBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP)) {
+    setTextDst(getGameText(game), 300, 420);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_MAN_TURN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 300, 470);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_WOMAN_TURN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+
+  if(getBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN)) {
+    setTextDst(getGameText(game), 300, 445);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_WOMAN_TURN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+
+  if(getBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN)) {
+    setTextDst(getGameText(game), 300, 445);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_MAN_TURN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
 
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
@@ -144,7 +189,6 @@ void displayTextPannel(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_THREE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_FOUR), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
 
-  if(getBoolean(getGameVariables(game), BOOL_END_GAME)) SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
 }
 
 void displayHero(Game* game) {

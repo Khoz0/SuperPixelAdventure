@@ -20,7 +20,7 @@ Uint16** mapBuilder(int number){
       file = fopen("./maps/map_no_water_no_spawn_old.txt", "r");
     }else if(number==4) {
       file = fopen("./maps/map_no_water_no_spawn_no_old.txt", "r");
-    }else{
+    }else if(number==5){
       file = fopen("./maps/map_cave.txt", "r");
     }
 
