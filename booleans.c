@@ -31,6 +31,7 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_WOODMAN] = FALSE;
   booleans->tabBooleans[BOOL_OLDMAN_CAVE] = FALSE;
   booleans->tabBooleans[BOOL_OLDWOMAN_CAVE] = FALSE;
+  booleans->tabBooleans[BOOL_PANNEL_SPAWN] = FALSE;
 
   return booleans;
 

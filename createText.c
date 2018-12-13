@@ -19,6 +19,9 @@ Text* createText() {
   text->tab_text[TEXT_SPAWN_3] = TTF_RenderText_Solid(text->font, "sur E devant lui", couleur_noire);
   text->tab_text[TEXT_COUNTRYGUARD_1] = TTF_RenderText_Solid(text->font, "Bienvenue mon p'tiot va lire le panneau", couleur_noire);
   text->tab_text[TEXT_COUNTRYGUARD_2] = TTF_RenderText_Solid(text->font, "derriere toi et je t'ouvre le passage", couleur_noire);
+  text->tab_text[TEXT_PANNEL_SPAWN_1] = TTF_RenderText_Solid(text->font, "L'eau a disparu a Joliville", couleur_noire);
+  text->tab_text[TEXT_PANNEL_SPAWN_2] = TTF_RenderText_Solid(text->font, "va parler aux habitants et resous le mystere", couleur_noire);
+  text->tab_text[TEXT_PANNEL_SPAWN_3] = TTF_RenderText_Solid(text->font, "Le maire", couleur_noire);
 
   setTextDst(text, 470, 415);
 

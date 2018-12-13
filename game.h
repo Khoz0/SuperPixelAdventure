@@ -48,3 +48,4 @@ void updateInsideCave(Game* game);
 void capFps();
 void closeGame();
 void talkToCountryGuard(Game* game);
+void talkToPannelSpawn(Game* game);

@@ -70,10 +70,8 @@ void keyboardEvent(SDL_Event event, Game* game){
 void pressE(Game* game, int xchar, int ychar) {
 
 	talkToCountryGuard(game);
+	talkToPannelSpawn(game);
 
-	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==2) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==2)) {
-		setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
-	}
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==4) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==4)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, TRUE);
 	}
@@ -162,6 +160,7 @@ void pressZ(Game* game, int xchar, int ychar) {
 
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 3);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -217,6 +216,7 @@ void pressS(Game* game, int xchar, int ychar) {
 
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 0);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -279,6 +279,7 @@ void pressD(Game* game, int xchar, int ychar) {
 
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 2);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
@@ -338,6 +339,7 @@ void pressQ(Game* game, int xchar, int ychar) {
 
 	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
 	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 1);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);

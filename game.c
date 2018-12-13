@@ -251,15 +251,24 @@ void closeGame() {
 }
 
 void talkToCountryGuard(Game* game) {
-
   int xchar = getVariable(getGameVariables(game), XCHAR);
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar+10)/32+1]==369 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+15)/32][(ychar+10)/32+1]==369){
-    printf("Je rentre dans la condition\n");
     setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, TRUE);
     setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
   }
+}
 
+void talkToPannelSpawn(Game* game) {
+  int xchar = getVariable(getGameVariables(game), XCHAR);
+  int ychar = getVariable(getGameVariables(game), YCHAR);
+  printf("%d\n", getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-1)/32]);
+  if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-1)/32]==77 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+15)/32][(ychar-1)/32]==77){
+    setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, TRUE);
+    setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
+  }else{
+    setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
+  }
 }
