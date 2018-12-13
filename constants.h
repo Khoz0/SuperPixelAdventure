@@ -83,6 +83,10 @@ this tile contain all #define and SDL includes used on the game
 #define BOOL_LEVIER_TROIS 13
 #define BOOL_LEVIER_QUATRE 14
 #define BOOL_CHEST 15
+#define BOOL_SPAWN 16
+#define BOOL_SPAWN_STOP 17
+#define BOOL_COUNTRYGUARD 18
+#define BOOL_CHAT_BOX 20
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -91,6 +95,11 @@ this tile contain all #define and SDL includes used on the game
 #define TEXT_PANNEL_CAVE_TWO 3
 #define TEXT_PANNEL_CAVE_THREE 4
 #define TEXT_PANNEL_CAVE_FOUR 5
+#define TEXT_SPAWN_1 6
+#define TEXT_SPAWN_2 7
+#define TEXT_SPAWN_3 8
+#define TEXT_COUNTRYGUARD_1 9
+#define TEXT_COUNTRYGUARD_2 10
 
 // define of the index of tabVariables
 #define XCHAR 0
@@ -115,8 +124,8 @@ this tile contain all #define and SDL includes used on the game
 
 // define of the sizes of the tables
 #define SIZE_ATLAS 6
-#define SIZE_TAB_BOOLEAN 16
-#define SIZE_TAB_TEXT 6
+#define SIZE_TAB_BOOLEAN 20
+#define SIZE_TAB_TEXT 11
 #define SIZE_TAB_VARIABLES 16
 
 // define of boolean to fill the table map_builder & map_boolean

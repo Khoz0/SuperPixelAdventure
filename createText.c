@@ -14,6 +14,11 @@ Text* createText() {
   text->tab_text[TEXT_PANNEL_CAVE_TWO] = TTF_RenderText_Solid(text->font, "3 devient 1", couleur_noire); // 3 - - 1
   text->tab_text[TEXT_PANNEL_CAVE_THREE] = TTF_RenderText_Solid(text->font, "Les premiers sont les derniers", couleur_noire); // - - - 1
   text->tab_text[TEXT_PANNEL_CAVE_FOUR] = TTF_RenderText_Solid(text->font, "Je me situe une place après moi", couleur_noire); // 3 - 2 1
+  text->tab_text[TEXT_SPAWN_1] = TTF_RenderText_Solid(text->font, "Bienvenue dans SuperPixelAdventure !", couleur_noire);
+  text->tab_text[TEXT_SPAWN_2] = TTF_RenderText_Solid(text->font, "Va parler au garde champetre en appuyant", couleur_noire);
+  text->tab_text[TEXT_SPAWN_3] = TTF_RenderText_Solid(text->font, "sur E devant lui", couleur_noire);
+  text->tab_text[TEXT_COUNTRYGUARD_1] = TTF_RenderText_Solid(text->font, "Bienvenue mon p'tiot va lire le panneau", couleur_noire);
+  text->tab_text[TEXT_COUNTRYGUARD_2] = TTF_RenderText_Solid(text->font, "derriere toi et je t'ouvre le passage", couleur_noire);
 
   setTextDst(text, 470, 415);
 

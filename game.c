@@ -25,6 +25,7 @@ Game* createGame(){
   initDstPosition(game);
   createBars(getGameAtlas(game), getScreen(getGameSdl(game)));
   threatErrors(error, game);
+  destroyError(error);
 
   return game;
 
@@ -35,6 +36,9 @@ void runGame(Game* game) {
     SDL_Event event;
     //mainMenu(&gameOver);
     int chest_cpt = 0;
+
+    spawn(game);
+
     while (!getVariable(getGameVariables(game), GAMEOVER)) {
 
       updateHeroPos(game);
@@ -123,6 +127,16 @@ void updateNegPos(Game* game) {
 
   setPictureNegX(getPicture(getGameAtlas(game), CHEST), getPictureX(getGameAtlas(game), CHEST), NEG);
   setPictureNegY(getPicture(getGameAtlas(game), CHEST), getPictureY(getGameAtlas(game), CHEST), NEG);
+}
+
+void spawn(Game* game) {
+  // print of the text at the start of the game
+  if(!getBoolean(getGameVariables(game), BOOL_SPAWN_STOP)) {
+    setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
+  }else{
+    setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
+    setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
+  }
 }
 
 void updateAnimationChest(Game* game, int* chest_cpt){
@@ -225,4 +239,18 @@ void capFps() {
 
 void closeGame() {
   printf("-> Game has quit\n");
+}
+
+void talkToCountryGuard(Game* game) {
+
+  int xchar = getVariable(getGameVariables(game), XCHAR);
+  int ychar = getVariable(getGameVariables(game), YCHAR);
+  if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar+10)/32+1]==369 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+15)/32][(ychar+10)/32+1]==369){
+    printf("Je rentre dans la condition\n");
+    setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+  }else{
+    setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
+  }
+
 }

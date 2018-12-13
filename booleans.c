@@ -21,6 +21,10 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_LEVIER_TROIS] = FALSE;
   booleans->tabBooleans[BOOL_LEVIER_QUATRE] = FALSE;
   booleans->tabBooleans[BOOL_CHEST] = FALSE;
+  booleans->tabBooleans[BOOL_SPAWN] = TRUE;
+  booleans->tabBooleans[BOOL_SPAWN_STOP] = FALSE;
+  booleans->tabBooleans[BOOL_COUNTRYGUARD] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX] = FALSE;
 
   return booleans;
 

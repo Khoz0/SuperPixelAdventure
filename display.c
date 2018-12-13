@@ -51,15 +51,32 @@ void displayMap(Game* game) {
       }
     }
   }
-  SDL_FreeSurface(getScreen(getGameSdl(game)));
 }
 
 void displayPannel(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_PANNEL)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX)) SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX)->dst);
   displayTextPannel(game);
 }
 
 void displayTextPannel(Game* game) {
+  // print of text at the start of the game
+  if(getBoolean(getGameVariables(game), BOOL_SPAWN)){
+    setTextDst(getGameText(game), 370, 350);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_SPAWN_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 330, 410);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_SPAWN_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 580, 460);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_SPAWN_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  // print of the text with the countryguard at the start of the game
+  if(getBoolean(getGameVariables(game), BOOL_COUNTRYGUARD)) {
+    setTextDst(getGameText(game), 370, 420);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_COUNTRYGUARD_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 400, 480);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_COUNTRYGUARD_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_ONE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));

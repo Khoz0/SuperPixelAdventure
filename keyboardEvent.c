@@ -69,8 +69,10 @@ void keyboardEvent(SDL_Event event, Game* game){
 
 void pressE(Game* game, int xchar, int ychar) {
 
+	talkToCountryGuard(game);
+
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==2) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==2)) {
-		setBoolean(getGameVariables(game), BOOL_PANNEL_START, TRUE);
+		setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
 	}
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==4) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==4)) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, TRUE);
@@ -92,20 +94,16 @@ void pressE(Game* game, int xchar, int ychar) {
 	    !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 		  !getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_TROIS, TRUE);
-		printf("levier 3\n");
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==13) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 		  getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE, TRUE);
-		printf("levier 4\n");
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==11) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_DEUX, TRUE);
-		printf("levier 2\n");
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==10) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 					getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
 		setBoolean(getGameVariables(game), BOOL_LEVIER_UN, TRUE);
-		printf("levier 1\n");
 	}else{
 		setBoolean(getGameVariables(game), BOOL_LEVIER_UN, FALSE);
 		setBoolean(getGameVariables(game), BOOL_LEVIER_DEUX, FALSE);
@@ -114,15 +112,8 @@ void pressE(Game* game, int xchar, int ychar) {
 	}
 	if(getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 	   getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
-		printf("fin jeu\n");
 		setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
 	}
-
-	printf("etat levier 4 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE));
-	printf("etat levier 3 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS));
-	printf("etat levier 2 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX));
-	printf("etat levier 1 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_UN));
-	printf("==================\n");
 
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) {
 		setBoolean(getGameVariables(game), BOOL_CHEST, TRUE);
@@ -131,9 +122,12 @@ void pressE(Game* game, int xchar, int ychar) {
 
 void pressZ(Game* game, int xchar, int ychar) {
 
+	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 3);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
@@ -182,9 +176,13 @@ void pressZ(Game* game, int xchar, int ychar) {
 }
 
 void pressS(Game* game, int xchar, int ychar) {
+
+	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 0);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
@@ -240,9 +238,13 @@ void pressS(Game* game, int xchar, int ychar) {
 }
 
 void pressD(Game* game, int xchar, int ychar) {
+
+	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 2);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
@@ -295,9 +297,13 @@ void pressD(Game* game, int xchar, int ychar) {
 }
 
 void pressQ(Game* game, int xchar, int ychar) {
+
+	setBoolean(getGameVariables(game), BOOL_SPAWN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
 	setVariable(getGameVariables(game), WIDTH, 1);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_START, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);

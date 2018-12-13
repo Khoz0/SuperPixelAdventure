@@ -20,7 +20,7 @@ SDL* createSDL(Atlas* atlas, Error* error) {
     setErrorMessage(error, LOAD_SDL, "-> SDL_Init(audio) (createSdl.c)\n");
   }
   if (Mix_Init(MIX_INIT_MP3) != 0) {
-    setErrorIsError(error, TRUE);
+    //setErrorIsError(error, TRUE);
     setErrorMessage(error, LOAD_SDL, "-> SDL_Init(audio) (createSdl.c)\n");
   }
   if (TTF_Init() == -1) {
