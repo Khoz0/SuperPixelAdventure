@@ -24,7 +24,8 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_SPAWN] = TRUE;
   booleans->tabBooleans[BOOL_SPAWN_STOP] = FALSE;
   booleans->tabBooleans[BOOL_COUNTRYGUARD] = FALSE;
-  booleans->tabBooleans[BOOL_CHAT_BOX] = FALSE;  booleans->tabBooleans[BOOL_FISH_QUEST] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX] = FALSE;
+  booleans->tabBooleans[BOOL_FISH_QUEST] = FALSE;
   booleans->tabBooleans[BOOL_STUMP] = FALSE;
   booleans->tabBooleans[BOOL_AXE_QUEST] = FALSE;
   booleans->tabBooleans[BOOL_FISHMAN] = FALSE;
@@ -34,6 +35,9 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_PANNEL_SPAWN] = FALSE;
   booleans->tabBooleans[BOOL_FOG_ACCESS] = TRUE;
   booleans->tabBooleans[BOOL_END_CAVE] = FALSE;
+  booleans->tabBooleans[BOOL_END_SPAWN] = FALSE;
+  booleans->tabBooleans[BOOL_OUTSIDE] = FALSE;
+  booleans->tabBooleans[BOOL_END_GAME] = FALSE;
 
   return booleans;
 

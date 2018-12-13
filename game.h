@@ -5,7 +5,6 @@
 #include "tables.h"
 #include "keyboardEvent.h"
 #include "constants.h"
-#include "menu.h"
 #include "tables.h"
 #include "createText.h"
 #include "createAudio.h"
@@ -36,6 +35,7 @@ SDL* getGameSdl(Game* game);
 Text* getGameText(Game* game);
 Tables* getGameTables(Game* game);
 Audio* getGameAudio(Game* game);
+void mainMenu(Game* game);
 void initDstPosition(Game* game);
 void teleports(Game* game);
 void updateMap(Game* game);

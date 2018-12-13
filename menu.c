@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void mainMenu(int* gameOver){
+void mainMenu(Game* game){
 
   SDL_Surface *playCase = NULL, *ruleCase = NULL, *quitCase = NULL, *screenMenu, *menuChar, *scroll;
   SDL_Surface *quitButton = NULL, *playButton = NULL, *goalButton = NULL;
@@ -125,7 +125,7 @@ void mainMenu(int* gameOver){
     SDL_PollEvent(&event);
 
     menuMove(event, &positionChar, &goalPurpose, tab_collide, &speed, &movement, &orientation,
-    button_play, button_goal, button_quit, tab_button, &endMenu, gameOver);
+    button_play, button_goal, button_quit, tab_button, &endMenu, game);
 
     // envoyer mainCharGo, positionChar, goalPurpose, tab_collide, speed, movement, orientation, les boutons
 

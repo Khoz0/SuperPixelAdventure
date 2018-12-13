@@ -1,7 +1,7 @@
 #include "menuMove.h"
 
 void menuMove(SDL_Event event, SDL_Rect* positionChar, int* goalPurpose, int** tab_collide, int* speed, int* movement, int* orientation,
-   Button* button_play, Button* button_goal, Button* button_quit, Button** tab_button, int* endMenu, int* gameOver){
+   Button* button_play, Button* button_goal, Button* button_quit, Button** tab_button, int* endMenu, Game* game){
      int authorizedX = 1, authorizedY = 1;
 
      switch(event.type)
@@ -43,7 +43,7 @@ void menuMove(SDL_Event event, SDL_Rect* positionChar, int* goalPurpose, int** t
              *speed = 1;
              if (event.button.y < (getButtonYUp(tab_button[1]) + (getButtonYDown(tab_button[1]) - getButtonYUp(tab_button[1]))/2)){
                if (event.button.y > (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
-                 if (positionChar->x <= (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                 if (event.button.x >= (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
                    *speed = 1;
                    *orientation = 0;
                  }else{
@@ -51,7 +51,7 @@ void menuMove(SDL_Event event, SDL_Rect* positionChar, int* goalPurpose, int** t
                    *orientation = 3;
                  }
                }else{
-                 if (positionChar->x > (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                 if (event.button.x < (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
                    *speed = -1;
                    *orientation = 3;
                  }else{
@@ -61,7 +61,7 @@ void menuMove(SDL_Event event, SDL_Rect* positionChar, int* goalPurpose, int** t
                }
              }else{
                if (event.button.y < (getButtonYUp(tab_button[2]) + (getButtonYDown(tab_button[2]) - getButtonYUp(tab_button[2]))/2)){
-                 if (positionChar->x >= (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                 if (event.button.x <= (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
                    *speed = -1;
                    *orientation = 3;
                  }else{
@@ -69,7 +69,7 @@ void menuMove(SDL_Event event, SDL_Rect* positionChar, int* goalPurpose, int** t
                    *orientation = 0;
                  }
                }else{
-                 if (positionChar->x > (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
+                 if (event.button.x < (getButtonYUp(tab_button[0]) + (getButtonYDown(tab_button[0]) - getButtonYUp(tab_button[0]))/2)){
                    *speed = 1;
                    *orientation = 0;
                  }else{
@@ -161,7 +161,7 @@ void menuMove(SDL_Event event, SDL_Rect* positionChar, int* goalPurpose, int** t
              event.button.y > getButtonYUp(button_quit) - 32 && event.button.y < getButtonYDown(button_quit)){
            if (positionChar->x >= getButtonXLeft(button_quit) - 32 && positionChar->x <= getButtonXRight(button_quit) + 1 &&
              positionChar->y >= getButtonYUp(button_quit) - 32 && positionChar->y <= getButtonYDown(button_quit) + 1){
-               *gameOver = 1;
+               setVariable(getGameVariables(game), GAMEOVER, 1);
                *endMenu = 0;
            }
         }

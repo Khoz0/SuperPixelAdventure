@@ -34,7 +34,7 @@ Game* createGame(){
 void runGame(Game* game) {
 
     SDL_Event event;
-    //mainMenu(&gameOver);
+    mainMenu(game);
 
     spawn(game);
 
@@ -133,6 +133,9 @@ void updateMap(Game* game){
   if(getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE) && getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE)){
     updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_NO_OLD);
   }
+  if(getBoolean(getGameVariables(game), BOOL_END_SPAWN)){
+    updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_OLD);
+  }
 }
 
 void updateNegPos(Game* game) {
@@ -204,6 +207,10 @@ void updateInsideCave(Game* game) {
     setBoolean(getGameVariables(game), BOOL_TP_CAVE, FALSE);
     setBoolean(getGameVariables(game), BOOL_TP_OUTSIDE, FALSE);
     setBoolean(getGameVariables(game), BOOL_WATERFALL, TRUE);
+    setBoolean(getGameVariables(game), BOOL_OUTSIDE, TRUE);
+    if(getBoolean(getGameVariables(game), BOOL_END_CAVE) && getBoolean(getGameVariables(game), BOOL_OUTSIDE)){
+      setBoolean(getGameVariables(game), BOOL_END_GAME, TRUE);
+    }
   }
 
   if (getStaminaLength(getGameAtlas(game)) > -2 && getStaminaLength(getGameAtlas(game))  <= 194 && getVariable(getGameVariables(game), SPRINT) == 1){
@@ -272,6 +279,7 @@ void talkToPannelSpawn(Game* game) {
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-1)/32]==77 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+15)/32][(ychar-1)/32]==77){
     setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, TRUE);
     setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
+    setBoolean(getGameVariables(game), BOOL_END_SPAWN, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_PANNEL_SPAWN, FALSE);
   }
