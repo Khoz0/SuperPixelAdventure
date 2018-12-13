@@ -14,7 +14,7 @@ void keyboardEvent(SDL_Event event, Game* game){
 					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
 						setBoolean(getGameVariables(game), GAMEOVER, TRUE);
 					}else{
-				  	setVariable(getGameVariables(game), SPRINT, 5);
+				  	setVariable(getGameVariables(game), SPRINT, 7);
 					}
 				  break;
 
@@ -107,15 +107,19 @@ void pressE(Game* game, int xchar, int ychar) {
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE, TRUE);
 	}
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==6) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==6)) {
+		setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE, TRUE);
 	}
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==7) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==7)) {
+		setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, TRUE);
 	}
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==8) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==8)) {
+		setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE, TRUE);
 	}
 	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==9) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==9)) {
+		setBoolean(getGameVariables(game), BOOL_PANNEL, TRUE);
 		setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, TRUE);
 	}
 
@@ -213,6 +217,16 @@ void pressZ(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_WOODMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDM, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_FISHMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANM, FALSE);
 	if(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-15)/32]==3 && getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-15)/32]==3){
 		setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) - 4 * getVariable(getGameVariables(game), SPRINT));
 	}
@@ -278,6 +292,16 @@ void pressS(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_WOODMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDM, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_FISHMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANM, FALSE);
 	if(getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-20)/32+2]==5 && getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-20)/32+2]==5){
 		setPictureY(getPicture(getGameAtlas(game), HERO), getPictureY(getGameAtlas(game), HERO) + 4 * getVariable(getGameVariables(game), SPRINT));
 	}
@@ -351,6 +375,16 @@ void pressD(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_WOODMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDM, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_FISHMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANM, FALSE);
 	if (getVariable(getGameVariables(game), XSCROLL) < MAP_PIXELS_X - SCREEN_WIDTH){
 		if((getPictureX(getGameAtlas(game), HERO) < 720) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+7)/32+1][ychar/32+1]==0)) {
 			setPictureX(getPicture(getGameAtlas(game), HERO), getPictureX(getGameAtlas(game), HERO) + 4 * getVariable(getGameVariables(game), SPRINT));
@@ -421,6 +455,16 @@ void pressQ(Game* game, int xchar, int ychar) {
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE, FALSE);
 	setBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_INNERKEEPER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_WOODMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_COUNTRYGUARD, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDM, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_FISHMAN, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_VILLAGER, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANF, FALSE);
+	setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANM, FALSE);
 	if (getVariable(getGameVariables(game), XSCROLL) > 0){
 		if((getPictureX(getGameAtlas(game), HERO) > 720) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32]==0) && (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-7)/32][ychar/32+1]==0)) {
 			setPictureX(getPicture(getGameAtlas(game), HERO), getPictureX(getGameAtlas(game), HERO) - 4 * getVariable(getGameVariables(game), SPRINT));

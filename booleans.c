@@ -48,6 +48,16 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_GUARDIAN_WOMAN] = FALSE;
   booleans->tabBooleans[BOOL_GUARDIAN_MAN] = FALSE;
   booleans->tabBooleans[BOOL_GUARDIANS_MAP] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_INNERKEEPER] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_WOODMAN] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_COUNTRYGUARD] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_KIDF] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_KIDM] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_FISHMAN] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_VILLAGER] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_GUARDIANS] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_GUARDIANF] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX_GUARDIANM] = FALSE;
 
   return booleans;
 

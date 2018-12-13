@@ -69,6 +69,16 @@ this tile contain all #define and SDL includes used on the game
 #define PASS_FISH 7
 #define AXE 8
 #define PASS_WOOD 9
+#define CHAT_BOX_INNERKEEPER 10
+#define CHAT_BOX_WOODMAN 11
+#define CHAT_BOX_COUNTRYGUARD 12
+#define CHAT_BOX_KIDF 13
+#define CHAT_BOX_KIDM 14
+#define CHAT_BOX_FISHMAN 15
+#define CHAT_BOX_VILLAGER 16
+#define CHAT_BOX_GUARDIANS 17
+#define CHAT_BOX_GUARDIANF 18
+#define CHAT_BOX_GUARDIANM 19
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
@@ -114,10 +124,20 @@ this tile contain all #define and SDL includes used on the game
 #define BOOL_GUARDIAN_WOMAN 40
 #define BOOL_GUARDIAN_MAN 41
 #define BOOL_GUARDIANS_MAP 42
+#define BOOL_CHAT_BOX_INNERKEEPER 43
+#define BOOL_CHAT_BOX_WOODMAN 44
+#define BOOL_CHAT_BOX_COUNTRYGUARD 45
+#define BOOL_CHAT_BOX_KIDF 46
+#define BOOL_CHAT_BOX_KIDM 47
+#define BOOL_CHAT_BOX_FISHMAN 48
+#define BOOL_CHAT_BOX_VILLAGER 49
+#define BOOL_CHAT_BOX_GUARDIANS 50
+#define BOOL_CHAT_BOX_GUARDIANF 51
+#define BOOL_CHAT_BOX_GUARDIANM 52
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
-#define TEXT_PANNEL_CAVE 1
+#define TEXT_PANNEL_CAVE_1 1
 #define TEXT_PANNEL_CAVE_ONE 2
 #define TEXT_PANNEL_CAVE_TWO 3
 #define TEXT_PANNEL_CAVE_THREE 4
@@ -154,6 +174,9 @@ this tile contain all #define and SDL includes used on the game
 #define TEXT_WOODMAN_AFTER_3 35
 #define TEXT_OLD_WOMAN_TURN 36
 #define TEXT_OLD_MAN_TURN 37
+#define TEXT_PANNEL_CAVE_2 38
+#define TEXT_PANNEL_CAVE_3 39
+#define TEXT_PANNEL_CAVE_ONE_2 40
 
 // define of the index of tabVariables
 #define XCHAR 0
@@ -180,9 +203,9 @@ this tile contain all #define and SDL includes used on the game
 #define NEG 1
 
 // define of the sizes of the tables
-#define SIZE_ATLAS 10
-#define SIZE_TAB_BOOLEAN 43
-#define SIZE_TAB_TEXT 38
+#define SIZE_ATLAS 20
+#define SIZE_TAB_BOOLEAN 53
+#define SIZE_TAB_TEXT 41
 #define SIZE_TAB_VARIABLES 19
 
 // define of boolean to fill the table map_builder & map_boolean

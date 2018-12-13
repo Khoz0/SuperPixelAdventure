@@ -272,7 +272,7 @@ void talkToCountryGuard(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar+10)/32+1]==369 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+15)/32][(ychar+10)/32+1]==369){
     setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_COUNTRYGUARD, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_COUNTRYGUARD, FALSE);
   }
@@ -295,7 +295,7 @@ void talkToGirl(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][ychar/32]==376 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][(ychar+15)/32]==376){
     setBoolean(getGameVariables(game), BOOL_GIRL, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDF, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_GIRL, FALSE);
   }
@@ -306,7 +306,7 @@ void talkToBoy(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32][ychar/32+2]==384){
     setBoolean(getGameVariables(game), BOOL_BOY, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDM, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_BOY, FALSE);
   }
@@ -317,7 +317,7 @@ void talkToInnerkeeper(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-10)/32]==394 || getTable(getGameTables(game), MAP_BUILDER)[xchar/32+1][(ychar-10)/32]==394){
     setBoolean(getGameVariables(game), BOOL_INNERKEEPER, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_INNERKEEPER, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_INNERKEEPER, FALSE);
   }
@@ -328,7 +328,7 @@ void talkToVillager(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32][ychar/32+2]==367){
     setBoolean(getGameVariables(game), BOOL_VILLAGER, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_VILLAGER, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_VILLAGER, FALSE);
   }
@@ -339,7 +339,7 @@ void talkToFishMan(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-10)/32]==401 || getTable(getGameTables(game), MAP_BUILDER)[xchar/32+1][(ychar-10)/32]==401){
     setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_FISHMAN, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_PANNEL_FISH_MAN, FALSE);
   }
@@ -350,7 +350,7 @@ void talkToWoodMan(Game* game) {
   int ychar = getVariable(getGameVariables(game), YCHAR);
   if(getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-10)/32]==403 || getTable(getGameTables(game), MAP_BUILDER)[xchar/32+1][(ychar-10)/32]==403){
     setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_WOODMAN, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_PANNEL_WOOD_MAN, FALSE);
   }
@@ -363,24 +363,24 @@ void talkToGuardians(Game* game) {
       getTable(getGameTables(game), MAP_BUILDER)[xchar/32][(ychar-10)/32]==390 || getTable(getGameTables(game), MAP_BUILDER)[xchar/32+1][(ychar-10)/32]==390){
     if(getBoolean(getGameVariables(game), BOOL_AXE_QUEST) && getBoolean(getGameVariables(game), BOOL_FISH_QUEST)){
       setBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP, TRUE);
-      setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+      setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS, TRUE);
     }else{
       setBoolean(getGameVariables(game), BOOL_GUARDIANS, TRUE);
-      setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+      setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS, TRUE);
     }
   }else{
     setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
   }
-  
+
   if(getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][ychar/32]==391 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][(ychar-15)/32]==391){
     setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANF, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, FALSE);
   }
   if(getTable(getGameTables(game), MAP_BUILDER)[(xchar)/32-1][(ychar)/32]==392 || getTable(getGameTables(game), MAP_BUILDER)[(xchar)/32-1][(ychar-15)/32]==392){
     setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, TRUE);
-    setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
+    setBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANM, TRUE);
   }else{
     setBoolean(getGameVariables(game), BOOL_GUARDIAN_MAN, FALSE);
   }

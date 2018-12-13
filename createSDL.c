@@ -14,6 +14,16 @@ SDL* createSDL(Atlas* atlas, Error* error) {
   SDL_SetColorKey(getPicture(atlas, PASS_FISH)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, PASS_FISH)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, AXE)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, AXE)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, PASS_WOOD)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, PASS_WOOD)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_INNERKEEPER)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_INNERKEEPER)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_WOODMAN)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_WOODMAN)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_COUNTRYGUARD)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_COUNTRYGUARD)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_KIDF)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_KIDF)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_KIDM)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_KIDM)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_FISHMAN)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_FISHMAN)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_VILLAGER)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_VILLAGER)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_GUARDIANS)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_GUARDIANS)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_GUARDIANF)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_GUARDIANF)->surface->format, 255, 255, 255));
+  SDL_SetColorKey(getPicture(atlas, CHAT_BOX_GUARDIANM)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_GUARDIANM)->surface->format, 255, 255, 255));
 
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     setErrorIsError(error, TRUE);

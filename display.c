@@ -58,8 +58,34 @@ void displayMap(Game* game) {
 
 void displayPannel(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_PANNEL)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
-  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX)) SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX)->dst);
-    if(getBoolean(getGameVariables(game), BOOL_END_GAME)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_INNERKEEPER)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_INNERKEEPER)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_INNERKEEPER)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_WOODMAN)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_WOODMAN)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_WOODMAN)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_COUNTRYGUARD)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_COUNTRYGUARD)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_COUNTRYGUARD)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDF)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_KIDF)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_KIDF)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_KIDM)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_KIDM)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_KIDM)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_FISHMAN)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_FISHMAN)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_FISHMAN)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_VILLAGER)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_VILLAGER)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_VILLAGER)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_CHAT_BOX_GUARDIANS)){
+    SDL_BlitSurface(getPicture(getGameAtlas(game), CHAT_BOX_GUARDIANS)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), CHAT_BOX_GUARDIANS)->dst);
+  }
+  if(getBoolean(getGameVariables(game), BOOL_END_GAME)) SDL_BlitSurface(getPicture(getGameAtlas(game), PANNEL)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PANNEL)->dst);
   displayTextPannel(game);
 }
 
@@ -181,14 +207,32 @@ void displayTextPannel(Game* game) {
     SDL_BlitSurface(getText(getGameText(game), TEXT_OLD_MAN_TURN), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
 
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_ONE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_TWO), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_THREE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_FOUR), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE)){
+    setTextDst(getGameText(game), 450, 380);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_ONE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_ONE)){
+    setTextDst(getGameText(game), 450, 420);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_ONE_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_TWO)){
+    setTextDst(getGameText(game), 550, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_TWO), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_THREE)){
+    setTextDst(getGameText(game), 400, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_THREE), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE_FOUR)){
+    setTextDst(getGameText(game), 400, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_FOUR), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
 
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
 }
 
 void displayHero(Game* game) {

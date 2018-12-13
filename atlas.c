@@ -17,6 +17,16 @@ Atlas* createAtlas() {
   atlas->pictures[PASS_FISH] = createPicture("./pictures/paperPlease/pass.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[AXE] = createPicture("./pictures/axe/axe.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[PASS_WOOD] = createPicture("./pictures/paperPlease/pass.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_INNERKEEPER] = createPicture("./pictures/chat/chatAubergiste.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_WOODMAN] = createPicture("./pictures/chat/chatBucheron.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_COUNTRYGUARD] = createPicture("./pictures/chat/chatCountryGuard.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_KIDF] = createPicture("./pictures/chat/chatKidF.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_KIDM] = createPicture("./pictures/chat/chatKidM.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_FISHMAN] = createPicture("./pictures/chat/chatPecheur.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_VILLAGER] = createPicture("./pictures/chat/chatVillageoise.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_GUARDIANS] = createPicture("./pictures/chat/chatGuardians.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_GUARDIANF] = createPicture("./pictures/chat/chatMami.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[CHAT_BOX_GUARDIANM] = createPicture("./pictures/chat/chatPapi.bmp", CHAR_WIDTH, CHAR_HEIGHT);
 
   atlas->tileset = createTileset();
 
