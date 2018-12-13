@@ -92,20 +92,16 @@ void pressE(Game* game, int xchar, int ychar) {
 	    !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 		  !getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_TROIS, TRUE);
-		printf("levier 3\n");
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==13) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && !getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 		  getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE, TRUE);
-		printf("levier 4\n");
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==11) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 	        !getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)) {
 		setBoolean(getGameVariables(game), BOOL_LEVIER_DEUX, TRUE);
-		printf("levier 2\n");
 	}else if(((getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+15)/32][(ychar-5)/32]==10) || getTable(getGameTables(game), MAP_BOOLEAN)[(xchar-15)/32+1][(ychar-5)/32]==2) &&
 					getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
 		setBoolean(getGameVariables(game), BOOL_LEVIER_UN, TRUE);
-		printf("levier 1\n");
 	}else{
 		setBoolean(getGameVariables(game), BOOL_LEVIER_UN, FALSE);
 		setBoolean(getGameVariables(game), BOOL_LEVIER_DEUX, FALSE);
@@ -114,18 +110,49 @@ void pressE(Game* game, int xchar, int ychar) {
 	}
 	if(getBoolean(getGameVariables(game), BOOL_LEVIER_UN) && getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX) &&
 	   getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS) && getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE)){
-		printf("fin jeu\n");
 		setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
 	}
 
-	printf("etat levier 4 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_QUATRE));
-	printf("etat levier 3 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_TROIS));
-	printf("etat levier 2 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_DEUX));
-	printf("etat levier 1 : %d\n", getBoolean(getGameVariables(game), BOOL_LEVIER_UN));
-	printf("==================\n");
+	if ((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==15) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==15)){
+		setBoolean(getGameVariables(game), BOOL_FISHMAN, TRUE);
+	}
 
-	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) {
+	if ((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==17) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==17)){
+		setBoolean(getGameVariables(game), BOOL_WOODMAN, TRUE);
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) &&
+		getBoolean(getGameVariables(game), BOOL_FISHMAN)) {
 		setBoolean(getGameVariables(game), BOOL_CHEST, TRUE);
+	}
+
+	if(getBoolean(getGameVariables(game), BOOL_CHEST)){
+		if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==15) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==15)) {
+			setBoolean(getGameVariables(game), BOOL_FISH_QUEST, TRUE);
+			setBoolean(getGameVariables(game), BOOL_CHEST, FALSE);
+		}
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==16) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==16)) &&
+		getBoolean(getGameVariables(game), BOOL_WOODMAN)) {
+		setBoolean(getGameVariables(game), BOOL_STUMP, TRUE);
+	}
+
+	if(getBoolean(getGameVariables(game), BOOL_STUMP)){
+		if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==17) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==17)) {
+		setBoolean(getGameVariables(game), BOOL_AXE_QUEST, TRUE);
+		setBoolean(getGameVariables(game), BOOL_STUMP, FALSE);
+		}
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==18) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==18)) &&
+	 	getBoolean(getGameVariables(game), BOOL_FISH_QUEST)){
+		setBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE, TRUE);
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==19) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==19)) &&
+	 	getBoolean(getGameVariables(game), BOOL_AXE_QUEST)){
+		setBoolean(getGameVariables(game), BOOL_OLDWOMAN_CAVE, TRUE);
 	}
 }
 

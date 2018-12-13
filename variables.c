@@ -23,6 +23,7 @@ Variables* createVariables() {
   variables->tabVariables[PREC_POSWATERFALL_Y] = 0;
   variables->tabVariables[CPT] = 0;
   variables->tabVariables[ANIMATION] = 0;
+  variables->tabVariables[CPT_CHEST] = 0;
 
   return variables;
 

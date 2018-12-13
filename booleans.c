@@ -21,6 +21,13 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_LEVIER_TROIS] = FALSE;
   booleans->tabBooleans[BOOL_LEVIER_QUATRE] = FALSE;
   booleans->tabBooleans[BOOL_CHEST] = FALSE;
+  booleans->tabBooleans[BOOL_FISH_QUEST] = FALSE;
+  booleans->tabBooleans[BOOL_STUMP] = FALSE;
+  booleans->tabBooleans[BOOL_AXE_QUEST] = FALSE;
+  booleans->tabBooleans[BOOL_FISHMAN] = FALSE;
+  booleans->tabBooleans[BOOL_WOODMAN] = FALSE;
+  booleans->tabBooleans[BOOL_OLDMAN_CAVE] = FALSE;
+  booleans->tabBooleans[BOOL_OLDWOMAN_CAVE] = FALSE;
 
   return booleans;
 

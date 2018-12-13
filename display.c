@@ -7,6 +7,9 @@ void display(Game* game) {
   displayMap(game);
   displayWaterfall(game);
   displayChest(game);
+  displayFish(game);
+  displayPass(game);
+  displayAXE(game);
   displayFog(game);
   displayHero(game);
   displayPannel(game);
@@ -84,6 +87,19 @@ void displayChest(Game* game){
 
 void displayFog(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_FOG))  SDL_BlitSurface(getPicture(getGameAtlas(game), FOG)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FOG)->dst);
+}
+
+void displayFish(Game* game){
+  if (getBoolean(getGameVariables(game), BOOL_CHEST) && !getBoolean(getGameVariables(game), BOOL_FISH_QUEST)) SDL_BlitSurface(getPicture(getGameAtlas(game), FISH)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), FISH)->dst);
+}
+
+void displayPass(Game* game){
+  if (getBoolean(getGameVariables(game), BOOL_FISH_QUEST)) SDL_BlitSurface(getPicture(getGameAtlas(game), PASS_FISH)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PASS_FISH)->dst);
+  if (getBoolean(getGameVariables(game), BOOL_AXE_QUEST)) SDL_BlitSurface(getPicture(getGameAtlas(game), PASS_WOOD)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PASS_WOOD)->dst);
+}
+
+void displayAXE(Game* game){
+  if (getBoolean(getGameVariables(game), BOOL_STUMP) && !getBoolean(getGameVariables(game), BOOL_AXE_QUEST)) SDL_BlitSurface(getPicture(getGameAtlas(game), AXE)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), AXE)->dst);
 }
 
 void displayBars(Game* game) {

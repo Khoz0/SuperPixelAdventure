@@ -13,6 +13,10 @@ Atlas* createAtlas() {
   atlas->pictures[PANNEL] = createPicture("./pictures/chat/pannel.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[FOG] = createPicture("./pictures/tileset/fog.bmp", CHAR_WIDTH, CHAR_HEIGHT);
   atlas->pictures[CHEST] = createPicture("./pictures/chest/chest.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[FISH] = createPicture("./pictures/chest/fish.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[PASS_FISH] = createPicture("./pictures/paperPlease/pass.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[AXE] = createPicture("./pictures/axe/axe.bmp", CHAR_WIDTH, CHAR_HEIGHT);
+  atlas->pictures[PASS_WOOD] = createPicture("./pictures/paperPlease/pass.bmp", CHAR_WIDTH, CHAR_HEIGHT);
 
   atlas->tileset = createTileset();
 
