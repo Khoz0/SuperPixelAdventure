@@ -137,6 +137,7 @@ void updateMap(Game* game){
   }
   if(getBoolean(getGameVariables(game), BOOL_END_SPAWN)){
     updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_OLD);
+    setBoolean(getGameVariables(game), BOOL_END_SPAWN, FALSE);
   }
 }
 
@@ -370,6 +371,7 @@ void talkToGuardians(Game* game) {
   }else{
     setBoolean(getGameVariables(game), BOOL_GUARDIANS, FALSE);
   }
+  
   if(getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][ychar/32]==391 || getTable(getGameTables(game), MAP_BUILDER)[(xchar+10)/32+1][(ychar-15)/32]==391){
     setBoolean(getGameVariables(game), BOOL_GUARDIAN_WOMAN, TRUE);
     setBoolean(getGameVariables(game), BOOL_CHAT_BOX, TRUE);
