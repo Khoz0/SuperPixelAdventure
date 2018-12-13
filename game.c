@@ -35,7 +35,6 @@ void runGame(Game* game) {
 
     SDL_Event event;
     //mainMenu(&gameOver);
-    int chest_cpt = 0;
 
     spawn(game);
 
@@ -47,7 +46,8 @@ void runGame(Game* game) {
       SDL_PollEvent(&event);
       keyboardEvent(event, game);
       teleports(game);
-      updateAnimationChest(game, &chest_cpt);
+      updateMapOld(game);
+      updateAnimationChest(game);
       display(game);
 
     }
@@ -100,6 +100,10 @@ void initDstPosition(Game* game) {
   // y: 380 - 1790 = -1410 --> -1790 y difference fen/map
   setDstPosition(getGameAtlas(game), WATERFALL, -2208, -1728);
   setDstPosition(getGameAtlas(game), CHEST, -2306, -1122);
+  setDstPosition(getGameAtlas(game), FISH, 20, 80);
+  setDstPosition(getGameAtlas(game), AXE, 20, 120);
+  setDstPosition(getGameAtlas(game), PASS_FISH, 20, 160);
+  setDstPosition(getGameAtlas(game), PASS_WOOD, 20, 200);
 }
 
 void teleports(Game* game) {
@@ -121,6 +125,12 @@ void teleports(Game* game) {
   updateNegPos(game);
 }
 
+void updateMapOld(Game* game){
+  if(getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE) && getBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE)){
+    updateTables(getGameTables(game), MAP_NO_WATER_NO_SPAWN_NO_OLD);
+  }
+}
+
 void updateNegPos(Game* game) {
   setPictureNegX(getPicture(getGameAtlas(game), WATERFALL), getPictureX(getGameAtlas(game), WATERFALL), NEG);
   setPictureNegY(getPicture(getGameAtlas(game), WATERFALL), getPictureY(getGameAtlas(game), WATERFALL), NEG);
@@ -139,13 +149,12 @@ void spawn(Game* game) {
   }
 }
 
-void updateAnimationChest(Game* game, int* chest_cpt){
-
+void updateAnimationChest(Game* game) {
   if (getBoolean(getGameVariables(game), BOOL_CHEST)){
-    if (*chest_cpt < 3 && getVariable(getGameVariables(game), CPT)%5 == 0){
-      *chest_cpt += 1;
+    if (getVariable(getGameVariables(game), CPT_CHEST) < 3 && getVariable(getGameVariables(game), CPT)%5 == 0){
+      setVariable(getGameVariables(game), CPT_CHEST, getVariable(getGameVariables(game), CPT_CHEST)+1);
     }
-    setSrcPosition(getGameAtlas(game), CHEST, 0, 32* *chest_cpt);
+    setSrcPosition(getGameAtlas(game), CHEST, 0, 32* getVariable(getGameVariables(game), CPT_CHEST));
     getPicture(getGameAtlas(game), CHEST)->src.h = 32;
     getPicture(getGameAtlas(game), CHEST)->src.w = 32;
   }

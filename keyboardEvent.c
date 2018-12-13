@@ -115,8 +115,46 @@ void pressE(Game* game, int xchar, int ychar) {
 		setBoolean(getGameVariables(game), BOOL_FOG, FALSE);
 	}
 
-	if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) {
+	if ((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==15) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==15)){
+		setBoolean(getGameVariables(game), BOOL_FISHMAN, TRUE);
+	}
+
+	if ((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==17) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==17)){
+		setBoolean(getGameVariables(game), BOOL_WOODMAN, TRUE);
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) &&
+		getBoolean(getGameVariables(game), BOOL_FISHMAN)) {
 		setBoolean(getGameVariables(game), BOOL_CHEST, TRUE);
+	}
+
+	if(getBoolean(getGameVariables(game), BOOL_CHEST)){
+		if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==15) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==15)) {
+			setBoolean(getGameVariables(game), BOOL_FISH_QUEST, TRUE);
+			setBoolean(getGameVariables(game), BOOL_CHEST, FALSE);
+		}
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==16) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==16)) &&
+		getBoolean(getGameVariables(game), BOOL_WOODMAN)) {
+		setBoolean(getGameVariables(game), BOOL_STUMP, TRUE);
+	}
+
+	if(getBoolean(getGameVariables(game), BOOL_STUMP)){
+		if((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==17) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==17)) {
+		setBoolean(getGameVariables(game), BOOL_AXE_QUEST, TRUE);
+		setBoolean(getGameVariables(game), BOOL_STUMP, FALSE);
+		}
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==18) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==18)) &&
+	 	getBoolean(getGameVariables(game), BOOL_FISH_QUEST)){
+		setBoolean(getGameVariables(game), BOOL_OLDMAN_CAVE, TRUE);
+	}
+
+	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==19) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==19)) &&
+	 	getBoolean(getGameVariables(game), BOOL_AXE_QUEST)){
+		setBoolean(getGameVariables(game), BOOL_OLDWOMAN_CAVE, TRUE);
 	}
 }
 

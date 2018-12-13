@@ -24,7 +24,13 @@ Booleans* createBooleans() {
   booleans->tabBooleans[BOOL_SPAWN] = TRUE;
   booleans->tabBooleans[BOOL_SPAWN_STOP] = FALSE;
   booleans->tabBooleans[BOOL_COUNTRYGUARD] = FALSE;
-  booleans->tabBooleans[BOOL_CHAT_BOX] = FALSE;
+  booleans->tabBooleans[BOOL_CHAT_BOX] = FALSE;  booleans->tabBooleans[BOOL_FISH_QUEST] = FALSE;
+  booleans->tabBooleans[BOOL_STUMP] = FALSE;
+  booleans->tabBooleans[BOOL_AXE_QUEST] = FALSE;
+  booleans->tabBooleans[BOOL_FISHMAN] = FALSE;
+  booleans->tabBooleans[BOOL_WOODMAN] = FALSE;
+  booleans->tabBooleans[BOOL_OLDMAN_CAVE] = FALSE;
+  booleans->tabBooleans[BOOL_OLDWOMAN_CAVE] = FALSE;
 
   return booleans;
 

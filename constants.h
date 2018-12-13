@@ -65,6 +65,10 @@ this tile contain all #define and SDL includes used on the game
 #define PANNEL 3
 #define FOG 4
 #define CHEST 5
+#define FISH 6
+#define PASS_FISH 7
+#define AXE 8
+#define PASS_WOOD 9
 
 // define of the index of each boolean in the booleanTab
 #define BOOL_WATERFALL 0
@@ -86,7 +90,14 @@ this tile contain all #define and SDL includes used on the game
 #define BOOL_SPAWN 16
 #define BOOL_SPAWN_STOP 17
 #define BOOL_COUNTRYGUARD 18
-#define BOOL_CHAT_BOX 20
+#define BOOL_CHAT_BOX 19
+#define BOOL_FISH_QUEST 20
+#define BOOL_STUMP 21
+#define BOOL_AXE_QUEST 22
+#define BOOL_FISHMAN 23
+#define BOOL_WOODMAN 24
+#define BOOL_OLDMAN_CAVE 25
+#define BOOL_OLDWOMAN_CAVE 26
 
 // define of the numbers corresponding to the texts used on the game
 #define TEXT_PANNEL_START 0
@@ -118,15 +129,16 @@ this tile contain all #define and SDL includes used on the game
 #define PREC_POSWATERFALL_Y 13
 #define CPT 14
 #define ANIMATION 15
+#define CPT_CHEST 16
 
 // define of a boolean value (only 1 because only used to make it TRUE, by default FALSE)
 #define NEG 1
 
 // define of the sizes of the tables
-#define SIZE_ATLAS 6
-#define SIZE_TAB_BOOLEAN 20
+#define SIZE_ATLAS 10
+#define SIZE_TAB_BOOLEAN 27
 #define SIZE_TAB_TEXT 11
-#define SIZE_TAB_VARIABLES 16
+#define SIZE_TAB_VARIABLES 17
 
 // define of boolean to fill the table map_builder & map_boolean
 #define MAP_BUILDER 0
