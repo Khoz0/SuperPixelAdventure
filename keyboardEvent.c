@@ -174,6 +174,7 @@ void pressE(Game* game, int xchar, int ychar) {
 			(getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+10)/32+1][ychar/32]==16) || (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+10)/32+1][ychar/32+1]==16))
 			&& getBoolean(getGameVariables(game), BOOL_WOODMAN)) {
 		setBoolean(getGameVariables(game), BOOL_STUMP, TRUE);
+		playMusic(getGameAudio(game), MUSIC_EVENT_AXE);
 	}
 
 	if(getBoolean(getGameVariables(game), BOOL_STUMP)){

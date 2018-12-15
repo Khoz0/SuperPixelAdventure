@@ -215,6 +215,7 @@ this file contain all #define and SDL includes used on the game
 // define of the number corresponding to the musics
 #define MUSIC_THEME 0
 #define MUSIC_EVENT_CHEST 1
+#define MUSIC_EVENT_AXE 1
 #define MUSIC_EVENT_PNJ 2
 #define MUSIC_EVENT_CAVE 3
 
