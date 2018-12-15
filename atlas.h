@@ -5,6 +5,7 @@
 
 /******************************************************************
 this struct contain the hero, the tilesets and the bars of the game
+we also have the set, get and destroy
 ******************************************************************/
 
 typedef struct SDL SDL;

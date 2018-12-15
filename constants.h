@@ -1,5 +1,5 @@
 /**************************************************************
-this tile contain all #define and SDL includes used on the game
+this file contain all #define and SDL includes used on the game
 **************************************************************/
 
 #pragma once
@@ -214,7 +214,9 @@ this tile contain all #define and SDL includes used on the game
 
 // define of the number corresponding to the musics
 #define MUSIC_THEME 0
-#define MUSIC_EVENT 1
+#define MUSIC_EVENT_CHEST 1
+#define MUSIC_EVENT_PNJ 2
+#define MUSIC_EVENT_CAVE 3
 
 // define of the index to threat threatErrors  if(index == LOAD_ATLAS) game->error->loadAtlas = message;
 #define LOAD_ATLAS 1

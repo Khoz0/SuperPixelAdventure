@@ -29,7 +29,7 @@ void mainMenu(Game* game){
   }
   Mix_AllocateChannels(2);
   Mix_Chunk *themeMenu;
-  themeMenu = Mix_LoadWAV("themeMenu.wav");
+  themeMenu = Mix_LoadWAV("music_menu.wav");
   Mix_Volume(0, 4);
   Mix_PlayChannel(0, themeMenu, VOLUME_THEME);
 

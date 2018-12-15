@@ -9,7 +9,7 @@ void display(Game* game) {
   displayChest(game);
   displayFish(game);
   displayPass(game);
-  displayAXE(game);
+  displayAxe(game);
   displayFog(game);
   displayHero(game);
   displayPannel(game);
@@ -166,9 +166,9 @@ void displayTextPannel(Game* game) {
   if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
     setTextDst(getGameText(game), 380, 350);
     SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-      setTextDst(getGameText(game), 380, 400);
+    setTextDst(getGameText(game), 380, 400);
     SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-      setTextDst(getGameText(game), 380, 450);
+    setTextDst(getGameText(game), 380, 450);
     SDL_BlitSurface(getText(getGameText(game), TEXT_END_GAME_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
 
@@ -227,12 +227,14 @@ void displayTextPannel(Game* game) {
     setTextDst(getGameText(game), 400, 400);
     SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_FOUR), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
-
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_START)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_START), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  if(getBoolean(getGameVariables(game), BOOL_PANNEL_CAVE)) {
+    setTextDst(getGameText(game), 350, 350);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 400, 400);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+    setTextDst(getGameText(game), 350, 450);
+    SDL_BlitSurface(getText(getGameText(game), TEXT_PANNEL_CAVE_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
+  }
 }
 
 void displayHero(Game* game) {
@@ -262,7 +264,7 @@ void displayPass(Game* game){
   if (getBoolean(getGameVariables(game), BOOL_AXE_QUEST)) SDL_BlitSurface(getPicture(getGameAtlas(game), PASS_WOOD)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), PASS_WOOD)->dst);
 }
 
-void displayAXE(Game* game){
+void displayAxe(Game* game){
   if (getBoolean(getGameVariables(game), BOOL_STUMP) && !getBoolean(getGameVariables(game), BOOL_AXE_QUEST)) SDL_BlitSurface(getPicture(getGameAtlas(game), AXE)->surface, NULL, getScreen(getGameSdl(game)), &getPicture(getGameAtlas(game), AXE)->dst);
 }
 

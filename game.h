@@ -10,6 +10,11 @@
 #include "createAudio.h"
 #include "error.h"
 
+/**************************************************************************
+game function execute all events of the game (musics, quests, displays ...)
+struct Game contain all structs used on the game (with set & get)
+**************************************************************************/
+
 typedef struct Variables Variables;
 typedef struct SDL SDL;
 typedef struct Error Error;
@@ -47,12 +52,3 @@ void updatePos(Game* game);
 void updateInsideCave(Game* game);
 void capFps();
 void closeGame();
-void talkToCountryGuard(Game* game);
-void talkToPannelSpawn(Game* game);
-void talkToGirl(Game* game);
-void talkToBoy(Game* game);
-void talkToInnerkeeper(Game* game);
-void talkToVillager(Game* game);
-void talkToFishMan(Game* game);
-void talkToWoodMan(Game* game);
-void talkToGuardians(Game* game);

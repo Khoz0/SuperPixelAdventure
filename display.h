@@ -22,7 +22,7 @@ void displayWaterfall(Game* game);
 void displayChest(Game* game);
 void displayFish(Game* game);
 void displayPass(Game* game);
-void displayAXE(Game* game);
+void displayAxe(Game* game);
 void displayFog(Game* game);
 void displayBars(Game* game);
 void updateScreen(Game* game);

@@ -1,6 +1,11 @@
 #pragma once
 #include "constants.h"
 
+/*******************************************************
+this struct contain the data about buttons used on menu
+we also have the set, get and destroy
+*******************************************************/
+
 typedef struct Button{
   int xLeft;
   int xRight;
