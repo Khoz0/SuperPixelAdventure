@@ -190,6 +190,5 @@ void destroyTab(Uint16** tab) {
      free(tab[j]);
   }
   free(tab);
-  tab = NULL;
 
 }
