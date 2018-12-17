@@ -119,7 +119,7 @@ void mainMenu(Game* game){
   texte5 = TTF_RenderText_Solid(font, "par vous meme.", couleurNoire);
   texte6 = TTF_RenderText_Solid(font, "* BONNE CHANCE INVOCATEUR *", couleurNoire);
 
-  tab_collide = buttonCollision(button_play, button_goal, button_quit);
+  tab_collide = buttonCollision(tab_collide, button_play, button_goal, button_quit);
 
   while(endMenu){
     SDL_PollEvent(&event);
@@ -157,6 +157,7 @@ void mainMenu(Game* game){
   }
 
   Mix_CloseAudio();
+  SDL_AudioQuit();
   TTF_CloseFont(font);
 
   destroyButton(button_play);

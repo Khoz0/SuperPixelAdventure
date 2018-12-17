@@ -2,12 +2,8 @@
 #include "buttonCollision.h"
 
 
-int** buttonCollision(Button* button1, Button* button2, Button* button3){
+int** buttonCollision(int** tab_collision, Button* button1, Button* button2, Button* button3){
   int i, j;
-  int** tab_collision = malloc(SCREEN_WIDTH*sizeof(int*));
-  for(int j = 0 ; j < SCREEN_WIDTH; j++){
-    tab_collision[j] = malloc(SCREEN_HEIGHT*sizeof(int));
-  }
 
   for (i = 0; i < SCREEN_WIDTH-1; i++){
     for (j = 0; j < SCREEN_HEIGHT-1; j++){

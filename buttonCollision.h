@@ -7,4 +7,4 @@ This funtion fill a table with values to make the buttons collide with the chara
 2 = full
 ***********************************************************************************/
 
-int** buttonCollision(Button* button1, Button* button2, Button* button3);
+int** buttonCollision(int** tab_collision, Button* button1, Button* button2, Button* button3);
