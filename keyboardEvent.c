@@ -14,7 +14,7 @@ void keyboardEvent(SDL_Event event, Game* game){
 					if(getBoolean(getGameVariables(game), BOOL_END_GAME)){
 						setVariable(getGameVariables(game), GAMEOVER, TRUE);
 					}else{
-				  	setVariable(getGameVariables(game), SPRINT, 5);
+				  	setVariable(getGameVariables(game), SPRINT, 2);
 					}
 				  break;
 
