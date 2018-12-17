@@ -37,8 +37,6 @@ void runGame(Game* game) {
     while (!getVariable(getGameVariables(game), GAMEOVER)) {
 
       updateHeroPos(game);
-      // we resume the main channel if it had been paused
-      //if(!Mix_Playing(1)) Mix_Resume(0);
       SDL_PollEvent(&event);
       keyboardEvent(event, game);
       teleports(game);

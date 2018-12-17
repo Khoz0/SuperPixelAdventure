@@ -42,6 +42,7 @@ SDL* createSDL(Atlas* atlas, Error* error) {
     setErrorMessage(error, LOAD_SDL, "-> TTF_Init (createSdl.c)\n");
   }
   SDL_EnableKeyRepeat(10, 10);
+  SDL_WM_SetCaption("SuperPixelAdventure", NULL);
 
   return sdl;
 
