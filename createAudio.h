@@ -9,7 +9,7 @@ music previously loaded, and destroy function
 typedef struct Audio {
 
   Mix_Chunk* music_theme;
-  Mix_Chunk* music_event_chest;
+  Mix_Chunk* music_event_quest;
   Mix_Chunk* music_event_pnj;
   Mix_Chunk* music_event_cave;
 

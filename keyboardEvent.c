@@ -160,7 +160,7 @@ void pressE(Game* game, int xchar, int ychar) {
 	if(((getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32][(ychar-5)/32]==14) || (getTable(getGameTables(game), MAP_BOOLEAN)[xchar/32+1][(ychar-5)/32]==14)) &&
 		getBoolean(getGameVariables(game), BOOL_FISHMAN)) {
 		setBoolean(getGameVariables(game), BOOL_CHEST, TRUE);
-		playMusic(getGameAudio(game), MUSIC_EVENT_CHEST);
+		playMusic(getGameAudio(game), MUSIC_EVENT_QUEST);
 	}
 
 	if(getBoolean(getGameVariables(game), BOOL_CHEST)){
@@ -174,7 +174,7 @@ void pressE(Game* game, int xchar, int ychar) {
 			(getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+10)/32+1][ychar/32]==16) || (getTable(getGameTables(game), MAP_BOOLEAN)[(xchar+10)/32+1][ychar/32+1]==16))
 			&& getBoolean(getGameVariables(game), BOOL_WOODMAN)) {
 		setBoolean(getGameVariables(game), BOOL_STUMP, TRUE);
-		playMusic(getGameAudio(game), MUSIC_EVENT_AXE);
+		playMusic(getGameAudio(game), MUSIC_EVENT_QUEST);
 	}
 
 	if(getBoolean(getGameVariables(game), BOOL_STUMP)){

@@ -136,47 +136,45 @@ this file contain all #define and SDL includes used on the game
 #define BOOL_CHAT_BOX_GUARDIANM 52
 
 // define of the numbers corresponding to the texts used on the game
-#define TEXT_PANNEL_START 0
-#define TEXT_PANNEL_CAVE_1 1
-#define TEXT_PANNEL_CAVE_ONE 2
-#define TEXT_PANNEL_CAVE_TWO 3
-#define TEXT_PANNEL_CAVE_THREE 4
-#define TEXT_PANNEL_CAVE_FOUR 5
-#define TEXT_SPAWN_1 6
-#define TEXT_SPAWN_2 7
-#define TEXT_SPAWN_3 8
-#define TEXT_COUNTRYGUARD_1 9
-#define TEXT_COUNTRYGUARD_2 10
-#define TEXT_PANNEL_SPAWN_1 11
-#define TEXT_PANNEL_SPAWN_2 12
-#define TEXT_PANNEL_SPAWN_3 13
-#define TEXT_GIRL 14
-#define TEXT_BOY 15
-#define TEXT_INNERKEEPER_1 16
-#define TEXT_INNERKEEPER_2 17
-#define TEXT_VILLAGER 18
-#define TEXT_FISHMAN_1 19
-#define TEXT_FISHMAN_2 20
-#define TEXT_FISHMAN_3 21
-#define TEXT_WOODMAN_1 22
-#define TEXT_WOODMAN_2 23
-#define TEXT_WOODMAN_3 24
-#define TEXT_OLD_MAN 25
-#define TEXT_OLD_WOMAN 26
-#define TEXT_END_GAME_1 27
-#define TEXT_END_GAME_2 28
-#define TEXT_END_GAME_3 29
-#define TEXT_FISHMAN_AFTER_1 30
-#define TEXT_FISHMAN_AFTER_2 31
-#define TEXT_FISHMAN_AFTER_3 32
-#define TEXT_WOODMAN_AFTER_1 33
-#define TEXT_WOODMAN_AFTER_2 34
-#define TEXT_WOODMAN_AFTER_3 35
-#define TEXT_OLD_WOMAN_TURN 36
-#define TEXT_OLD_MAN_TURN 37
-#define TEXT_PANNEL_CAVE_2 38
-#define TEXT_PANNEL_CAVE_3 39
-#define TEXT_PANNEL_CAVE_ONE_2 40
+#define TEXT_PANNEL_CAVE_1 0
+#define TEXT_PANNEL_CAVE_ONE 1
+#define TEXT_PANNEL_CAVE_TWO 2
+#define TEXT_PANNEL_CAVE_THREE 3
+#define TEXT_PANNEL_CAVE_FOUR 4
+#define TEXT_SPAWN_1 5
+#define TEXT_SPAWN_2 6
+#define TEXT_SPAWN_3 7
+#define TEXT_COUNTRYGUARD_1 8
+#define TEXT_COUNTRYGUARD_2 9
+#define TEXT_PANNEL_SPAWN_1 10
+#define TEXT_PANNEL_SPAWN_2 11
+#define TEXT_PANNEL_SPAWN_3 12
+#define TEXT_GIRL 13
+#define TEXT_BOY 14
+#define TEXT_INNERKEEPER_1 15
+#define TEXT_INNERKEEPER_2 16
+#define TEXT_VILLAGER 17
+#define TEXT_FISHMAN_1 18
+#define TEXT_FISHMAN_2 19
+#define TEXT_FISHMAN_3 20
+#define TEXT_WOODMAN_1 21
+#define TEXT_WOODMAN_2 22
+#define TEXT_WOODMAN_3 23
+#define TEXT_OLD_MAN 24
+#define TEXT_OLD_WOMAN 25
+#define TEXT_END_GAME_1 26
+#define TEXT_END_GAME_2 27
+#define TEXT_END_GAME_3 28
+#define TEXT_FISHMAN_AFTER_1 29
+#define TEXT_FISHMAN_AFTER_2 30
+#define TEXT_FISHMAN_AFTER_3 31
+#define TEXT_WOODMAN_AFTER_1 32
+#define TEXT_WOODMAN_AFTER_2 33
+#define TEXT_OLD_WOMAN_TURN 34
+#define TEXT_OLD_MAN_TURN 35
+#define TEXT_PANNEL_CAVE_2 36
+#define TEXT_PANNEL_CAVE_3 37
+#define TEXT_PANNEL_CAVE_ONE_2 38
 
 // define of the index of tabVariables
 #define XCHAR 0
@@ -205,7 +203,7 @@ this file contain all #define and SDL includes used on the game
 // define of the sizes of the tables
 #define SIZE_ATLAS 20
 #define SIZE_TAB_BOOLEAN 53
-#define SIZE_TAB_TEXT 41
+#define SIZE_TAB_TEXT 39
 #define SIZE_TAB_VARIABLES 19
 
 // define of boolean to fill the table map_builder & map_boolean
@@ -214,8 +212,7 @@ this file contain all #define and SDL includes used on the game
 
 // define of the number corresponding to the musics
 #define MUSIC_THEME 0
-#define MUSIC_EVENT_CHEST 1
-#define MUSIC_EVENT_AXE 1
+#define MUSIC_EVENT_QUEST 1
 #define MUSIC_EVENT_PNJ 2
 #define MUSIC_EVENT_CAVE 3
 

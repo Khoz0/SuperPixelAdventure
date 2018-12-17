@@ -186,8 +186,6 @@ void displayTextPannel(Game* game) {
     SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_AFTER_1), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
     setTextDst(getGameText(game), 440, 445);
     SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_AFTER_2), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
-    setTextDst(getGameText(game), 400, 490);
-    SDL_BlitSurface(getText(getGameText(game), TEXT_WOODMAN_AFTER_3), NULL, getScreen(getGameSdl(game)), getTextDst(getGameText(game)));
   }
 
   if(getBoolean(getGameVariables(game), BOOL_GUARDIANS_MAP)) {

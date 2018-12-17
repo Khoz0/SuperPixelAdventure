@@ -9,4 +9,6 @@ mapBuilder fill a table with sprites values comming from a .txt file
 
 Uint16** mapBuilder();
 Uint16** mapBoolean(Uint16** map_builder);
+Uint16** updateMapBuilder(int number, Uint16 **map_builder);
 void destroyTab(Uint16** tab);
+Uint16** updateMapBoolean(Uint16** map_builder, Uint16** map_boolean);

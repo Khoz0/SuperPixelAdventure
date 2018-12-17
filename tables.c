@@ -13,6 +13,9 @@ Tables* createTables() {
 
 void updateTables(Tables* tables, int index_map) {
 
+  destroyTables(tables);
+
+
   tables->map_builder = mapBuilder(index_map);
   tables->map_boolean = mapBoolean(tables->map_builder);
 
