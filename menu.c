@@ -9,8 +9,8 @@ void mainMenu(Game* game){
   int endMenu = 1, speed, orientation = 2, movement = 1, goalPurpose = 0;
   TTF_Font *font = NULL;
   SDL_Color couleurNoire = {0, 0, 0};
-  SDL_Surface *texte1, *texte2, *texte3, *texte4, *texte5, *texte6;
-  SDL_Rect posTexte1, posTexte2, posTexte3, posTexte4, posTexte5, posTexte6;
+  SDL_Surface *texte1, *texte2, *texte3, *texte4, *texte5;
+  SDL_Rect posTexte1, posTexte2, posTexte3, posTexte4, posTexte5;
 
   //boutons button_play, button_quit, button_goal, tab_button[3];
   Button* tab_button[3];
@@ -85,9 +85,6 @@ void mainMenu(Game* game){
   posTexte5.x = 450;
   posTexte5.y = 450;
 
-  posTexte6.x = 550;
-  posTexte6.y = 500;
-
   playCase = SDL_CreateRGBSurface(SDL_HWSURFACE, 200, 50, 32, 0, 0 ,0 ,0);
   SDL_FillRect(playCase, NULL, SDL_MapRGB(screenMenu->format, 160, 220, 40));
 
@@ -117,7 +114,6 @@ void mainMenu(Game* game){
   texte3 = TTF_RenderText_Solid(font, "aider les habitants de Joliland a comprendre pourquoi l'eau ne", couleurNoire);
   texte4 = TTF_RenderText_Solid(font, "coule plus dans leur jolie ville, et resoudre ce probleme", couleurNoire);
   texte5 = TTF_RenderText_Solid(font, "par vous meme.", couleurNoire);
-  texte6 = TTF_RenderText_Solid(font, "* BONNE CHANCE INVOCATEUR *", couleurNoire);
 
   tab_collide = buttonCollision(tab_collide, button_play, button_goal, button_quit);
 
@@ -148,7 +144,6 @@ void mainMenu(Game* game){
       SDL_BlitSurface(texte3, NULL, screenMenu, &posTexte3);
       SDL_BlitSurface(texte4, NULL, screenMenu, &posTexte4);
       SDL_BlitSurface(texte5, NULL, screenMenu, &posTexte5);
-      SDL_BlitSurface(texte6, NULL, screenMenu, &posTexte6);
     }
     SDL_UpdateRect(screenMenu, 0, 0, 0, 0);
     SDL_Flip(screenMenu);
@@ -178,7 +173,6 @@ void mainMenu(Game* game){
   SDL_FreeSurface(texte3);
   SDL_FreeSurface(texte4);
   SDL_FreeSurface(texte5);
-  SDL_FreeSurface(texte6);
   for(int j = 0 ; j < SCREEN_WIDTH ; j++){
      free(tab_collide[j]);
   }
