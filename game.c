@@ -30,7 +30,7 @@ Game* createGame(){
 void runGame(Game* game) {
 
     SDL_Event event;
-    //mainMenu(game);
+    mainMenu(game);
 
     spawn(game);
 
