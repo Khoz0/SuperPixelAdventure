@@ -2,6 +2,7 @@
 
 SDL* createSDL(Atlas* atlas, Error* error) {
 
+  char* title = "SuperPixelAdventure";
   SDL* sdl = malloc(sizeof(SDL));
   sdl->screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
@@ -25,6 +26,8 @@ SDL* createSDL(Atlas* atlas, Error* error) {
   SDL_SetColorKey(getPicture(atlas, CHAT_BOX_GUARDIANF)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_GUARDIANF)->surface->format, 255, 255, 255));
   SDL_SetColorKey(getPicture(atlas, CHAT_BOX_GUARDIANM)->surface, SDL_SRCCOLORKEY, SDL_MapRGB(getPicture(atlas, CHAT_BOX_GUARDIANM)->surface->format, 255, 255, 255));
 
+  SDL_WM_SetCaption(title, NULL);
+
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     setErrorIsError(error, TRUE);
     setErrorMessage(error, LOAD_SDL, "-> SDL_Init(video) (createSdl.c)\n");
@@ -42,9 +45,9 @@ SDL* createSDL(Atlas* atlas, Error* error) {
     setErrorMessage(error, LOAD_SDL, "-> TTF_Init (createSdl.c)\n");
   }
   SDL_EnableKeyRepeat(10, 10);
-  SDL_WM_SetCaption("SuperPixelAdventure", NULL);
 
   return sdl;
+  free(title);
 
 }
 
