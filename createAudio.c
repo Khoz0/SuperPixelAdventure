@@ -14,14 +14,13 @@ Audio* createAudio(){
   audio->music_event_pnj = Mix_LoadWAV("./music/music_event_pnj.wav");
   audio->music_event_cave = Mix_LoadWAV("./music/music_event_cave.wav");
 
-  // at the start, we play the main theme (infinite loop)
-  Mix_Volume(MUSIC_THEME, VOLUME_THEME);
-  playMusic(audio, MUSIC_THEME);
-
   // channel for event's sound
+  Mix_Volume(MUSIC_THEME, VOLUME_THEME);
   Mix_Volume(MUSIC_EVENT_QUEST, VOLUME_EVENT);
   Mix_Volume(MUSIC_EVENT_PNJ, VOLUME_EVENT);
   Mix_Volume(MUSIC_EVENT_CAVE, VOLUME_EVENT);
+
+  playMusic(audio, MUSIC_THEME);
 
   return audio;
 }

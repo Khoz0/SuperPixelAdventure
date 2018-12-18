@@ -31,7 +31,6 @@ void runGame(Game* game) {
 
     SDL_Event event;
     mainMenu(game);
-
     spawn(game);
 
     while (!getVariable(getGameVariables(game), GAMEOVER)) {
@@ -60,7 +59,7 @@ void destroyGame(Game* game) {
 }
 
 /* all the functions after this comment are used to set
-or get in game struct, or to execute parts of th game*/
+or get in game struct, or to execute parts of th game */
 
 Atlas* getGameAtlas(Game* game) {
   return game->atlas;

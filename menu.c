@@ -20,18 +20,8 @@ void mainMenu(Game* game){
     tab_collide[j] = malloc(SCREEN_HEIGHT*sizeof(int));
   }
 
-  screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,SDL_HWSURFACE|SDL_DOUBLEBUF);
+  screenMenu = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
   SDL_FillRect(screenMenu, NULL, SDL_MapRGB(screenMenu->format, 70, 180, 55));
-
-  // initialisation of SDL_mixer
-  if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1){
-    printf("Error SDL_mixer : %s\n", Mix_GetError());
-  }
-  Mix_AllocateChannels(2);
-  Mix_Chunk *themeMenu;
-  themeMenu = Mix_LoadWAV("music_menu.wav");
-  Mix_Volume(0, 4);
-  Mix_PlayChannel(0, themeMenu, VOLUME_THEME);
 
   Button* button_play = createButton();
   Button* button_goal = createButton();
@@ -151,15 +141,10 @@ void mainMenu(Game* game){
 
   }
 
-  Mix_CloseAudio();
-  SDL_AudioQuit();
   TTF_CloseFont(font);
-
   destroyButton(button_play);
   destroyButton(button_goal);
   destroyButton(button_quit);
-
-  Mix_FreeChunk(themeMenu);
   SDL_FreeSurface(menuChar);
   SDL_FreeSurface(playCase);
   SDL_FreeSurface(ruleCase);

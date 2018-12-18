@@ -50,7 +50,7 @@ this file contain all #define and SDL includes used on the game
 #define FPS_CAP 25
 
 // define the volume of the sounds played on differents channels
-#define VOLUME_THEME 4
+#define VOLUME_THEME 5
 #define VOLUME_EVENT 50
 
 // define of the index of each tileset of the atlas->tileset
